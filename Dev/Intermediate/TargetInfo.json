@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "DevOlympic",
+			"Path": "G:\\XRMR\\Dev\\Dev\\Source\\DevOlympic.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "DevOlympicEditor",
+			"Path": "G:\\XRMR\\Dev\\Dev\\Source\\DevOlympicEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
