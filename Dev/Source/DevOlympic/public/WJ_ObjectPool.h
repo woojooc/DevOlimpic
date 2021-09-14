@@ -1,18 +1,18 @@
 
 #pragma once
 
-#include "DevOlympic.h"
+#include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "WJ_GameStateMgr.generated.h"
+#include "WJ_ObjectPool.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class DEVOLYMPIC_API UWJ_GameStateMgr : public UActorComponent
+class DEVOLYMPIC_API UWJ_ObjectPool : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
-	UWJ_GameStateMgr();
+	UWJ_ObjectPool();
 
 protected:
 	virtual void BeginPlay() override;
@@ -20,11 +20,14 @@ protected:
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-public:
-	void SetState(EGameState state);
-	EGameState GetState();
+		
+	// # 殴备
 
-private:
-	EGameState m_state = EGameState::Lobby;
+	//		殴备傍 某教
+	UPROPERTY(EditAnywhere, Category = PingPong_Settings)
+	TSubclassOf<class APingPongBall> pingpoingFactory;
+
+	//		殴备傍 家券
+	void GetPingPongBall(int player);
 
 };

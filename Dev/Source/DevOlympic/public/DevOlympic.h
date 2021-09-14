@@ -29,3 +29,10 @@ enum class EGameType : uint8
 {
 	PingPong
 };
+
+UENUM(BlueprintType)
+enum class EEditMode : uint8
+{
+	Single,
+	Multi
+};

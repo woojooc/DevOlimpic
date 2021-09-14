@@ -1,8 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "DevOlympic.h"
 #include "GameFramework/GameModeBase.h"
 #include "VRGameModeBase.generated.h"
 
@@ -26,7 +25,7 @@ public:
 
 	
 public:
-
+	
 	// # ¿¢ÅÍ ÄÄÆ÷³ÍÆ®
 	UPROPERTY(EditAnywhere, Category = Components)
 	class UWJ_GameStateMgr* gameStateMgr;
@@ -34,5 +33,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = Components)
 	class UWJ_PingPongMgr* pingpongStateMgr;
 
+	UPROPERTY(EditAnywhere, Category = Components)
+	class UWJ_ObjectPool* objectPool;
 
+	
 };

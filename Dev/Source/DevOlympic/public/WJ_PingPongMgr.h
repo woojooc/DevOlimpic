@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "DevOlympic.h"
@@ -13,15 +11,12 @@ class DEVOLYMPIC_API UWJ_PingPongMgr : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
 	UWJ_PingPongMgr();
 
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 
@@ -31,8 +26,18 @@ public:
 	// # 이벤트 함수
 	void StartRally();		// 플레이어가 공을 치면 호출한다.
 	void OnCollisionGround(int player, bool in);	/// 공이 땅에 닿으면 호출된다. 0 PlayerA, 1 PlayerB가 친 공, in true 득점 false 실점
+	void NetServ();
 
 private:
+
+	UPROPERTY()
+	class AVRGameModeBase* gameModeBase;
+
+	// # EditModeSelect
+	class AModeSelect* modeSelect;
+	EEditMode editMode; //캐싱해서 사용
+
+
 	EPingPongState m_state = EPingPongState::Intro;
 	int pointA = 0;	// 11점
 	int pointB = 0;
@@ -41,6 +46,7 @@ private:
 	int scoreB = 0;
 
 	bool bServPlayer = true; // T/F 로 플레이어 A, B 서버 구분
+	int servCount = 0;	// 2가 되면 서브 변경
 	bool bSpawnBall = false;
 
 	bool bIsDeuce = false;
