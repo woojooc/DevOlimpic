@@ -41,7 +41,7 @@ void UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEditMode mode)
 	{
 		if (player == 0)
 		{
-			UE_LOG(LogTemp,Warning,TEXT("GetPingPongBall Player 0"));
+			//UE_LOG(LogTemp,Warning,TEXT("GetPingPongBall Player 0"));
 			spawnLoc.X = offsetLocA.X;
 			spawnLoc.Z = offsetLocA.Z;
 			auto ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
