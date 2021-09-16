@@ -44,7 +44,7 @@ void UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEditMode mode)
 			UE_LOG(LogTemp,Warning,TEXT("GetPingPongBall Player 0"));
 			spawnLoc.X = offsetLocA.X;
 			spawnLoc.Z = offsetLocA.Z;
-			auto ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpoingFactory, spawnLoc, FRotator::ZeroRotator, Param);
+			auto ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
 		}
 		else
 		{
@@ -54,7 +54,7 @@ void UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEditMode mode)
 			spawnLoc.X = offsetLocB.X;
 			spawnLoc.Y = y;
 			spawnLoc.Z = offsetLocB.Z;
-			auto ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpoingFactory, spawnLoc, FRotator::ZeroRotator, Param);
+			auto ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
 		}
 	}
 }
