@@ -200,6 +200,7 @@ void UWJ_PingPongMgr::StartRally()
 	SetState(EPingPongState::Rally);
 	// 서브 카운트 증가
 	servCount++;
+	bSpawnBall = false;
 }
 
 void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
@@ -213,20 +214,10 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		if (player == 0)
 		{
 			pointA++;
-
-			// if Deuce point ++
-			if (bIsDeuce)
-			{
-				pointA++;
-			}
 		}
 		else
 		{
 			pointB++;
-			if (bIsDeuce)
-			{
-				pointB++;
-			}
 		}
 		pointPannel->SetPoint(0, pointA);
 		pointPannel->SetPoint(1, pointB);
@@ -238,19 +229,10 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		if (player == 0)
 		{
 			pointB++;
-
-			if (bIsDeuce)
-			{
-				pointB++;
-			}
 		}
 		else
 		{
 			pointA++;
-			if (bIsDeuce)
-			{
-				pointA++;
-			}
 		}
 		pointPannel->SetPoint(0, pointA);
 		pointPannel->SetPoint(1, pointB);

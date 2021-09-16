@@ -48,12 +48,13 @@ private:
 	EPingPongState m_state = EPingPongState::Intro;
 	int pointA = 0;	// 11점
 	int pointB = 0;
-	int set = 1;	// 5세트
+
+	int set = 1;	// 5세트 3승
 	int scoreA = 0;
 	int scoreB = 0;
 
-	bool bServPlayer = true; // T/F 로 플레이어 A, B 서버 구분
-	int servCount = 0;	// 2가 되면 서브 변경
+	bool bServPlayer = true;	// T/F 로 플레이어 A, B 서버 구분
+	int servCount = 0;			// 2가 되면 서브 변경
 	bool bSpawnBall = false;
 
 	bool bIsDeuce = false;

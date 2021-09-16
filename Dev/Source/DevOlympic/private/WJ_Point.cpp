@@ -52,7 +52,7 @@ void AWJ_Point::Tick(float DeltaTime)
 
 void AWJ_Point::SetPoint(int player, int point)
 {
-	FString p = FString::Printf(TEXT("%0d"),point);
+	FString p = FString::Printf(TEXT("%02d"),point);
 	if (player == 0)
 	{
 		pointA->SetText(FText::FromString(p));

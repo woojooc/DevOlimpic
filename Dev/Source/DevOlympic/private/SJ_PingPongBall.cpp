@@ -105,7 +105,8 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 	// 네트에 부딪혔을때
 	else if (net)
 	{
-
+		
+		//vrGameMNG->pingpongStateMgr->NetServ();
 	}
 	// 플레이어가 쳤을 때
 	else if (player)
