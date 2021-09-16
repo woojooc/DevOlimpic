@@ -25,7 +25,7 @@ public:
 
 	//		殴备傍 某教
 	UPROPERTY(EditAnywhere, Category = PingPong_Settings)
-	TSubclassOf<class APingPongBall> pingpoingFactory;
+	TSubclassOf<class ASJ_PingPongBall> pingpoingFactory;
 
 	//		殴备傍 家券
 	void GetPingPongBall(AActor* actor, int player, EEditMode mode = EEditMode::Multi);

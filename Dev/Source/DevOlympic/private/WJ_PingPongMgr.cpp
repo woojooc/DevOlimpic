@@ -7,7 +7,7 @@
 #include "ModeSelect.h"
 #include "WJ_PPSingleModeWall.h"
 #include "WJ_Point.h"
-#include "PingPongPlayer.h"
+#include "SJ_PingPongPlayer.h"
 
 
 UWJ_PingPongMgr::UWJ_PingPongMgr()
@@ -40,7 +40,7 @@ void UWJ_PingPongMgr::BeginPlay()
 		scorePannel->SetColor(FColor::Red);
 	}
 
-	playerActorA = UGameplayStatics::GetActorOfClass(GetWorld(),APingPongPlayer::StaticClass());
+	playerActorA = UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_PingPongPlayer::StaticClass());
 	if (editMode == EEditMode::Multi)
 	{
 		// 플레이어 호스트 ( 0, A ) -> 탁구대 사이드 A
