@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "DevOlympic.h"
 #include "Components/ActorComponent.h"
 #include "WJ_ObjectPool.generated.h"
 
@@ -25,9 +25,10 @@ public:
 
 	//		殴备傍 某教
 	UPROPERTY(EditAnywhere, Category = PingPong_Settings)
-	TSubclassOf<class ASJ_PingPongBall> pingpoingFactory;
+	TSubclassOf<class APingPongBall> pingpoingFactory;
 
 	//		殴备傍 家券
-	void GetPingPongBall(int player);
-
+	void GetPingPongBall(AActor* actor, int player, EEditMode mode = EEditMode::Multi);
+	const FVector offsetLocA = FVector{-120.f,0.f,126.5f};
+	const FVector offsetLocB = FVector{120.f,0.f,126.5f};
 };

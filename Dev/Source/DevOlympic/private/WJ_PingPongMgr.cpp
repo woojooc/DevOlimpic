@@ -6,13 +6,13 @@
 #include "Kismet/GameplayStatics.h"
 #include "ModeSelect.h"
 #include "WJ_PPSingleModeWall.h"
+#include "WJ_Point.h"
+#include "PingPongPlayer.h"
 
 
 UWJ_PingPongMgr::UWJ_PingPongMgr()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-
-
 }
 
 
@@ -28,6 +28,19 @@ void UWJ_PingPongMgr::BeginPlay()
 	modeSelect = Cast<AModeSelect>(UGameplayStatics::GetActorOfClass(GetWorld(), AModeSelect::StaticClass()));
 	editMode = modeSelect->m_state;
 
+	// # 점수판 캐싱
+	TArray<AActor*> bpPoints;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWJ_Point::StaticClass(),bpPoints);
+	//pointPannel = Cast<AWJ_Point>(UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_Point::StaticClass()));
+	if (bpPoints.Num() != 0)
+	{
+		pointPannel = Cast<AWJ_Point>(bpPoints[0]);
+		pointPannel->SetColor(FColor::Blue);
+		scorePannel = Cast<AWJ_Point>(bpPoints[1]);
+		scorePannel->SetColor(FColor::Red);
+	}
+
+	playerActorA = UGameplayStatics::GetActorOfClass(GetWorld(),APingPongPlayer::StaticClass());
 	if (editMode == EEditMode::Multi)
 	{
 		// 플레이어 호스트 ( 0, A ) -> 탁구대 사이드 A
@@ -37,6 +50,8 @@ void UWJ_PingPongMgr::BeginPlay()
 	}
 	else
 	{
+		playerActorB = UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_PPSingleModeWall::StaticClass());
+
 		// 벽 활성화
 		AActor* wall = UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_PPSingleModeWall::StaticClass());
 		if (wall)
@@ -68,7 +83,7 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 	case EPingPongState::Rally:
 		// 충돌 체크
-		Rally();
+		//Rally();
 		break;
 
 	case EPingPongState::RallyOver:
@@ -77,7 +92,7 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 		// 10 : 10 ==> Serv, bIsDeuse = true : 2점차날때까지 반복
 		// point < 11 ==> Serv
 		// 11 ==> SetOver
-		RallyOver();
+		//RallyOver();
 		break;
 
 	case EPingPongState::SetOver:
@@ -98,7 +113,7 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 void UWJ_PingPongMgr::Intro()
 {
-
+	SetState(EPingPongState::Serv);
 }
 
 void UWJ_PingPongMgr::Serv()
@@ -114,12 +129,17 @@ void UWJ_PingPongMgr::Serv()
 	if (bServPlayer == 0)
 	{
 		//A 공 스폰
-		gameModeBase->objectPool->GetPingPongBall(0);
+		if (playerActorA)
+		{
+			gameModeBase->objectPool->GetPingPongBall(playerActorA,0,editMode);
+			bSpawnBall = true;
+		}
 	}
 	else
 	{
 		//B 공 스폰
-		gameModeBase->objectPool->GetPingPongBall(1);
+		gameModeBase->objectPool->GetPingPongBall(playerActorB,1,editMode);
+		bSpawnBall = true;
 	}
 
 	// 플레이어가 공을 치면 이벤트 발생
@@ -137,15 +157,16 @@ void UWJ_PingPongMgr::RallyOver()
 
 void UWJ_PingPongMgr::SetOver()
 {
+	set++;
+	pointA = 0;
+	pointB = 0;
+	pointPannel->ResetPoint();
+
 	if (set == 5)
 	{
 		SetState(EPingPongState::MatchOver);
 		return;
 	}
-
-	set++;
-	pointA = 0;
-	pointB = 0;
 
 	SetState(EPingPongState::Serv);
 }
@@ -189,12 +210,50 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 	if (in)
 	{
 		// player point ++
-		// if Deuce point ++
+		if (player == 0)
+		{
+			pointA++;
+
+			// if Deuce point ++
+			if (bIsDeuce)
+			{
+				pointA++;
+			}
+		}
+		else
+		{
+			pointB++;
+			if (bIsDeuce)
+			{
+				pointB++;
+			}
+		}
+		pointPannel->SetPoint(0, pointA);
+		pointPannel->SetPoint(1, pointB);
 	}
 	else
 	{
 		// other player point ++
 		// if Deuce point ++
+		if (player == 0)
+		{
+			pointB++;
+
+			if (bIsDeuce)
+			{
+				pointB++;
+			}
+		}
+		else
+		{
+			pointA++;
+			if (bIsDeuce)
+			{
+				pointA++;
+			}
+		}
+		pointPannel->SetPoint(0, pointA);
+		pointPannel->SetPoint(1, pointB);
 	}
 
 	//serv 설정
@@ -210,6 +269,18 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		if (pointA - pointB >= 2 || pointA - pointB <= -2)
 		{
 			// 스코어 계산
+			if (pointA > pointB)
+			{
+				scoreA++;
+			}
+			else
+			{
+				scoreB++;
+			}
+
+			scorePannel->SetPoint(0,scoreA);
+			scorePannel->SetPoint(1,scoreB);
+
 			SetState(EPingPongState::SetOver);
 			return;
 		}
@@ -220,6 +291,18 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		if (pointA == 11 || pointB == 11)
 		{
 			// 스코어 계산
+			if (pointA == 11)
+			{
+				scoreA++;
+			}
+			else
+			{
+				scoreB++;
+			}
+
+			scorePannel->SetPoint(0, scoreA);
+			scorePannel->SetPoint(1, scoreB);
+
 			SetState(EPingPongState::SetOver);
 			return;
 		}

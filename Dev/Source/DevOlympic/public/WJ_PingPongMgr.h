@@ -37,6 +37,13 @@ private:
 	class AModeSelect* modeSelect;
 	EEditMode editMode; //캐싱해서 사용
 
+	// # 점수판
+	class AWJ_Point* pointPannel;
+	class AWJ_Point* scorePannel;
+
+	// # 플레이어 캐싱
+	class AActor* playerActorA;
+	class AActor* playerActorB;
 
 	EPingPongState m_state = EPingPongState::Intro;
 	int pointA = 0;	// 11점
