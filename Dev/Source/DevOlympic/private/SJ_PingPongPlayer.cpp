@@ -67,9 +67,7 @@ void ASJ_PingPongPlayer::BeginPlay()
 	// HMD 장치의 기준점을 바닥으로 설정하기
 	UHeadMountedDisplayFunctionLibrary::SetTrackingOrigin(EHMDTrackingOrigin::Eye);
 
-	// HMD 장치의 위치를 초기화하기
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
-
+	GetWorldTimerManager().SetTimer(resetHandle, this, &ASJ_PingPongPlayer::ResetHMD, 2.0f);
 }
 
 // Called every frame
@@ -88,6 +86,6 @@ void ASJ_PingPongPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 void ASJ_PingPongPlayer::ResetHMD()
 {
-	
+	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 

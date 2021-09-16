@@ -16,7 +16,10 @@ public:
 	ASJ_PingPongBall();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PingPongBall)
-		class UStaticMeshComponent* meshComp;
+	class UStaticMeshComponent* meshComp;
+
+	UPROPERTY(EditAnywhere, Category = PingPongBall)
+	class UStaticMeshComponent* wrapFX;
 
 protected:
 	// Called when the game starts or when spawned

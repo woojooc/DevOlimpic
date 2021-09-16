@@ -19,6 +19,10 @@ ASJ_PingPongBall::ASJ_PingPongBall()
 
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	SetRootComponent(meshComp);
+
+	wrapFX = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WrapFX"));
+	wrapFX->SetupAttachment(meshComp);
+	wrapFX->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 // Called when the game starts or when spawned
@@ -38,8 +42,11 @@ void ASJ_PingPongBall::Tick(float DeltaTime)
 
 void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	// 처음엔 공중에 떠있다가 부딪히면 중력 값이 작용하게 하기
+	// 처음 생성 될때는 중력이 적용 되어 있지 않고 생성 효과도 나타난다.
+	// 따라서 라켓으로 공을 칠때는 중력을 적용 해주고 효과도 꺼준다.
 	meshComp->SetEnableGravity(true);
+	wrapFX->SetVisibility(false);
+	
 	auto sideA = Cast<ASJ_PingPongTableSideA>(OtherActor);
 	auto sideB = Cast<ASJ_PingPongTableSideB>(OtherActor);
 	auto net = Cast<ASJ_Net>(OtherActor);
@@ -48,7 +55,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 	// 게임 모드 가져오기
 	auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), pingpongSound, GetActorLocation());
 }
 
 void ASJ_PingPongBall::InitSideState()

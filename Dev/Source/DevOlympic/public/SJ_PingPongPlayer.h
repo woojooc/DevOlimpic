@@ -55,7 +55,11 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
+	
+	// 초기화 타이머
+	FTimerHandle resetHandle;
 
+	// 초기화 함수
 	void ResetHMD();
 
 	FRotator hmdRotation;
