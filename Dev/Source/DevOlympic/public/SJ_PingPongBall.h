@@ -47,6 +47,10 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = SideID)
 	bool inSideB;
 
+	// OnCollisionGround가 불렸는지를 체크하는 Bool
+	UPROPERTY(VisibleAnywhere, Category = SideID)
+	bool isOnGround = false;
+
 	// Bool 초기화 함수
 	void InitSideState();
 };
