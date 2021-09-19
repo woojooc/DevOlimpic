@@ -241,7 +241,8 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 	//serv 설정
 	if (servCount >= 2)
 	{
-		bServPlayer = !bServPlayer;
+		//TODO 주석 해제
+		//bServPlayer = !bServPlayer;
 		servCount = 0;
 	}
 
