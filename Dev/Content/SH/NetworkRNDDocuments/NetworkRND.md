@@ -6,8 +6,8 @@
 <br>
 
 ## 컴포넌트 동기화<br><br>
-![Alt text](./images/Replicate1.png "Optional title")<br>
-![Alt text](./images/Replicate2.png "Optional title")<br>
+![ex_screenshot](./images/Replicate1.png)<br>
+![ex_screenshot](./images/Replicate2.png)<br>
 <br>
 Pawn 컴포넌트에서는 Replication 세팅의 Replicate를, Collision 컴포넌트에서는 Physics의 Replicate Physics to Autonomous Proxy를 체크 하여 Replicate한다.
 <br>
