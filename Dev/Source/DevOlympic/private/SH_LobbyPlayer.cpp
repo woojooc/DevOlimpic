@@ -9,6 +9,7 @@
 #include <MotionControllerComponent.h>
 #include <Components/SkeletalMeshComponent.h>
 #include "SH_HandActorComponent.h"
+#include <Components/WidgetInteractionComponent.h>
 
 
 // Sets default values
@@ -50,6 +51,11 @@ ASH_LobbyPlayer::ASH_LobbyPlayer()
 	// 액터 컴포넌트
 	// 핸드 액터 컴포넌트
 	handComp = CreateDefaultSubobject<USH_HandActorComponent>(TEXT("Hand Component"));
+
+	// 위젯 상호작용 컴포넌트 생성
+	widgetPointer = CreateDefaultSubobject<UWidgetInteractionComponent>(TEXT("Widget Pointer"));
+	// 컴포넌트 오른손에 붙이기
+	widgetPointer->SetupAttachment(rightController);
 }
 
 // Called when the game starts or when spawned

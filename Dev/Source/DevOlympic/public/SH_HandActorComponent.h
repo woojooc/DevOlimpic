@@ -51,4 +51,11 @@ public:
 	void GrabRIghtHand();
 	// 오른손 풀기
 	void OpenRIghtHand();
+
+
+	// 클릭시 단순 충돌이 아님
+	// 가리킨 다음 -> 특정 버튼을 누른다면 클릭으로 인식하여 실행하게 됨
+private:
+	void ButtonClick();
+	void ButtonRelease();
 };

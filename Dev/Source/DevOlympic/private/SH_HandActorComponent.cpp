@@ -4,6 +4,7 @@
 #include "SH_HandActorComponent.h"
 #include "SH_LobbyPlayer.h"
 #include "SH_LobbyHandAnimInstance.h"
+#include <Components/WidgetInteractionComponent.h>
 
 // Sets default values for this component's properties
 USH_HandActorComponent::USH_HandActorComponent()
@@ -44,6 +45,12 @@ void USH_HandActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerIn
 	PlayerInputComponent->BindAction("GrabRight", IE_Pressed, this, &USH_HandActorComponent::GrabRIghtHand);
 	// 오른손 펴기 애니메이션 실행
 	PlayerInputComponent->BindAction("GrabRight", IE_Released, this, &USH_HandActorComponent::OpenRIghtHand);
+
+	// A 버튼 누를시에 함수 출력
+	PlayerInputComponent->BindAction("GrabRight", IE_Pressed, this, &USH_HandActorComponent::ButtonClick);
+	// A 버튼 뗄 시에 함수 출력
+	PlayerInputComponent->BindAction("GrabRight", IE_Released, this, &USH_HandActorComponent::ButtonRelease);
+
 }
 
 // Called every frame
@@ -81,5 +88,17 @@ void USH_HandActorComponent::GrabRIghtHand()
 void USH_HandActorComponent::OpenRIghtHand()
 {
 	r_targetGripValue = 0.0f;
+}
+
+void USH_HandActorComponent::ButtonClick()
+{
+	// 위젯 인터렉션 포인터의 클릭 포인터 키 값을 마우스 왼쪽 버튼 클릭으로 설정
+	// ⇒ 왼쪽 버튼을 누른것과 같은 효과를 준다.
+	player->widgetPointer->PressPointerKey(EKeys::LeftMouseButton);
+}
+
+void USH_HandActorComponent::ButtonRelease()
+{
+	player->widgetPointer->ReleasePointerKey(EKeys::LeftMouseButton);
 }
 

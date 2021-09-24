@@ -7,18 +7,6 @@
 #include "SH_LobbyPlayer.generated.h"
 
 
-// 2인이 대기 방에 접속
-// 스팀으로 연결
-// 방을 생성
-// 방에 입장
-// 대기 버튼 누르기
-// 두 플레이어가 모두 대기버튼을 누르면 게임 레벨로 넘어간다(이후 동기화 등으로 게임 진행)
-
-// 스팀(혹은 데디케이티드 서버)로 연결, VR 플레이어가 한방에 있을 수 있도록 테스트
-// 대기방 만들기 대기 버튼을 누르면 게임 레벨에 입장
-// UI 작업
-// 오브젝트를 집어서 두면 네트워크 / 싱글 플레이 버튼이 나오게끔 설정
-// 오브젝트 잡기, 배치하기, UI 작업
 
 UCLASS()
 class DEVOLYMPIC_API ASH_LobbyPlayer : public APawn
@@ -66,4 +54,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
 	class USH_HandActorComponent* handComp;
+
+
+	// 위젯 상호작용 포인터
+	UPROPERTY(EditAnywhere, Category = VideoInteractions)
+		class UWidgetInteractionComponent* widgetPointer;
 };
