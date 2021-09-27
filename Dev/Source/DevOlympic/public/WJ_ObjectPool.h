@@ -28,7 +28,7 @@ public:
 	TSubclassOf<class ASJ_PingPongBall> pingpongFactory;
 
 	//		Å¹±¸°ø ¼ÒÈ¯
-	void GetPingPongBall(AActor* actor, int player, EEditMode mode = EEditMode::Multi);
+	ASJ_PingPongBall* GetPingPongBall(AActor* actor, int player, EEditMode mode = EEditMode::Multi);
 	const FVector offsetLocA = FVector{-120.f,0.f,126.5f};
 	const FVector offsetLocB = FVector{120.f,0.f,126.5f};
 };

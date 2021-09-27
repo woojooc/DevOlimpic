@@ -8,6 +8,7 @@
 #include "WJ_PPSingleModeWall.h"
 #include "WJ_Point.h"
 #include "SJ_PingPongPlayer.h"
+#include "SJ_PingPongBall.h"
 
 
 UWJ_PingPongMgr::UWJ_PingPongMgr()
@@ -60,7 +61,8 @@ void UWJ_PingPongMgr::BeginPlay()
 		}
 
 		// 서브 설정
-		bServPlayer = 0;
+		// TODO 0으로 설정
+		bServPlayer = 1;
 	}
 }
 
@@ -111,6 +113,22 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	}
 }
 
+void UWJ_PingPongMgr::autoServe()
+{
+	///*
+	// TEST CODE
+	ppball->SetActorLocation(FVector(120.f, 0, 126.5f));
+	FVector dir = FVector(-30, 0, 92) - ppball->GetActorLocation();
+	dir.Normalize();
+
+	// END TEST CODE
+	//*/
+
+	ppball->meshComp->SetEnableGravity(true);
+	ppball->meshComp->AddForce(dir * sServePower);
+	StartRally();
+}
+
 void UWJ_PingPongMgr::Intro()
 {
 	SetState(EPingPongState::Serv);
@@ -131,15 +149,43 @@ void UWJ_PingPongMgr::Serv()
 		//A 공 스폰
 		if (playerActorA)
 		{
-			gameModeBase->objectPool->GetPingPongBall(playerActorA,0,editMode);
+			ppball = gameModeBase->objectPool->GetPingPongBall(playerActorA,0,editMode);
 			bSpawnBall = true;
 		}
 	}
 	else
 	{
 		//B 공 스폰
-		gameModeBase->objectPool->GetPingPongBall(playerActorB,1,editMode);
+		ppball = gameModeBase->objectPool->GetPingPongBall(playerActorB,1,editMode);
 		bSpawnBall = true;
+
+
+		// 오토 서브
+		if (editMode == EEditMode::Single)
+		{
+			// 월드 상에 활성화 된 공을 받아온다.  => 공 캐싱. 추적하기
+
+			// 플레이어 에게 포인트 좌 우 추가하기
+			// -> 좌 ~ 우 사이로 힘 방향 랜덤 하게 정하기, 세기 랜덤하게 정하기
+			if (ppball)
+			{
+				// 타점 랜덤 선택
+				float x = FMath::RandRange(-30, -128);
+				float y = FMath::RandRange(-75, 75);
+				float z = FMath::RandRange(92, 160);
+				FVector dir = FVector{ x, y, z } - ppball->GetActorLocation();
+				dir.Normalize();
+
+				// 공에 힘 추가하기
+				//FTimerHandle timer;
+				//GetWorld()->GetTimerManager().SetTimer(timer,this, &UWJ_PingPongMgr::autoServe, 2, true);
+				//autoServe();
+			
+				ppball->meshComp->SetEnableGravity(true);
+				ppball->meshComp->AddForce(dir * sServePower);
+				StartRally();
+			}
+		}
 	}
 
 	// 플레이어가 공을 치면 이벤트 발생
@@ -215,9 +261,13 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		{
 			pointA++;
 		}
-		else
+		else if(player == 1)
 		{
 			pointB++;
+		}
+		else
+		{
+
 		}
 		pointPannel->SetPoint(0, pointA);
 		pointPannel->SetPoint(1, pointB);
@@ -230,9 +280,13 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		{
 			pointB++;
 		}
-		else
+		else if (player == 1)
 		{
 			pointA++;
+		}
+		else
+		{
+
 		}
 		pointPannel->SetPoint(0, pointA);
 		pointPannel->SetPoint(1, pointB);

@@ -31,7 +31,7 @@
 /wd4244
 /wd4838
 /I .
-/I C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSessions\Source\AdvancedSessions\Private
+/I D:\XRMR\Dev8\Dev\Plugins\AdvancedSessions\Source\AdvancedSessions\Private
 /I ..\Plugins\Online\OnlineSubsystem\Intermediate\Build\Win64\UE4Editor\Inc\OnlineSubsystem
 /I ..\Plugins\Online\OnlineSubsystem
 /I ..\Plugins\Online\OnlineSubsystem\Source
@@ -240,9 +240,9 @@
 /I Editor\Kismet\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\ClothingSystemRuntimeInterface
 /I Runtime\ClothingSystemRuntimeInterface\Public
-/I C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Inc\AdvancedSessions
-/I C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSessions\Source
-/I C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSessions\Source\AdvancedSessions\Classes
+/I D:\XRMR\Dev8\Dev\Plugins\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Inc\AdvancedSessions
+/I D:\XRMR\Dev8\Dev\Plugins\AdvancedSessions\Source
+/I D:\XRMR\Dev8\Dev\Plugins\AdvancedSessions\Source\AdvancedSessions\Classes
 /I ThirdParty\PhysX3\PxShared\include
 /I ThirdParty\PhysX3\PxShared\include\cudamanager
 /I ThirdParty\PhysX3\PxShared\include\filebuf
@@ -268,16 +268,16 @@
 /I ThirdParty\PhysX3\APEX_1.4\shared\internal\include
 /I "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE"
 /I "C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
-/FI"C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Intermediate\Build\Win64\DevOlympicEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Yu"C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Intermediate\Build\Win64\DevOlympicEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Fp"C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Intermediate\Build\Win64\DevOlympicEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
-"C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Module.AdvancedSessions.cpp"
-/FI"C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Definitions.AdvancedSessions.h"
-/Fo"C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Module.AdvancedSessions.cpp.obj"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\winrt"
+/FI"D:\XRMR\Dev8\Dev\Intermediate\Build\Win64\DevOlympicEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Yu"D:\XRMR\Dev8\Dev\Intermediate\Build\Win64\DevOlympicEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Fp"D:\XRMR\Dev8\Dev\Intermediate\Build\Win64\DevOlympicEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
+"D:\XRMR\Dev8\Dev\Plugins\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Module.AdvancedSessions.cpp"
+/FI"D:\XRMR\Dev8\Dev\Plugins\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Definitions.AdvancedSessions.h"
+/Fo"D:\XRMR\Dev8\Dev\Plugins\AdvancedSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSessions\Module.AdvancedSessions.cpp.obj"
 /TP
 /GR-
 /W4

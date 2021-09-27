@@ -26,12 +26,14 @@ void UWJ_ObjectPool::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 }
 
-void UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEditMode mode)
+ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEditMode mode)
 {
 	FActorSpawnParameters Param;
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	
 	FVector spawnLoc = actor->GetActorLocation();
+
+	ASJ_PingPongBall* ppBall = nullptr;
 
 	if (mode == EEditMode::Multi)
 	{
@@ -44,17 +46,30 @@ void UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEditMode mode)
 			//UE_LOG(LogTemp,Warning,TEXT("GetPingPongBall Player 0"));
 			spawnLoc.X = offsetLocA.X;
 			spawnLoc.Z = offsetLocA.Z;
-			auto ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
+
+			// y값 제한
+			if (spawnLoc.Y <= -73)
+			{
+				spawnLoc.Y = -73;
+			}
+			else if (spawnLoc.Y >= 73)
+			{
+				spawnLoc.Y = 73;
+			}
+
+			ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
 		}
 		else
 		{
-			// y값 랜덤하게 설정 ( -74 ~ 73 )
-			int y = FMath::RandRange(-74, 73);
+			// y값 랜덤하게 설정 ( -73 ~ 73 )
+			int y = FMath::RandRange(-73, 73);
 
 			spawnLoc.X = offsetLocB.X;
 			spawnLoc.Y = y;
 			spawnLoc.Z = offsetLocB.Z;
-			auto ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
+			ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
 		}
 	}
+
+	return ppBall;
 }

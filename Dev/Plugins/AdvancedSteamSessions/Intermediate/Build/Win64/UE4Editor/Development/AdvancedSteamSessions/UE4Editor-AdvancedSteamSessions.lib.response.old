@@ -11,3 +11,4 @@
 "C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.gen.cpp.obj"
 "C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSteamSessions\Default.rc2.res"
 /OUT:"C:\Users\TFG5076XG\Documents\GitHub\DevOlympic\Dev\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UE4Editor\Development\AdvancedSteamSessions\UE4Editor-AdvancedSteamSessions.lib"
+/INCLUDE:IMPLEMENT_MODULE_AdvancedSteamSessions

@@ -31,6 +31,12 @@ public:
 	
 	void NetServ();		// 서브시 공이 네트에 닿아 재 서브해야 되는 상황에서 호출된다.
 
+
+	// # 싱글모드 
+	// 서브 파워
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
+	float sServePower = 1000;
+
 private:
 
 	UPROPERTY()
@@ -47,6 +53,11 @@ private:
 	// # 플레이어 캐싱
 	class AActor* playerActorA;
 	class AActor* playerActorB;
+
+	// # 오토 서브 네트 포인트 캐싱
+	int netZ = 92;
+	void autoServe();
+	class ASJ_PingPongBall* ppball;
 
 	// 핑퐁 게임 플로우 enum
 	EPingPongState m_state = EPingPongState::Intro;
