@@ -50,11 +50,14 @@ public:
 		class USkeletalMeshComponent* rightHand;
 
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+	class USH_HandActorComponent* handComp;
+
+	// 로그 컴포넌트
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
 		class UTextRenderComponent* leftLog;
 
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
-	class USH_HandActorComponent* handComp;
-
+		class UTextRenderComponent* rightLog;
 
 	// 위젯 상호작용 포인터
 	UPROPERTY(EditAnywhere, Category = VideoInteractions)

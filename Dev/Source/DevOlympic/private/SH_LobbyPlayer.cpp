@@ -13,6 +13,7 @@
 
 // 언리얼 네트워크 헤더 추가
 #include "Net/UnrealNetwork.h"
+#include <Components/TextRenderComponent.h>
 
 // Sets default values
 ASH_LobbyPlayer::ASH_LobbyPlayer()
@@ -54,6 +55,30 @@ ASH_LobbyPlayer::ASH_LobbyPlayer()
 	// 핸드 액터 컴포넌트
 	handComp = CreateDefaultSubobject<USH_HandActorComponent>(TEXT("Hand Component"));
 
+
+	// 3D 텍스트 컴포넌트를 손목 위에 붙이기
+	leftLog = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Left Log"));
+	leftLog->SetupAttachment(leftController);
+	// 글씨 크기
+	leftLog->SetWorldSize(20);
+	// 글씨 정렬(가운데 정렬)
+	leftLog->SetHorizontalAlignment(EHTA_Center);
+	leftLog->SetVerticalAlignment(EVRTA_TextCenter);
+	// 글씨 색상
+	leftLog->SetTextRenderColor(FColor::Yellow);
+	leftLog->SetRelativeRotation(FRotator(0, 180.0f, 0));
+	leftLog->SetRelativeLocation(FVector(0, 0, 40.f));
+
+	rightLog = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Right Log"));
+	rightLog->SetupAttachment(rightController);
+	rightLog->SetWorldSize(20);
+	rightLog->SetHorizontalAlignment(EHTA_Center);
+	rightLog->SetVerticalAlignment(EVRTA_TextCenter);
+	rightLog->SetTextRenderColor(FColor::Yellow);
+	rightLog->SetRelativeRotation(FRotator(0, 180.0f, 0));
+	rightLog->SetRelativeLocation(FVector(0, 0, 40.f));
+
+
 	// 위젯 상호작용 컴포넌트 생성
 	widgetPointer = CreateDefaultSubobject<UWidgetInteractionComponent>(TEXT("Widget Pointer"));
 	// 컴포넌트 오른손에 붙이기
@@ -72,6 +97,10 @@ void ASH_LobbyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FString l_str = FString::Printf(TEXT("%.2f %.2f %.2f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
+	leftLog->SetText(FText::FromString(l_str));
+	FString r_str = FString::Printf(TEXT("%.2f %.2f %.2f"), rightController->GetComponentLocation().X, rightController->GetComponentLocation().Y, rightController->GetComponentLocation().Z);
+	rightLog->SetText(FText::FromString(r_str));
 
 	//UE_LOG(LogTemp, Warning, TEXT("%f %f %f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
 	l_handRepTrans = leftController->GetComponentTransform();
