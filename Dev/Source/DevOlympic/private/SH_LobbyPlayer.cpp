@@ -11,6 +11,8 @@
 #include "SH_HandActorComponent.h"
 #include <Components/WidgetInteractionComponent.h>
 
+// 언리얼 네트워크 헤더 추가
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 ASH_LobbyPlayer::ASH_LobbyPlayer()
@@ -70,6 +72,18 @@ void ASH_LobbyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
+	//UE_LOG(LogTemp, Warning, TEXT("%f %f %f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
+	l_handRepTrans = leftController->GetComponentTransform();
+	r_handRepTrans = rightController->GetComponentTransform();
+
+	// 로컬 액터(플레이어)가 아니라면
+	if (!IsLocallyControlled())
+	{
+		// 손 위치를 업데이트 해준다
+		leftController->SetWorldTransform(l_handRepTrans);
+		rightController->SetWorldTransform(r_handRepTrans);
+	}
 }
 
 // Called to bind functionality to input
@@ -80,3 +94,11 @@ void ASH_LobbyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	handComp->SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+// 변수 동기화를 위한 함수 선언
+void ASH_LobbyPlayer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ASH_LobbyPlayer, l_handRepTrans);
+	DOREPLIFETIME(ASH_LobbyPlayer, r_handRepTrans);
+}

@@ -59,4 +59,18 @@ public:
 	// 위젯 상호작용 포인터
 	UPROPERTY(EditAnywhere, Category = VideoInteractions)
 		class UWidgetInteractionComponent* widgetPointer;
+
+
+	// 변수 동기화를 위한 선언
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
+
+
+	// 손 위치 변수를 동기화
+	// 왼손 위치 동기화 변수
+	UPROPERTY(Replicated, BlueprintReadWrite)
+		FTransform l_handRepTrans;
+
+	// 오른손 위치 동기화 변수
+	UPROPERTY(Replicated)
+		FTransform r_handRepTrans;
 };
