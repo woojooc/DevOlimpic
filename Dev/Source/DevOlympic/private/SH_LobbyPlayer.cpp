@@ -97,10 +97,10 @@ void ASH_LobbyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FString l_str = FString::Printf(TEXT("%.2f %.2f %.2f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
-	leftLog->SetText(FText::FromString(l_str));
-	FString r_str = FString::Printf(TEXT("%.2f %.2f %.2f"), rightController->GetComponentLocation().X, rightController->GetComponentLocation().Y, rightController->GetComponentLocation().Z);
-	rightLog->SetText(FText::FromString(r_str));
+	//FString l_str = FString::Printf(TEXT("%.2f %.2f %.2f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
+	//leftLog->SetText(FText::FromString(l_str));
+	//FString r_str = FString::Printf(TEXT("%.2f %.2f %.2f"), rightController->GetComponentLocation().X, rightController->GetComponentLocation().Y, rightController->GetComponentLocation().Z);
+	//rightLog->SetText(FText::FromString(r_str));
 
 	//UE_LOG(LogTemp, Warning, TEXT("%f %f %f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
 	l_handRepTrans = leftController->GetComponentTransform();
@@ -109,6 +109,12 @@ void ASH_LobbyPlayer::Tick(float DeltaTime)
 	// 로컬 액터(플레이어)가 아니라면
 	if (!IsLocallyControlled())
 	{
+		FString l_str = FString::Printf(TEXT("%s"), "guest left");
+		leftLog->SetText(FText::FromString(l_str));
+		FString r_str = FString::Printf(TEXT("%s"), "guest right");
+		rightLog->SetText(FText::FromString(l_str));
+
+
 		// 손 위치를 업데이트 해준다
 		leftController->SetWorldTransform(l_handRepTrans);
 		rightController->SetWorldTransform(r_handRepTrans);
