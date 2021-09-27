@@ -37,6 +37,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
 	float sServePower = 1000;
 
+	// 서브 상태 플로우
+	EPPBallState p_State = EPPBallState::Serve;
+
 private:
 
 	UPROPERTY()
