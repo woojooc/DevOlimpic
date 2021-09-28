@@ -76,3 +76,5 @@ DerivedDataCache/*
 */Intermediate/*
 */Binaries/*
 */Saved/*
+
+*/Plugins/*
