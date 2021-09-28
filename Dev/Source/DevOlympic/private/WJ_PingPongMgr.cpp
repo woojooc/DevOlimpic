@@ -405,9 +405,11 @@ void UWJ_PingPongMgr::autoServe()
 	ppball->meshComp->AddForce(dir * sServePower);
 	
 	StartRally();
-	//
+
+	// ÃÊ±âÈ­
 	ppball->isCallScoreGet = false;
-	
+	ppball->playerID = 1;
+
 	// TEST CODE
 	/*
 	ppball->SetActorLocation(FVector(120.f, 73, 126.5f));
