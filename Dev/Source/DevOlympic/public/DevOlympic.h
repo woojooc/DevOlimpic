@@ -36,3 +36,10 @@ enum class EEditMode : uint8
 	Single,
 	Multi
 };
+
+UENUM(BlueprintType)
+enum class EPPBallState : uint8
+{
+	Serve,
+	Recive
+};
