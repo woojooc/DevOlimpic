@@ -35,7 +35,7 @@ public:
 	// # 싱글모드 
 	// 서브 파워
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
-	float sServePower = 1000;
+	float sServePower = 2200;
 
 private:
 
@@ -47,8 +47,9 @@ private:
 	EEditMode editMode;		//캐싱해서 사용
 
 	// # 점수판	- 텍스트 오브젝트 캐싱
-	class AWJ_Point* pointPannel;
-	class AWJ_Point* scorePannel;
+	TArray<class AWJ_Point*> pointPannelarr;
+	//class AWJ_Point* pointPannel;
+	//class AWJ_Point* scorePannel;
 
 	// # 플레이어 캐싱
 	class AActor* playerActorA;

@@ -30,6 +30,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = Components)
 	class UTextRenderComponent* pointB;
 
+	// # Order in World Outliner
+	UPROPERTY(EditAnywhere, Category = Settings)
+	int order;
+	
+
 	void SetPoint(int player, int point);
 	void ResetPoint();
 
