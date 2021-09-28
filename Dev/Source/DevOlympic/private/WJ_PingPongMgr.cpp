@@ -1,5 +1,3 @@
-
-
 #include "WJ_PingPongMgr.h"
 #include "VRGameModeBase.h"
 #include "WJ_ObjectPool.h"
@@ -131,6 +129,9 @@ void UWJ_PingPongMgr::Intro()
 
 void UWJ_PingPongMgr::Serv()
 {
+	// 점수의 득 실 이 있을 경우 서브 상태 플로우를 서브로 되돌린다.
+	p_State = EPPBallState::Serve;
+
 	// 공이 스폰되었으면 대기
 	if (bSpawnBall)
 	{
