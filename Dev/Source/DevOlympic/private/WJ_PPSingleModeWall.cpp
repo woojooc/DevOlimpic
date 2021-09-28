@@ -40,6 +40,8 @@ void AWJ_PPSingleModeWall::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 	{
 		if (ppball->isCallScoreGet == false)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("WALL RECEIVED"));
+
 			// 타점 랜덤 선택
 			float x = FMath::RandRange(-30, -128);
 			float y = FMath::RandRange(-75, 75);
@@ -52,7 +54,7 @@ void AWJ_PPSingleModeWall::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 			// 공에 힘 추가하기
 			ppball->meshComp->SetEnableGravity(true);
 			ppball->meshComp->AddForce(dir * ppManager->sServePower);
-			ppManager->StartRally();
+			//ppManager->StartRally();
 		}
 	}
 }

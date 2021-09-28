@@ -43,7 +43,7 @@ void ASJ_PingPongBall::Tick(float DeltaTime)
 
 void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {	
-	UE_LOG(LogTemp, Warning, TEXT("playerID %d, ASide %d, BSide %d"), playerID, inSideA, inSideB);
+	//UE_LOG(LogTemp, Warning, TEXT("playerID %d, ASide %d, BSide %d"), playerID, inSideA, inSideB);
 	
 	// 처음 생성 될때는 중력이 적용 되어 있지 않고 생성 효과도 나타난다.
 	// 따라서 라켓으로 공을 칠때는 중력을 적용 해주고 효과도 꺼준다.

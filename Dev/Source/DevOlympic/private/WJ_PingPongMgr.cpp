@@ -254,11 +254,12 @@ EPingPongState UWJ_PingPongMgr::GetState()
 
 void UWJ_PingPongMgr::StartRally()
 {
-	UE_LOG(LogTemp, Warning, TEXT("START RALLY"));
 	SetState(EPingPongState::Rally);
 	// 서브 카운트 증가
 	servCount++;
 	bSpawnBall = false;
+
+	UE_LOG(LogTemp, Warning, TEXT("START RALLY!! ServCount -> %d"), servCount);
 }
 
 void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
