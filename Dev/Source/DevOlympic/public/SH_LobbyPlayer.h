@@ -74,6 +74,34 @@ public:
 	// 변수 동기화를 위한 선언
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
 
+
+public:
+	// 클라이언트에서 서버로 함수를 호출하기 위한 선언
+	// 자신의 컨트롤러 위치를 서버에게 전달
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_HandMove();
+	bool Server_HandMove_Validate();
+	void Server_HandMove_Implementation();
+
+	// 서버에서 클라이언트를 움직일 함수
+	// 서버의 컨트롤러 위치를 클라이언트들에게 전달
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	void Multi_HandMove();
+	bool Multi_HandMove_Validate();
+	void Multi_HandMove_Implementation();
+
+
+	// 컨트롤러 위치 프로퍼티
+	UPROPERTY()
+	FVector l_handRepLoc;
+	UPROPERTY()
+	FRotator l_handRepRot;
+	UPROPERTY()
+	FVector r_handRepLoc;
+	UPROPERTY()
+	FRotator r_handRepRot;
+
+
 public:
 	// 손 위치 변수를 동기화
 	// 왼손 위치 동기화 변수
@@ -85,13 +113,15 @@ public:
 		FTransform r_handRepTrans;
 
 
-	UPROPERTY(Replicated)
-		FVector l_handRepLoc;
-	UPROPERTY(Replicated)
-		FRotator l_handRepRot;
 
-	UPROPERTY(Replicated)
-		FVector r_handRepLoc;
-	UPROPERTY(Replicated)
-		FRotator r_handRepRot;
+	//// 컨트롤러 위치 프로퍼티
+	//UPROPERTY(Replicated)
+	//	FVector l_handRepLoc;
+	//UPROPERTY(Replicated)
+	//	FRotator l_handRepRot;
+
+	//UPROPERTY(Replicated)
+	//	FVector r_handRepLoc;
+	//UPROPERTY(Replicated)
+	//	FRotator r_handRepRot;
 };
