@@ -14,6 +14,7 @@
 // 언리얼 네트워크 헤더 추가
 #include "Net/UnrealNetwork.h"
 #include <Components/TextRenderComponent.h>
+#include <GameFramework/CharacterMovementComponent.h>
 
 // Sets default values
 ASH_LobbyPlayer::ASH_LobbyPlayer()
@@ -83,6 +84,10 @@ ASH_LobbyPlayer::ASH_LobbyPlayer()
 	widgetPointer = CreateDefaultSubobject<UWidgetInteractionComponent>(TEXT("Widget Pointer"));
 	// 컴포넌트 오른손에 붙이기
 	widgetPointer->SetupAttachment(rightController);
+
+	// 캐릭터 무브먼트 컴포넌트
+	 characterMoveComp = CreateDefaultSubobject<UCharacterMovementComponent>(TEXT("Character Movement Component"));
+
 }
 
 // Called when the game starts or when spawned
@@ -166,7 +171,6 @@ void ASH_LobbyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	handComp->SetupPlayerInputComponent(PlayerInputComponent);
-
 
 	// 테스트용 이동 함수 등록
 	PlayerInputComponent->BindAxis("MotionControllerThumbRight_X", this, &ASH_LobbyPlayer::MoveHorizontal);

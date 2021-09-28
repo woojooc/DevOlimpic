@@ -6,8 +6,6 @@
 #include "GameFramework/Pawn.h"
 #include "SH_LobbyPlayer.generated.h"
 
-
-
 UCLASS()
 class DEVOLYMPIC_API ASH_LobbyPlayer : public APawn
 {
@@ -62,6 +60,12 @@ public:
 	// 위젯 상호작용 포인터
 	UPROPERTY(EditAnywhere, Category = VideoInteractions)
 		class UWidgetInteractionComponent* widgetPointer;
+
+	// 캐릭터 무브먼트 컴포넌트(동기화용)
+	UPROPERTY(EditAnywhere, Category = VideoInteractions)
+		class UCharacterMovementComponent* characterMoveComp;
+
+
 
 	// 테스트용 이동 변수, 함수 선언
 	// 이동 속도
