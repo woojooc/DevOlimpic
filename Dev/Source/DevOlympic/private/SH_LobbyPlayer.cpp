@@ -97,27 +97,49 @@ void ASH_LobbyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//FString l_str = FString::Printf(TEXT("%.2f %.2f %.2f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
-	//leftLog->SetText(FText::FromString(l_str));
-	//FString r_str = FString::Printf(TEXT("%.2f %.2f %.2f"), rightController->GetComponentLocation().X, rightController->GetComponentLocation().Y, rightController->GetComponentLocation().Z);
-	//rightLog->SetText(FText::FromString(r_str));
+	FString l_str = FString::Printf(TEXT("%.1f %.1f %.1f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
+	leftLog->SetText(FText::FromString(l_str));
+	FString r_str = FString::Printf(TEXT("%.1f %.1f %.1f"), rightController->GetComponentLocation().X, rightController->GetComponentLocation().Y, rightController->GetComponentLocation().Z);
+	rightLog->SetText(FText::FromString(r_str));
 
-	//UE_LOG(LogTemp, Warning, TEXT("%f %f %f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
-	l_handRepTrans = leftController->GetComponentTransform();
-	r_handRepTrans = rightController->GetComponentTransform();
+	////UE_LOG(LogTemp, Warning, TEXT("%f %f %f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
+	//l_handRepTrans = leftController->GetComponentTransform();
+	//r_handRepTrans = rightController->GetComponentTransform();
+
+
+	l_handRepLoc = leftController->GetComponentLocation();
+	l_handRepRot = leftController->GetComponentRotation();
+	r_handRepLoc = rightController->GetComponentLocation();
+	r_handRepRot = rightController->GetComponentRotation();
+
 
 	// 로컬 액터(플레이어)가 아니라면
 	if (!IsLocallyControlled())
 	{
-		FString l_str = FString::Printf(TEXT("%s"), "guest left");
-		leftLog->SetText(FText::FromString(l_str));
-		FString r_str = FString::Printf(TEXT("%s"), "guest right");
-		rightLog->SetText(FText::FromString(l_str));
+		//FString l_str = FString::Printf(TEXT("%s"), "guest left");
+		//leftLog->SetText(FText::FromString(l_str));
+		//FString r_str = FString::Printf(TEXT("%s"), "guest right");
+		//rightLog->SetText(FText::FromString(l_str));
 
 
-		// 손 위치를 업데이트 해준다
-		leftController->SetWorldTransform(l_handRepTrans);
-		rightController->SetWorldTransform(r_handRepTrans);
+		//// 손 위치를 업데이트 해준다
+		//leftController->SetWorldTransform(l_handRepTrans);
+		//rightController->SetWorldTransform(r_handRepTrans);
+
+		leftController->SetWorldLocation(l_handRepLoc);
+		leftController->SetWorldRotation(l_handRepRot);
+		rightController->SetWorldLocation(r_handRepLoc);
+		rightController->SetWorldRotation(r_handRepRot);
+
+
+		//FString l_str = FString::Printf(TEXT("%.1f %.1f %.1f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
+		//leftLog->SetText(FText::FromString(l_str));
+		//FString r_str = FString::Printf(TEXT("%.1f %.1f %.1f"), rightController->GetComponentLocation().X, rightController->GetComponentLocation().Y, rightController->GetComponentLocation().Z);
+		//rightLog->SetText(FText::FromString(r_str));
+		FString l_str_rep = FString::Printf(TEXT("%.1f %.1f %.1f"), l_handRepLoc.X, l_handRepLoc.Y, l_handRepLoc.Z);
+		leftLog->SetText(FText::FromString(l_str_rep));
+		FString r_str_rep = FString::Printf(TEXT("%.1f %.1f %.1f"), r_handRepLoc.X, r_handRepLoc.Y, r_handRepLoc.Z);
+		rightLog->SetText(FText::FromString(r_str_rep));
 	}
 }
 
@@ -127,6 +149,24 @@ void ASH_LobbyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	handComp->SetupPlayerInputComponent(PlayerInputComponent);
+
+
+	// 테스트용 이동 함수 등록
+	PlayerInputComponent->BindAxis("MotionControllerThumbRight_X", this, &ASH_LobbyPlayer::MoveHorizontal);
+	PlayerInputComponent->BindAxis("MotionControllerThumbRight_Y", this, &ASH_LobbyPlayer::MoveVertical);
+}
+
+
+// 테스트용 이동 함수
+void ASH_LobbyPlayer::MoveHorizontal(float value)
+{
+	FVector dir = GetActorRightVector() * value;
+	SetActorLocation(GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+}
+void ASH_LobbyPlayer::MoveVertical(float value)
+{
+	FVector dir = GetActorForwardVector() * value;
+	SetActorLocation(GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
 }
 
 // 변수 동기화를 위한 함수 선언
@@ -134,6 +174,10 @@ void ASH_LobbyPlayer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(ASH_LobbyPlayer, l_handRepTrans);
-	DOREPLIFETIME(ASH_LobbyPlayer, r_handRepTrans);
+	//DOREPLIFETIME(ASH_LobbyPlayer, l_handRepTrans);
+	//DOREPLIFETIME(ASH_LobbyPlayer, r_handRepTrans);
+	DOREPLIFETIME(ASH_LobbyPlayer, r_handRepLoc);
+	DOREPLIFETIME(ASH_LobbyPlayer, r_handRepRot);
+	DOREPLIFETIME(ASH_LobbyPlayer, l_handRepLoc);
+	DOREPLIFETIME(ASH_LobbyPlayer, l_handRepRot);
 }

@@ -63,17 +63,35 @@ public:
 	UPROPERTY(EditAnywhere, Category = VideoInteractions)
 		class UWidgetInteractionComponent* widgetPointer;
 
+	// 테스트용 이동 변수, 함수 선언
+	// 이동 속도
+	UPROPERTY(EditAnywhere, Category = MoveSettings)
+	float moveSpeed = 200;
+	// 이동함수
+	void MoveHorizontal(float value);
+	void MoveVertical(float value);
 
 	// 변수 동기화를 위한 선언
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
 
-
+public:
 	// 손 위치 변수를 동기화
 	// 왼손 위치 동기화 변수
-	UPROPERTY(Replicated, BlueprintReadWrite)
+	UPROPERTY(Replicated)
 		FTransform l_handRepTrans;
 
 	// 오른손 위치 동기화 변수
 	UPROPERTY(Replicated)
 		FTransform r_handRepTrans;
+
+
+	UPROPERTY(Replicated)
+		FVector l_handRepLoc;
+	UPROPERTY(Replicated)
+		FRotator l_handRepRot;
+
+	UPROPERTY(Replicated)
+		FVector r_handRepLoc;
+	UPROPERTY(Replicated)
+		FRotator r_handRepRot;
 };
