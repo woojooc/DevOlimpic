@@ -403,8 +403,11 @@ void UWJ_PingPongMgr::autoServe()
 	// 공에 힘 추가하기
 	ppball->meshComp->SetEnableGravity(true);
 	ppball->meshComp->AddForce(dir * sServePower);
+	
 	StartRally();
-
+	//
+	ppball->isCallScoreGet = false;
+	
 	// TEST CODE
 	/*
 	ppball->SetActorLocation(FVector(120.f, 73, 126.5f));
