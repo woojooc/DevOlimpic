@@ -16,5 +16,5 @@ class DEVOLYMPIC_API UWJ_LobbyHandAnimInstance : public UAnimInstance
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AnimSettings)
-		float gripValue;
+	float gripValue;
 };

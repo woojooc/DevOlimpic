@@ -17,8 +17,6 @@ AWJ_LobbyPlayer::AWJ_LobbyPlayer()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-
-
 	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleCollider"));
 	SetRootComponent(capsuleComp);
 	capsuleComp->SetCapsuleHalfHeight(65.0f);
@@ -102,5 +100,6 @@ void AWJ_LobbyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	handComp->SetupPlayerInputComponent(PlayerInputComponent);
 }
 
