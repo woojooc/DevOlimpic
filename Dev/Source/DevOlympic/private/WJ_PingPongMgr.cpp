@@ -59,12 +59,13 @@ void UWJ_PingPongMgr::BeginPlay()
 	}
 	else
 	{
-		playerActorB = UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_PPSingleModeWall::StaticClass());
+		//playerActorB = UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_PPSingleModeWall::StaticClass());
 
 		// 벽 활성화
 		AActor* wall = UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_PPSingleModeWall::StaticClass());
 		if (wall)
 		{
+			playerActorB = wall;
 			wall->SetActorHiddenInGame(false);
 		}
 
@@ -129,14 +130,16 @@ void UWJ_PingPongMgr::Intro()
 
 void UWJ_PingPongMgr::Serv()
 {
-	// 점수의 득 실 이 있을 경우 서브 상태 플로우를 서브로 되돌린다.
-	p_State = EPPBallState::Serve;
-
 	// 공이 스폰되었으면 대기
 	if (bSpawnBall)
 	{
 		return;
 	}
+
+	UE_LOG(LogTemp, Warning, TEXT("SERV player %d"), bServPlayer);
+
+	// 점수의 득 실 이 있을 경우 서브 상태 플로우를 서브로 되돌린다.
+	p_State = EPPBallState::Serve;
 
 	// bServPlayer가 T -> A 위치에 공 스폰
 	// else -> B 위치에 공 스폰
@@ -164,8 +167,10 @@ void UWJ_PingPongMgr::Serv()
 			// -> 좌 ~ 우 사이로 힘 방향 랜덤 하게 정하기, 세기 랜덤하게 정하기
 			if (ppball)
 			{
-				// TODO 주석 해제
-				///*
+				FTimerHandle timer;
+				GetWorld()->GetTimerManager().SetTimer(timer, this, &UWJ_PingPongMgr::autoServe, 3, false);
+
+				/*
 				// 타점 랜덤 선택
 				float x = FMath::RandRange(-30, -128);
 				float y = FMath::RandRange(-75, 75);
@@ -181,7 +186,6 @@ void UWJ_PingPongMgr::Serv()
 				StartRally();
 				//*/
 
-				
 				// TEST CODE
 				/*
 				FTimerHandle timer;
@@ -250,6 +254,7 @@ EPingPongState UWJ_PingPongMgr::GetState()
 
 void UWJ_PingPongMgr::StartRally()
 {
+	UE_LOG(LogTemp, Warning, TEXT("START RALLY"));
 	SetState(EPingPongState::Rally);
 	// 서브 카운트 증가
 	servCount++;
@@ -260,6 +265,7 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 {
 	// 상태 변화
 	// 랠리 오버로 이동
+	UE_LOG(LogTemp, Warning, TEXT("OnCollisionGround"));
 
 	if (in)
 	{
@@ -275,7 +281,8 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		}
 		else
 		{
-
+			// TODO DEBUG
+			UE_LOG(LogTemp, Warning, TEXT("player -1, in true"));
 		}
 
 		pointPannelarr[0]->SetPoint(0, pointA);
@@ -297,8 +304,9 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		}
 		else
 		{
-
+			UE_LOG(LogTemp, Warning, TEXT("player -1, in false"));
 		}
+
 		pointPannelarr[0]->SetPoint(0, pointA);
 		pointPannelarr[0]->SetPoint(1, pointB);
 		//pointPannel->SetPoint(0, pointA);
@@ -372,28 +380,42 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 
 void UWJ_PingPongMgr::NetServ()
 {
-	// 기존 공 삭제
-	
+	// TODO DEBUG
+	UE_LOG(LogTemp, Warning, TEXT("NET SERVE AGAIN"));
+
 	SetState(EPingPongState::Serv);
 }
 
 
-// # TEST CODE용 함수
+// # SINGLE MODE
 void UWJ_PingPongMgr::autoServe()
 {
-	///*
+	// 타점 랜덤 선택
+	float x = FMath::RandRange(-30, -128);
+	float y = FMath::RandRange(-75, 75);
+	float z = FMath::RandRange(92, 160);
+	FVector dir = FVector{ x, y, z } - ppball->GetActorLocation();
+	dir.Normalize();
+
+	sServePower = FMath::RandRange(1200, 2200);
+
+	// 공에 힘 추가하기
+	ppball->meshComp->SetEnableGravity(true);
+	ppball->meshComp->AddForce(dir * sServePower);
+	StartRally();
+
 	// TEST CODE
+	/*
 	ppball->SetActorLocation(FVector(120.f, 73, 126.5f));
 	//ppball->SetActorLocation(FVector(120.f, 0, 126.5f));
 	FVector dir = FVector(-120, -73, 100) - ppball->GetActorLocation();
 	//FVector dir = FVector(-30, 0, 100) - ppball->GetActorLocation();
 	dir.Normalize();
 
-	// END TEST CODE
-	//*/
-
 	ppball->meshComp->SetEnableGravity(true);
 	ppball->meshComp->AddForce(dir * sServePower);
 	//ppball = nullptr;
 	StartRally();
+	//*/
+	// END TEST CODE
 }

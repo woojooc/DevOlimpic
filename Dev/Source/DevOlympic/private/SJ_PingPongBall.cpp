@@ -42,7 +42,9 @@ void ASJ_PingPongBall::Tick(float DeltaTime)
 }
 
 void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
-{
+{	
+	UE_LOG(LogTemp, Warning, TEXT("playerID %d, ASide %d, BSide %d"), playerID, inSideA, inSideB);
+	
 	// 처음 생성 될때는 중력이 적용 되어 있지 않고 생성 효과도 나타난다.
 	// 따라서 라켓으로 공을 칠때는 중력을 적용 해주고 효과도 꺼준다.
 	meshComp->SetEnableGravity(true);
@@ -62,6 +64,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 	// 이름검사
 	FString name = OtherActor->GetName();
 
+	/*
 	// 게임 플로우 상태머신 서브 -> 랠리
 	if (pingpongMNG->GetState() == EPingPongState::Serv)
 	{
@@ -70,6 +73,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 		// 점수 계산 후 서브를 하기 때문에 여기서 함수 호출 여부 초기화
 		isCallScoreGet = false;
 	}
+	//*/
 
 	// 플레이어 SideA 에 부딪혔을 때
 	if (sideA)
@@ -208,6 +212,14 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 	{
 		// 플레이어 A 가 쳤을 때
 		playerID = 0;
+
+		if (pingpongMNG->GetState() == EPingPongState::Serv)
+		{
+			pingpongMNG->StartRally();
+
+			// 점수 계산 후 서브를 하기 때문에 여기서 함수 호출 여부 초기화
+			isCallScoreGet = false;
+		}
 
 		// 서브
 		if (pingpongMNG->p_State == EPPBallState::Serve)

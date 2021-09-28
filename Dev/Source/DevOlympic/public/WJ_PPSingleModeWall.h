@@ -24,4 +24,11 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Player)
 	class UStaticMeshComponent* racket;
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+private:
+	class ASJ_PingPongBall* ppball;
+	class UWJ_PingPongMgr* ppManager;
 };

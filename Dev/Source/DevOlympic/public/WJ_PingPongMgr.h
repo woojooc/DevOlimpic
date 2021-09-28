@@ -36,6 +36,7 @@ public:
 	// 서브 파워
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
 	float sServePower = 2200;
+	void autoServe();
 
 	// 서브 상태 플로우
 	EPPBallState p_State = EPPBallState::Serve;
@@ -60,7 +61,6 @@ private:
 
 	// # 오토 서브 네트 포인트 캐싱
 	int netZ = 92;
-	void autoServe();
 	class ASJ_PingPongBall* ppball;
 
 	// 핑퐁 게임 플로우 enum
