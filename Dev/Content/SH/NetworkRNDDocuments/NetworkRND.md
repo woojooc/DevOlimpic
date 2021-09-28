@@ -5,15 +5,21 @@
 <br>
 <br>
 
-## 컴포넌트 동기화<br><br>
-![ex_screenshot](./Images/Replicate1.PNG)<br>
-![ex_screenshot](./Images/Replicate2.PNG)<br>
+## 컴포넌트 동기화<br>
+![ex_screenshot](./Images/Replicate1.PNG)
+<br>
+![ex_screenshot](./Images/Replicate2.PNG)
 <br>
 Pawn 컴포넌트에서는 Replication 세팅의 Replicate를, Collision 컴포넌트에서는 Physics의 Replicate Physics to Autonomous Proxy를 체크 하여 Replicate한다.
 <br>
 <br>
-## 변수 동기화<br><br>
+## 변수 동기화<br>
 ### 변수 값 전달, 동기화(Replicated)   
+
+<br>
+변수 동기화는 서버에서 클라이언트로만 전달이 가능하다. 클라이언트에서 서버로, 혹은 클라이언트에서 클라이언트로의 변수 동기화는 전달되지 않는다.
+<br><br>
+
 ```C++
 // Header
 UPROPERTY(Replicated) // UPROPERTY로 동기화 설정
