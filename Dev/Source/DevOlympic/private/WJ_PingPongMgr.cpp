@@ -219,7 +219,7 @@ void UWJ_PingPongMgr::SetOver()
 	pointPannelarr[0]->ResetPoint();
 	//pointPannel->ResetPoint();
 
-	if (set == 5)
+	if (scoreA == 3 || scoreB == 3 || set == 5)
 	{
 		SetState(EPingPongState::MatchOver);
 		return;
