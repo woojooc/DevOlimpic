@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SJ_PingPongPlayer.h"
+#include "SJ_PingPongPlayerCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SceneComponent.h"
 #include "Camera/CameraComponent.h"
@@ -12,16 +12,10 @@
 #include "Components/ChildActorComponent.h"
 
 // Sets default values
-ASJ_PingPongPlayer::ASJ_PingPongPlayer()
+ASJ_PingPongPlayerCharacter::ASJ_PingPongPlayerCharacter()
 {
-	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	// 플레이어 캡슐 콜라이더 
-	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleCollider"));
-	SetRootComponent(capsuleComp);
-	capsuleComp->SetCapsuleHalfHeight(65.0f);
-	capsuleComp->SetCapsuleRadius(40.0f);
 
 	// VR 관련 컴포넌트 담는 뿌리 컴포넌트
 	cameraRoot = CreateDefaultSubobject<USceneComponent>(TEXT("CameraRoot"));
@@ -98,7 +92,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	{
 		if (marioBody.Succeeded())
 		{
-			playerBody->SetMaterial(0,marioBody.Object);
+			playerBody->SetMaterial(0, marioBody.Object);
 		}
 	}
 
@@ -121,44 +115,40 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 		}
 	}
 
-
 	// 플레이어 컨트롤러 빙의
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
-
 }
 
 // Called when the game starts or when spawned
-void ASJ_PingPongPlayer::BeginPlay()
+void ASJ_PingPongPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	// 헤드 마운트 디스플레이 장치의 초기 위치값을 설정하기
 	UHeadMountedDisplayFunctionLibrary::GetOrientationAndPosition(hmdRotation, hmdLocation);
 
 	// HMD 장치의 기준점을 바닥으로 설정하기
 	UHeadMountedDisplayFunctionLibrary::SetTrackingOrigin(EHMDTrackingOrigin::Eye);
 
-	GetWorldTimerManager().SetTimer(resetHandle, this, &ASJ_PingPongPlayer::ResetHMD, 2.0f);
+	GetWorldTimerManager().SetTimer(resetHandle, this, &ASJ_PingPongPlayerCharacter::ResetHMD, 2.0f);
 }
 
 // Called every frame
-void ASJ_PingPongPlayer::Tick(float DeltaTime)
+void ASJ_PingPongPlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	UHeadMountedDisplayFunctionLibrary::GetOrientationAndPosition(headRotation, headLocation);
 
 	playerFace->SetRelativeRotation(headRotation);
 }
 
 // Called to bind functionality to input
-void ASJ_PingPongPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ASJ_PingPongPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
 
-void ASJ_PingPongPlayer::ResetHMD()
+void ASJ_PingPongPlayerCharacter::ResetHMD()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }

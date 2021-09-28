@@ -3,21 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
-#include "SJ_PingPongPlayer.generated.h"
+#include "GameFramework/Character.h"
+#include "SJ_PingPongPlayerCharacter.generated.h"
 
 UCLASS()
-class DEVOLYMPIC_API ASJ_PingPongPlayer : public APawn
+class DEVOLYMPIC_API ASJ_PingPongPlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this pawn's properties
-	ASJ_PingPongPlayer();
-
-	// 플레이어 콜라이더
-	UPROPERTY(EditAnywhere, Category = Player)
-		class UCapsuleComponent* capsuleComp;
+	// Sets default values for this character's properties
+	ASJ_PingPongPlayerCharacter();
 
 	// 카메라, 컨트롤러 담는 뿌리 컴포넌트
 	UPROPERTY(EditAnywhere, Category = Player)
@@ -59,16 +55,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = Player)
 		class UChildActorComponent* childRacket;
 
-	// 마리오 머티리얼
-	UPROPERTY(VisibleAnywhere, Category = PlayerSetting)
-	UMaterial* marioMat;
-
-	// 루이지 머티리얼
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:
+public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -77,10 +68,8 @@ public:
 
 	// 호스트와 클라이언트를 구분해주는 번호(Host = 0, Client = 1)
 	UPROPERTY(EditAnywhere, Category = PlayerSetting)
-	int playerIndex;
+		int playerIndex;
 
-private:
-	
 	// 초기화 타이머
 	FTimerHandle resetHandle;
 
@@ -94,4 +83,5 @@ private:
 	// 플레이어 머리 회전값
 	FRotator headRotation;
 	FVector headLocation;
+
 };
