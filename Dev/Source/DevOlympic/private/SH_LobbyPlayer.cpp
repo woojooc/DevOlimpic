@@ -22,11 +22,11 @@ ASH_LobbyPlayer::ASH_LobbyPlayer()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleCollider"));
-	//SetRootComponent(capsuleComp);
-	//capsuleComp->SetCapsuleHalfHeight(65.0f);
-	//capsuleComp->SetCapsuleRadius(40.0f);
-	//capsuleComp->SetCollisionProfileName(TEXT("VR_Player"));
+	capsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleCollider"));
+	SetRootComponent(capsuleComp);
+	capsuleComp->SetCapsuleHalfHeight(65.0f);
+	capsuleComp->SetCapsuleRadius(40.0f);
+	capsuleComp->SetCollisionProfileName(TEXT("VR_Player"));
 
 	cameraRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Camera Root"));
 	cameraRoot->SetupAttachment(RootComponent);
