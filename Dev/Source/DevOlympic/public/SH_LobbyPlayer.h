@@ -62,7 +62,6 @@ public:
 		class UWidgetInteractionComponent* widgetPointer;
 
 
-
 	// 테스트용 이동 변수, 함수 선언
 	// 이동 속도
 	UPROPERTY(EditAnywhere, Category = MoveSettings)
@@ -96,16 +95,4 @@ public:
 		FTransform l_handRepTrans;
 	UPROPERTY()
 		FTransform r_handRepTrans;
-
-
-	//// 컨트롤러 위치 프로퍼티
-	//UPROPERTY(Replicated)
-	//	FVector l_handRepLoc;
-	//UPROPERTY(Replicated)
-	//	FRotator l_handRepRot;
-
-	//UPROPERTY(Replicated)
-	//	FVector r_handRepLoc;
-	//UPROPERTY(Replicated)
-	//	FRotator r_handRepRot;
 };

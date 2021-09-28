@@ -85,9 +85,6 @@ ASH_LobbyPlayer::ASH_LobbyPlayer()
 	// 컴포넌트 오른손에 붙이기
 	widgetPointer->SetupAttachment(rightController);
 
-	//// 캐릭터 무브먼트 컴포넌트
-	// characterMoveComp = CreateDefaultSubobject<UCharacterMovementComponent>(TEXT("Character Movement Component"));
-
 }
 
 // Called when the game starts or when spawned
@@ -102,12 +99,6 @@ void ASH_LobbyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//l_handRepLoc = leftController->GetComponentLocation();
-	//l_handRepRot = leftController->GetComponentRotation();
-	//r_handRepLoc = rightController->GetComponentLocation();
-	//r_handRepRot = rightController->GetComponentRotation();
-
-
 	l_handRepTrans = leftController->GetComponentTransform();
 	r_handRepTrans = rightController->GetComponentTransform();
 
@@ -118,45 +109,15 @@ void ASH_LobbyPlayer::Tick(float DeltaTime)
 		if (!HasAuthority())
 		{
 			// 서버 함수 실행
-			//Server_HandMove(l_handRepLoc, l_handRepRot, r_handRepLoc, r_handRepRot);
 			Server_HandMove(l_handRepTrans, r_handRepTrans);
 		}
 		// 서버라면
 		else
 		{
-			//Multi_HandMove(l_handRepLoc, l_handRepRot, r_handRepLoc, r_handRepRot);
+			// 곧바로 멀티캐스트 함수 실행
 			Multi_HandMove(l_handRepTrans, r_handRepTrans);
 		}
 	}
-	 
-	//// 로컬 액터(플레이어)가 아니라면, 다른 플레이어가 스폰한 유저라면
-	// 업데이트 받은 변수 값에 따라 손 위치를 업데이트
-	
-	//if (!IsLocallyControlled())
-	//{
-	//	//FString l_str = FString::Printf(TEXT("%s"), "guest left");
-	//	//leftLog->SetText(FText::FromString(l_str));
-	//	//FString r_str = FString::Printf(TEXT("%s"), "guest right");
-	//	//rightLog->SetText(FText::FromString(l_str));
-
-	//	//// 손 위치를 업데이트 해준다
-	//	//leftController->SetWorldTransform(l_handRepTrans);
-	//	//rightController->SetWorldTransform(r_handRepTrans);
-
-	//	leftController->SetWorldLocation(l_handRepLoc);
-	//	leftController->SetWorldRotation(l_handRepRot);
-	//	rightController->SetWorldLocation(r_handRepLoc);
-	//	rightController->SetWorldRotation(r_handRepRot);
-
-		//FString l_str = FString::Printf(TEXT("%.1f %.1f %.1f"), leftController->GetComponentLocation().X, leftController->GetComponentLocation().Y, leftController->GetComponentLocation().Z);
-		//leftLog->SetText(FText::FromString(l_str));
-		//FString r_str = FString::Printf(TEXT("%.1f %.1f %.1f"), rightController->GetComponentLocation().X, rightController->GetComponentLocation().Y, rightController->GetComponentLocation().Z);
-		//rightLog->SetText(FText::FromString(r_str));
-// 		FString l_str_rep = FString::Printf(TEXT("%.1f %.1f %.1f"), l_handRepLoc.X, l_handRepLoc.Y, l_handRepLoc.Z);
-///		leftLog->SetText(FText::FromString(l_str_rep));
-//		FString r_str_rep = FString::Printf(TEXT("%.1f %.1f %.1f"), r_handRepLoc.X, r_handRepLoc.Y, r_handRepLoc.Z);
-//		rightLog->SetText(FText::FromString(r_str_rep));
-//	}
 }
 
 // Called to bind functionality to input
@@ -192,47 +153,11 @@ void ASH_LobbyPlayer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	//DOREPLIFETIME(ASH_LobbyPlayer, l_handRepTrans);
 	//DOREPLIFETIME(ASH_LobbyPlayer, r_handRepTrans);
 
-	/*DOREPLIFETIME(ASH_LobbyPlayer, r_handRepLoc);
-	DOREPLIFETIME(ASH_LobbyPlayer, r_handRepRot);
-	DOREPLIFETIME(ASH_LobbyPlayer, l_handRepLoc);
-	DOREPLIFETIME(ASH_LobbyPlayer, l_handRepRot);*/
+	//DOREPLIFETIME(ASH_LobbyPlayer, r_handRepLoc);
+	//DOREPLIFETIME(ASH_LobbyPlayer, r_handRepRot);
+	//DOREPLIFETIME(ASH_LobbyPlayer, l_handRepLoc);
+	//DOREPLIFETIME(ASH_LobbyPlayer, l_handRepRot);
 }
-
-//bool ASH_LobbyPlayer::Server_HandMove_Validate( FVector l_loc, FRotator l_rot, FVector r_loc, FRotator r_rot)
-//{
-//	return true;
-//}
-//
-//void ASH_LobbyPlayer::Server_HandMove_Implementation(FVector l_loc, FRotator l_rot, FVector r_loc, FRotator r_rot)
-//{
-//	// 멀티캐스트 실행
-//	Multi_HandMove(l_loc, l_rot, r_loc, r_rot);
-//}
-//
-//bool ASH_LobbyPlayer::Multi_HandMove_Validate(FVector l_loc, FRotator l_rot, FVector r_loc, FRotator r_rot)
-//{
-//	return true;
-//}
-//
-//void ASH_LobbyPlayer::Multi_HandMove_Implementation(FVector l_loc, FRotator l_rot, FVector r_loc, FRotator r_rot)
-//{
-//
-//	if (!IsLocallyControlled())
-//	{
-//		// 클라이언트에서 받은 손 위치 함수를 전달
-//		leftController->SetWorldLocation(l_loc);;
-//		leftController->SetWorldRotation(l_rot);
-//		rightController->SetWorldLocation(r_loc);
-//		rightController->SetWorldRotation(r_rot);
-//
-//		FString l_str_rep = FString::Printf(TEXT("%.1f %.1f %.1f"), l_handRepLoc.X, l_handRepLoc.Y, l_handRepLoc.Z);
-//		leftLog->SetText(FText::FromString(l_str_rep));
-//		FString r_str_rep = FString::Printf(TEXT("%.1f %.1f %.1f"), r_handRepLoc.X, r_handRepLoc.Y, r_handRepLoc.Z);
-//		rightLog->SetText(FText::FromString(r_str_rep));
-//	}
-//	
-//}
-
 
 
 bool ASH_LobbyPlayer::Server_HandMove_Validate(FTransform l_Trans, FTransform r_Trans)
@@ -259,11 +184,6 @@ void ASH_LobbyPlayer::Multi_HandMove_Implementation(FTransform l_Trans, FTransfo
 		// 클라이언트에서 받은 손 위치 함수를 전달
 		leftController->SetWorldTransform(l_Trans);;
 		rightController->SetWorldTransform(r_Trans);
-
-		//FString l_str_rep = FString::Printf(TEXT("%.1f %.1f %.1f"), l_handRepLoc.X, l_handRepLoc.Y, l_handRepLoc.Z);
-		//leftLog->SetText(FText::FromString(l_str_rep));
-		//FString r_str_rep = FString::Printf(TEXT("%.1f %.1f %.1f"), r_handRepLoc.X, r_handRepLoc.Y, r_handRepLoc.Z);
-		//rightLog->SetText(FText::FromString(r_str_rep));
 	}
 
 }
