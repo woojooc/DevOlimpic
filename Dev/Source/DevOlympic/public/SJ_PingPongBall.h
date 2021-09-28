@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "DevOlympic.h"
+#include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "SJ_PingPongBall.generated.h"
 
@@ -49,17 +49,8 @@ public:
 
 	// OnCollisionGround가 불렸는지를 체크하는 Bool
 	UPROPERTY(VisibleAnywhere, Category = SideID)
-		bool isCallScoreGet = false;
+	bool isOnGround = false;
 
 	// Bool 초기화 함수
 	void InitSideState();
-
-	// 점수 득 실 났을 때 초기화 함수
-	void ScoreGet(int id, bool scoreCheck);
-
-	// 액터 파괴 함수
-	void BallDestroy();
-
-	// 파괴 타이머
-	FTimerHandle destroyHandle;
 };
