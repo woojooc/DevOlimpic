@@ -52,8 +52,6 @@ private:
 
 	// # 점수판	- 텍스트 오브젝트 캐싱
 	TArray<class AWJ_Point*> pointPannelarr;
-	//class AWJ_Point* pointPannel;
-	//class AWJ_Point* scorePannel;
 
 	// # 플레이어 캐싱
 	class AActor* playerActorA;
@@ -66,10 +64,10 @@ private:
 	// 핑퐁 게임 플로우 enum
 	EPingPongState m_state = EPingPongState::Intro;
 	
-	int pointA = 0;	// 11점 계산 ( 듀스시 11점 이상 가능 )
+	int pointA = 0;		// 11점 계산 ( 듀스시 11점 이상 가능 )
 	int pointB = 0;
 
-	int set = 1;	// 5세트 3승
+	int set = 1;		// 5세트 3승
 	int scoreA = 0;		// 5세트 계산
 	int scoreB = 0;
 
