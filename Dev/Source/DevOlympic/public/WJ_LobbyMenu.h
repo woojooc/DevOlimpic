@@ -26,12 +26,15 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Components")
 	class USceneComponent* rootComp;
 
+	// # Mode
 	UPROPERTY(EditAnywhere, Category = "Components")
 	class UStaticMeshComponent* planeMesh;
-
 	UPROPERTY(EditAnywhere, Category = "Components")
 	class UWidgetComponent* modeSelectUI;
 
+	// # ServerMain
+	UPROPERTY(EditAnywhere, Category = "Components")
+	class UStaticMeshComponent* planeServerMesh;
 	UPROPERTY(EditAnywhere, Category = "Components")
 	class UWidgetComponent* mainMenuUI;
 
