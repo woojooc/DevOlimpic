@@ -87,6 +87,26 @@ bool USH_PlayerReplicateComponent::Multi_UpdateTransform_Validate(FTransform pla
 
 void USH_PlayerReplicateComponent::Multi_UpdateTransform_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
 {
+	// 멀티캐스트 적용할 컴포넌트 예외 처리
+	if (!player)
+	{
+		player = Cast<APawn>(GetOwner());
+	}
+	// 멀티캐스트 적용할 컴포넌트 예외 처리
+	if (!playerCam)
+	{
+		playerCam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
+	}
+	// 멀티캐스트 적용할 컴포넌트 예외 처리
+	if (!leftController)
+	{
+		leftController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("LeftMotionController")));
+	}
+	// 멀티캐스트 적용할 컴포넌트 예외 처리
+	if (!rightController)
+	{
+		rightController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("RightMotionController")));
+	}
 	if (!player->IsLocallyControlled())
 	{
 		// 클라이언트에서 받은 손 위치 함수를 전달
