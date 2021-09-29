@@ -45,7 +45,7 @@ ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEd
 		{
 			//UE_LOG(LogTemp,Warning,TEXT("GetPingPongBall Player 0"));
 			spawnLoc.X = offsetLocA.X;
-			spawnLoc.Z = offsetLocA.Z;
+			spawnLoc.Z = 126.5f;
 
 			// y°ª Á¦ÇÑ
 			if (spawnLoc.Y <= -73)

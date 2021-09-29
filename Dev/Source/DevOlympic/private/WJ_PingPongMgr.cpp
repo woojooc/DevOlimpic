@@ -214,9 +214,8 @@ void UWJ_PingPongMgr::SetOver()
 	pointB = 0;
 	
 	pointPannelarr[0]->ResetPoint();
-	//pointPannel->ResetPoint();
 
-	if (scoreA == 3 || scoreB == 3 || set == 5)
+	if (scoreA == scoreM-1 || scoreB == scoreM-1 || set == scoreM)
 	{
 		SetState(EPingPongState::MatchOver);
 		return;
@@ -258,8 +257,6 @@ void UWJ_PingPongMgr::StartRally()
 	// 서브 카운트 증가
 	servCount++;
 	bSpawnBall = false;
-
-	//UE_LOG(LogTemp, Warning, TEXT("START RALLY!! ServCount -> %d"), servCount);
 }
 
 void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
@@ -288,8 +285,6 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 
 		pointPannelarr[0]->SetPoint(0, pointA);
 		pointPannelarr[0]->SetPoint(1, pointB);
-		//pointPannel->SetPoint(0, pointA);
-		//pointPannel->SetPoint(1, pointB);
 	}
 	else
 	{
@@ -310,8 +305,6 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 
 		pointPannelarr[0]->SetPoint(0, pointA);
 		pointPannelarr[0]->SetPoint(1, pointB);
-		//pointPannel->SetPoint(0, pointA);
-		//pointPannel->SetPoint(1, pointB);
 	}
 
 	//serv 설정
@@ -339,8 +332,6 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 
 			pointPannelarr[1]->SetPoint(0, scoreA);
 			pointPannelarr[1]->SetPoint(1, scoreB);
-			//scorePannel->SetPoint(0,scoreA);
-			//scorePannel->SetPoint(1,scoreB);
 
 			SetState(EPingPongState::SetOver);
 			return;
@@ -348,11 +339,13 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 	}
 	else 
 	{
+		UE_LOG(LogTemp, Warning, TEXT("5point"));
+
 		// 듀스 아닌 경우 11점 획득시 세트 종료
-		if (pointA == 11 || pointB == 11)
+		if (pointA == pointM || pointB == pointM)
 		{
 			// 스코어 계산
-			if (pointA == 11)
+			if (pointA == pointM)
 			{
 				scoreA++;
 			}
@@ -363,25 +356,25 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 
 			pointPannelarr[1]->SetPoint(0, scoreA);
 			pointPannelarr[1]->SetPoint(1, scoreB);
-			//scorePannel->SetPoint(0, scoreA);
-			//scorePannel->SetPoint(1, scoreB);
 
 			SetState(EPingPongState::SetOver);
 			return;
 		}
 	}
 
-	if (pointA == 10 && pointB == 10)
+	// # 빠른 진행 플레이에서 듀스 모드 안함!!!
+	/*
+	if (pointA == pointM-1 && pointB == pointM-1)
 	{
 		bIsDeuce = true;
 	}
+	//*/
 
 	SetState(EPingPongState::Serv);
 }
 
 void UWJ_PingPongMgr::NetServ()
 {
-	// TODO DEBUG
 	//UE_LOG(LogTemp, Warning, TEXT("NET SERVE AGAIN"));
 
 	SetState(EPingPongState::Serv);
@@ -392,13 +385,13 @@ void UWJ_PingPongMgr::NetServ()
 void UWJ_PingPongMgr::autoServe()
 {
 	// 타점 랜덤 선택
-	float x = FMath::RandRange(-30, -128);
-	float y = FMath::RandRange(-75, 75);
-	float z = FMath::RandRange(92, 160);
+	float x = FMath::RandRange(-50, -128);
+	float y = FMath::RandRange(-55, 55);
+	float z = FMath::RandRange(110, 160);
 	FVector dir = FVector{ x, y, z } - ppball->GetActorLocation();
 	dir.Normalize();
 
-	sServePower = FMath::RandRange(1200, 2200);
+	sServePower = FMath::RandRange(1500, 2100);
 
 	// 공에 힘 추가하기
 	ppball->meshComp->SetEnableGravity(true);

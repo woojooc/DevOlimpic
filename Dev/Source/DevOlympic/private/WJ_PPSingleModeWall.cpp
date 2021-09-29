@@ -37,13 +37,13 @@ void AWJ_PPSingleModeWall::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 			UE_LOG(LogTemp, Warning, TEXT("WALL RECEIVED"));
 
 			// 타점 랜덤 선택
-			float x = FMath::RandRange(-30, -128);
-			float y = FMath::RandRange(-75, 75);
+			float x = FMath::RandRange(-50, -128);
+			float y = FMath::RandRange(-55, 55);
 			float z = FMath::RandRange(110, 160);
 			FVector dir = FVector{ x, y, z } - ppball->GetActorLocation();
 			dir.Normalize();
 
-			ppManager->sServePower = FMath::RandRange(1200, 2200);
+			ppManager->sServePower = FMath::RandRange(1500, 2100);
 
 			// 공에 힘 추가하기
 			ppball->meshComp->SetEnableGravity(true);

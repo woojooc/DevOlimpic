@@ -58,6 +58,11 @@ private:
 	// 핑퐁 게임 플로우 enum
 	EPingPongState m_state = EPingPongState::Intro;
 	
+	// # 플레이타임 조절 위한 점수 제한 변수
+	int pointM = 5;		// 원래 룰은 11로 적용해야함.
+	int scoreM = 3;		// 원래 룰은 5로 적용해야함. 그리고 scoreM-1 되어 있는 부분은 3이 되어야 함.
+
+	// # 게임 점수, 스코어 저장 변수
 	int pointA = 0;		// 11점 계산 ( 듀스시 11점 이상 가능 )
 	int pointB = 0;
 
@@ -65,12 +70,14 @@ private:
 	int scoreA = 0;		// 5세트 계산
 	int scoreB = 0;
 
+	// # 서브 관련 변수 저장
 	bool bServPlayer = true;	// T/F 로 플레이어 A, B 서버 구분
 	int servCount = 0;			// 2가 되면 서브 변경
 	bool bSpawnBall = false;	// 서브시 공이 스폰되어 있으면 더이상 생성되지 않도록 확인
 
-	bool bIsDeuce = false;		// 10: 10 시 듀스.  2점차이가 날때까지 경기를 계속 한다.
+	bool bIsDeuce = false;		// (pointM-1) 10: 10 시 듀스.  2점차이가 날때까지 경기를 계속 한다.
 
+	// # Flow 함수
 	void Intro();
 	void Serv();
 	void Rally();
