@@ -107,6 +107,7 @@ void USH_PlayerReplicateComponent::Multi_UpdateTransform_Implementation(FTransfo
 	{
 		rightController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("RightMotionController")));
 	}
+	// 로컬 조작 플레이어가 아니라면
 	if (!player->IsLocallyControlled())
 	{
 		// 클라이언트에서 받은 손 위치 함수를 전달
