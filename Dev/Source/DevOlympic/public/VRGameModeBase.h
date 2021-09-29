@@ -26,15 +26,27 @@ public:
 	
 public:
 	
-	// # ¿¢ÅÍ ÄÄÆ÷³ÍÆ®
-	UPROPERTY(EditAnywhere, Category = Components)
-	class UWJ_GameStateMgr* gameStateMgr;
+	// # Level Flow Enum
+	EPPLevelState levelState;
+	void SetLevelState(EPPLevelState state);
+	EPPLevelState GetLevelState();
 
+	// # EditModeSelect		- ¸ÖÆ¼ || ½Ì±Û ¼±ÅÃ
+	class AModeSelect* modeSelect;
+	EEditMode editMode;		//Ä³½ÌÇØ¼­ »ç¿ë
+
+	// # ¿¢ÅÍ ÄÄÆ÷³ÍÆ®
 	UPROPERTY(EditAnywhere, Category = Components)
 	class UWJ_PingPongMgr* pingpongStateMgr;
 
 	UPROPERTY(EditAnywhere, Category = Components)
 	class UWJ_ObjectPool* objectPool;
 
-	
+	UPROPERTY()
+	TArray<class AWJ_GameOverUI*> gameOverUI;	// 0 A, 1 B
+
+	void Intro();
+	void PingPong();
+	void GameOver();
+
 };

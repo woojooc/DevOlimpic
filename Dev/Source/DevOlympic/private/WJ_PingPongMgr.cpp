@@ -22,35 +22,7 @@ void UWJ_PingPongMgr::BeginPlay()
 	//gameModeBase 캐싱
 	gameModeBase = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	// # 게임모드 설정
-	// 게임모드 셀렉트 월드에서 찾아오기
-	modeSelect = Cast<AModeSelect>(UGameplayStatics::GetActorOfClass(GetWorld(), AModeSelect::StaticClass()));
-	editMode = modeSelect->m_state;
-
-	// # 점수판 캐싱
-	TArray<AActor*> bpPoints;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWJ_Point::StaticClass(),bpPoints);
-	//pointPannel = Cast<AWJ_Point>(UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_Point::StaticClass()));
-	if (bpPoints.Num() != 0)
-	{
-		for (int i = 0; i < bpPoints.Num(); i++)
-		{
-			AWJ_Point* emptyPlace = nullptr;
-			pointPannelarr.Add(emptyPlace);
-		}
-
-		for (int i = 0; i < bpPoints.Num(); i++)
-		{
-			auto pannel = Cast<AWJ_Point>(bpPoints[i]);
-			pointPannelarr[pannel->order] = pannel;
-		}
-
-		pointPannelarr[0]->SetColor(FColor::Blue);
-		pointPannelarr[1]->SetColor(FColor::Red);
-	}
-
-	playerActorA = UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_PingPongPlayer::StaticClass());
-	if (editMode == EEditMode::Multi)
+	if (gameModeBase->editMode == EEditMode::Multi)
 	{
 		// 플레이어 호스트 ( 0, A ) -> 탁구대 사이드 A
 		// 플레이어 게스트 ( 1, B ) -> 탁구대 사이드 B 에 소환
@@ -59,8 +31,9 @@ void UWJ_PingPongMgr::BeginPlay()
 	}
 	else
 	{
-		//playerActorB = UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_PPSingleModeWall::StaticClass());
-
+		// # 플레이어 설정
+		playerActorA = UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_PingPongPlayer::StaticClass());
+		
 		// 벽 활성화
 		AActor* wall = UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_PPSingleModeWall::StaticClass());
 		if (wall)
@@ -68,9 +41,34 @@ void UWJ_PingPongMgr::BeginPlay()
 			playerActorB = wall;
 			wall->SetActorHiddenInGame(false);
 		}
+		
+		// # 점수판 캐싱
+		TArray<AActor*> bpPoints;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWJ_Point::StaticClass(),bpPoints);
+		//pointPannel = Cast<AWJ_Point>(UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_Point::StaticClass()));
+		if (bpPoints.Num() != 0)
+		{
+			for (int i = 0; i < bpPoints.Num(); i++)
+			{
+				AWJ_Point* emptyPlace = nullptr;
+				pointPannelarr.Add(emptyPlace);
+			}
 
-		// 서브 설정
-		// TODO 0으로 설정
+			for (int i = 0; i < bpPoints.Num(); i++)
+			{
+				auto pannel = Cast<AWJ_Point>(bpPoints[i]);
+				pointPannelarr[pannel->order] = pannel;
+			}
+
+			pointPannelarr[0]->SetColor(FColor::Blue);
+			pointPannelarr[1]->SetColor(FColor::Red);
+			
+			// 플레이어 B 점수판 비활성화
+			pointPannelarr[2]->SetActorHiddenInGame(true);
+			pointPannelarr[3]->SetActorHiddenInGame(true);
+		}
+
+		// # 서브 설정
 		bServPlayer = 0;
 	}
 }
@@ -122,10 +120,9 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	}
 }
 
-
 void UWJ_PingPongMgr::Intro()
 {
-	SetState(EPingPongState::Serv);
+	//SetState(EPingPongState::Serv);
 }
 
 void UWJ_PingPongMgr::Serv()
@@ -148,18 +145,18 @@ void UWJ_PingPongMgr::Serv()
 		//A 공 스폰
 		if (playerActorA)
 		{
-			ppball = gameModeBase->objectPool->GetPingPongBall(playerActorA,0,editMode);
+			ppball = gameModeBase->objectPool->GetPingPongBall(playerActorA,0, gameModeBase->editMode);
 			bSpawnBall = true;
 		}
 	}
 	else
 	{
 		//B 공 스폰
-		ppball = gameModeBase->objectPool->GetPingPongBall(playerActorB,1,editMode);
+		ppball = gameModeBase->objectPool->GetPingPongBall(playerActorB,1, gameModeBase->editMode);
 		bSpawnBall = true;
 
 		// 오토 서브
-		if (editMode == EEditMode::Single)
+		if (gameModeBase->editMode == EEditMode::Single)
 		{
 			// 월드 상에 활성화 된 공을 받아온다.  => 공 캐싱. 추적하기
 
@@ -240,6 +237,7 @@ void UWJ_PingPongMgr::MatchOver()
 	}
 
 	// 게임 종료 로비로 돌아가기 버튼 오브젝트 활성화
+	gameModeBase->SetLevelState(EPPLevelState::GameOver);
 }
 
 void UWJ_PingPongMgr::SetState(EPingPongState state)
@@ -259,14 +257,14 @@ void UWJ_PingPongMgr::StartRally()
 	servCount++;
 	bSpawnBall = false;
 
-	UE_LOG(LogTemp, Warning, TEXT("START RALLY!! ServCount -> %d"), servCount);
+	//UE_LOG(LogTemp, Warning, TEXT("START RALLY!! ServCount -> %d"), servCount);
 }
 
 void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 {
 	// 상태 변화
 	// 랠리 오버로 이동
-	UE_LOG(LogTemp, Warning, TEXT("OnCollisionGround"));
+	//UE_LOG(LogTemp, Warning, TEXT("OnCollisionGround"));
 
 	if (in)
 	{
@@ -283,7 +281,7 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		else
 		{
 			// TODO DEBUG
-			UE_LOG(LogTemp, Warning, TEXT("player -1, in true"));
+			//UE_LOG(LogTemp, Warning, TEXT("player -1, in true"));
 		}
 
 		pointPannelarr[0]->SetPoint(0, pointA);
@@ -305,7 +303,7 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("player -1, in false"));
+			//UE_LOG(LogTemp, Warning, TEXT("player -1, in false"));
 		}
 
 		pointPannelarr[0]->SetPoint(0, pointA);
@@ -382,7 +380,7 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 void UWJ_PingPongMgr::NetServ()
 {
 	// TODO DEBUG
-	UE_LOG(LogTemp, Warning, TEXT("NET SERVE AGAIN"));
+	//UE_LOG(LogTemp, Warning, TEXT("NET SERVE AGAIN"));
 
 	SetState(EPingPongState::Serv);
 }

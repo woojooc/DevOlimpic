@@ -5,9 +5,9 @@
 #include "CoreMinimal.h"
 
 UENUM(BlueprintType)
-enum class EGameState : uint8
+enum class EPPLevelState : uint8
 {
-	Lobby,
+	Intro,
 	PingPong,
 	GameOver
 };
