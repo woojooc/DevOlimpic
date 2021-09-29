@@ -6,6 +6,7 @@
 #include <Kismet/GameplayStatics.h>
 #include "WJ_GameOverUI.h"
 #include "ModeSelect.h"
+#include "WJ_ResultText.h"
 
 
 AVRGameModeBase::AVRGameModeBase()
@@ -43,7 +44,15 @@ void AVRGameModeBase::BeginPlay()
 			auto ui = Cast<AWJ_GameOverUI>(bpGameOverUI[i]);
 			gameOverUI[ui->id] = ui;
 			gameOverUI[ui->id]->SetActorHiddenInGame(true);
+			gameOverUI[ui->id]->SetActorEnableCollision(false);
 		}
+	}
+
+	resultText = Cast<AWJ_ResultText>(UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_ResultText::StaticClass()));
+	if (resultText)
+	{
+		resultText->SetActorHiddenInGame(true);
+		resultText->SetActorEnableCollision(false);
 	}
 }
 
@@ -72,6 +81,7 @@ void AVRGameModeBase::Tick(float DeltaSeconds)
 	}
 }
 
+// #GET SET
 void AVRGameModeBase::SetLevelState(EPPLevelState state)
 {
 	levelState = state;
@@ -82,6 +92,18 @@ EPPLevelState AVRGameModeBase::GetLevelState()
 	return levelState;
 }
 
+void AVRGameModeBase::SetWinner(int id)
+{
+	winner = id;
+}
+
+int AVRGameModeBase::GetWinner()
+{
+	return winner;
+}
+
+
+// #Flow
 void AVRGameModeBase::Intro()
 {
 	SetLevelState(EPPLevelState::PingPong);
@@ -89,16 +111,35 @@ void AVRGameModeBase::Intro()
 
 void AVRGameModeBase::PingPong()
 {
+	if (isGameStarted)
+	{
+		return;
+	}
+
 	pingpongStateMgr->SetState(EPingPongState::Serv);
+	isGameStarted = true;
 }
 
 void AVRGameModeBase::GameOver()
 {
-	for (int i = 0; i < 2; i++)
+	if (editMode == EEditMode::Multi)
 	{
-		if (gameOverUI[i]->id == 0)
+
+	}
+	else
+	{
+		gameOverUI[0]->SetActorHiddenInGame(false);
+		gameOverUI[0]->SetActorEnableCollision(false);
+
+		resultText->SetActorHiddenInGame(false);
+
+		if (winner == 0)
 		{
-			gameOverUI[i]->SetActorHiddenInGame(false);
+			resultText->ShowWin();
+		}
+		else
+		{
+			resultText->ShowLose();
 		}
 	}
 	

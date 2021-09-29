@@ -1,16 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "WJ_PPSingleModeWall.h"
 #include <Components/StaticMeshComponent.h>
 #include "VRGameModeBase.h"
 #include "WJ_PingPongMgr.h"
 #include "SJ_PingPongBall.h"
 
-// Sets default values
 AWJ_PPSingleModeWall::AWJ_PPSingleModeWall()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
@@ -19,7 +14,6 @@ AWJ_PPSingleModeWall::AWJ_PPSingleModeWall()
 	racket->SetupAttachment(rootComp);
 }
 
-// Called when the game starts or when spawned
 void AWJ_PPSingleModeWall::BeginPlay()
 {
 	Super::BeginPlay();
@@ -54,17 +48,8 @@ void AWJ_PPSingleModeWall::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 			// 공에 힘 추가하기
 			ppball->meshComp->SetEnableGravity(true);
 			ppball->meshComp->AddForce(dir * ppManager->sServePower);
-			//ppManager->StartRally();
 		}
 	}
 }
 
-/*
-// Called every frame
-void AWJ_PPSingleModeWall::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-*/
 
