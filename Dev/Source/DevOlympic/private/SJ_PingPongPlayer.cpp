@@ -82,7 +82,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 
 	// 머티리얼 동적 할당
 	// 마리오
-	ConstructorHelpers::FObjectFinder<UMaterial> marioface(TEXT("Material'/Game/SJ/Blueprints/PingPong/CharacterMaterial/MarioFace_mat.MarioFace_Mat'"));
+	ConstructorHelpers::FObjectFinder<UMaterial> marioface(TEXT("Material'/Game/SJ/Blueprints/PingPong/PingPongPlayer/MarioFace_Mat.MarioFace_Mat'"));
 
 	if (playerIndex == 0)
 	{
@@ -92,7 +92,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 		}
 	}
 
-	ConstructorHelpers::FObjectFinder<UMaterial> marioBody(TEXT("Material'/Game/SJ/Blueprints/PingPong/CharacterMaterial/Red_Mat.Red_Mat'"));
+	ConstructorHelpers::FObjectFinder<UMaterial> marioBody(TEXT("Material'/Game/SJ/Blueprints/PingPong/PingPongPlayer/Red_Mat.Red_Mat'"));
 
 	if (playerIndex == 0)
 	{
@@ -103,7 +103,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	}
 
 	// 루이지
-	ConstructorHelpers::FObjectFinder<UMaterial> luigiFace(TEXT("Material'/Game/SJ/Blueprints/PingPong/CharacterMaterial/Luigi_Mat.Luigi_Mat'"));
+	ConstructorHelpers::FObjectFinder<UMaterial> luigiFace(TEXT("Material'/Game/SJ/Blueprints/PingPong/PingPongPlayer/Luigi_Mat.Luigi_Mat'"));
 	if (playerIndex == 1)
 	{
 		if (luigiFace.Succeeded())
@@ -112,7 +112,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 		}
 	}
 
-	ConstructorHelpers::FObjectFinder<UMaterial> luigiBody(TEXT("Material'/Game/SJ/Blueprints/PingPong/CharacterMaterial/Green_Mat.Green_Mat'"));
+	ConstructorHelpers::FObjectFinder<UMaterial> luigiBody(TEXT("Material'/Game/SJ/Blueprints/PingPong/PingPongPlayer/Green_Mat.Green_Mat'"));
 	if (playerIndex == 1)
 	{
 		if (luigiBody.Succeeded())
