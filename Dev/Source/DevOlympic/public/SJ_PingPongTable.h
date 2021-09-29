@@ -31,8 +31,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = PingPongTable)
 	class UChildActorComponent* sideB;
 
+	// Net
 	UPROPERTY(EditAnywhere, Category = PingPongTable)
 	class UChildActorComponent* childNet;
+
+	// OutOfZone
+	UPROPERTY(EditAnywhere, Category = PingPongTable)
+		class UChildActorComponent* outOfZone;
 
 protected:
 	// Called when the game starts or when spawned
