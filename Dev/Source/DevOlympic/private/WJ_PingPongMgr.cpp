@@ -133,7 +133,7 @@ void UWJ_PingPongMgr::Serv()
 		return;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("SERV player %d"), bServPlayer);
+	//UE_LOG(LogTemp, Warning, TEXT("SERV player %d"), bServPlayer);
 
 	// 점수의 득 실 이 있을 경우 서브 상태 플로우를 서브로 되돌린다.
 	p_State = EPPBallState::Serve;
@@ -230,10 +230,12 @@ void UWJ_PingPongMgr::MatchOver()
 	if (scoreA > scoreB)
 	{
 		// A 승리
+		gameModeBase->SetWinner(0);
 	}
 	else
 	{
 		// B 승리
+		gameModeBase->SetWinner(1);
 	}
 
 	// 게임 종료 로비로 돌아가기 버튼 오브젝트 활성화

@@ -42,8 +42,21 @@ public:
 	UPROPERTY(EditAnywhere, Category = Components)
 	class UWJ_ObjectPool* objectPool;
 
+	// # 엑터 캐싱
 	UPROPERTY()
 	TArray<class AWJ_GameOverUI*> gameOverUI;	// 0 A, 1 B
+
+	UPROPERTY()
+	class AWJ_ResultText* resultText;
+
+	// # 게임 결과
+	int winner;
+	void SetWinner(int id);
+	int GetWinner();
+
+	// # 게임 시작했는지 확인
+	bool isGameStarted = false;
+
 
 	void Intro();
 	void PingPong();
