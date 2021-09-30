@@ -39,7 +39,7 @@ void AWJ_PPSingleModeWall::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 			// 타점 랜덤 선택
 			float x = FMath::RandRange(-50, -128);
 			float y = FMath::RandRange(-55, 55);
-			float z = FMath::RandRange(100, 140);
+			float z = FMath::RandRange(95, 140);
 			FVector dir = FVector{ x, y, z } - ppball->GetActorLocation();
 			dir.Normalize();
 
