@@ -29,8 +29,17 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, Category = PingPongBallSound)
+	// 탁구공 사운드
+	UPROPERTY(EditAnywhere, Category = PingPongSound)
 		class USoundBase* pingpongSound;
+
+	// 점수 획득 사운드
+	UPROPERTY(EditAnywhere, Category =PingPongSound)
+	class USoundBase* scoreSound;
+
+	// 탁구공이 탁구대에 맞았을때 생기는 이펙트
+	UPROPERTY	(EditAnywhere, Category = HitPointEffect)
+	class UParticleSystem* hitPointFX;
 
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);

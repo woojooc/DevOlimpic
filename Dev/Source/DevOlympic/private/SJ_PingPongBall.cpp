@@ -11,6 +11,7 @@
 #include "VRGameModeBase.h"
 #include "WJ_PingPongMgr.h"
 #include "WJ_PPSingleModeWall.h"
+#include "SJ_OutOfZone.h"
 
 // Sets default values
 ASJ_PingPongBall::ASJ_PingPongBall()
@@ -47,6 +48,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 	// 공이 점수 계산을 끝내면 Hit 이벤트 연산을 해주지 않게 하기 위함
 	if (canPingPongBallHit == true)
 	{
+
 		// 처음 생성 될때는 중력이 적용 되어 있지 않고 생성 효과도 나타난다.
 		// 따라서 라켓으로 공을 칠때는 중력을 적용 해주고 효과도 꺼준다.
 		meshComp->SetEnableGravity(true);
@@ -57,6 +59,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 		auto net = Cast<ASJ_Net>(OtherActor);
 		auto player = Cast<ASJ_PingPongPlayer>(OtherActor);
 		auto singleWall = Cast<AWJ_PPSingleModeWall>(OtherActor);
+		auto outOfZone = Cast<ASJ_OutOfZone>(OtherActor);
 
 		// 게임 모드 가져오기
 		auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
@@ -121,6 +124,9 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 				}
 			}
 
+			// 효과 재생
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), hitPointFX, GetActorLocation());
+
 			// 사운드 재생
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), pingpongSound, GetActorLocation());
 		}
@@ -166,6 +172,8 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 					}
 				}
 			}
+			// 효과 재생
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), hitPointFX, GetActorLocation());
 			// 사운드 재생
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), pingpongSound, GetActorLocation());
 		}
@@ -273,7 +281,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), pingpongSound, GetActorLocation());
 		}
 		// 장외로 되서 바닥에 부딪혔을때
-		else if (name.Contains("Floor"))
+		else if (name.Contains("Floor")) // 이 부분 장외 범위 처리 예정
 		{
 			// 서브 
 			if (pingpongMNG->p_State == EPPBallState::Serve)
@@ -356,15 +364,23 @@ void ASJ_PingPongBall::ScoreGet(int id, bool scoreCheck)
 
 	// 점수 계산 함수
 	pingpongMNG->OnCollisionGround(id, scoreCheck);
+
 	// 충돌 초기화
 	inSideA = false;
 	inSideB = false;
+
 	// 플레이어 ID 초기화
 	playerID = -1;
+
+	// 점수 획득 사운드
+	UGameplayStatics::PlaySound2D(GetWorld(), scoreSound);
+
 	// 공 제거 타이머
 	GetWorldTimerManager().SetTimer(destroyHandle, this, &ASJ_PingPongBall::BallDestroy, 3.0f);
+
 	// 함수 호출 여부
 	isCallScoreGet = true;
+
 	// HIt이벤트 연산 여부
 	canPingPongBallHit = false;
 }

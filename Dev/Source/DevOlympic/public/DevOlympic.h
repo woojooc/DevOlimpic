@@ -16,11 +16,11 @@ UENUM(BlueprintType)
 enum class EPingPongState : uint8
 {
 	Intro,
-	Serv,
+	Serv,		// 공 생성, 서브
 	Rally,
 	RallyOver,	// 점수가 난 경우
 	SetOver,	// 11점을 땄을 경우 1세트 종료. 5판 3승제
-	Deuce,		// 10:10 상황, 2점 차이가 날때까지 경기 계속
+	//Deuce,		// 10:10 상황, 2점 차이가 날때까지 경기 계속
 	MatchOver
 };
 

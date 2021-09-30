@@ -391,7 +391,7 @@ void UWJ_PingPongMgr::autoServe()
 	FVector dir = FVector{ x, y, z } - ppball->GetActorLocation();
 	dir.Normalize();
 
-	sServePower = FMath::RandRange(1500, 2100);
+	sServePower = FMath::RandRange(1500, 1600);
 
 	// 공에 힘 추가하기
 	ppball->meshComp->SetEnableGravity(true);
