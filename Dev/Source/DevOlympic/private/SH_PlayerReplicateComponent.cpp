@@ -32,6 +32,9 @@ void USH_PlayerReplicateComponent::BeginPlay()
 	// 왼손, 오른손 컨트롤러 받아오기
 	leftController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("LeftMotionController")));
 	rightController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("RightMotionController")));
+
+
+
 }
 
 
@@ -41,10 +44,10 @@ void USH_PlayerReplicateComponent::TickComponent(float DeltaTime, ELevelTick Tic
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// 위치 동기화 매 프레임마다 실행
-	UpdateTransform();
+	UpdateReplicate();
 }
 
-void USH_PlayerReplicateComponent::UpdateTransform()
+void USH_PlayerReplicateComponent::UpdateReplicate()
 {
 
 	// 로컬플레이어라면
@@ -59,33 +62,33 @@ void USH_PlayerReplicateComponent::UpdateTransform()
 		if (!player->HasAuthority())
 		{
 			// 서버 함수 실행
-			Server_UpdateTransform(player_Tr, playerCam_Tr, leftController_Tr, rightController_Tr);
+			Server_UpdateReplicate(player_Tr, playerCam_Tr, leftController_Tr, rightController_Tr);
 		}
 		// 서버라면
 		else
 		{
 			// 곧바로 멀티캐스트 함수 실행
-			Multi_UpdateTransform(player_Tr, playerCam_Tr, leftController_Tr, rightController_Tr);
+			Multi_UpdateReplicate(player_Tr, playerCam_Tr, leftController_Tr, rightController_Tr);
 		}
 	}
 }
 
-bool USH_PlayerReplicateComponent::Server_UpdateTransform_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
+bool USH_PlayerReplicateComponent::Server_UpdateReplicate_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
 {
 	return true;
 }
 
-void USH_PlayerReplicateComponent::Server_UpdateTransform_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
+void USH_PlayerReplicateComponent::Server_UpdateReplicate_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
 {
-	Multi_UpdateTransform_Implementation(playerTr, cameraTr, lcontTr, rcontTr);
+	Multi_UpdateReplicate_Implementation(playerTr, cameraTr, lcontTr, rcontTr);
 }
 
-bool USH_PlayerReplicateComponent::Multi_UpdateTransform_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
+bool USH_PlayerReplicateComponent::Multi_UpdateReplicate_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
 {
 	return true;
 }
 
-void USH_PlayerReplicateComponent::Multi_UpdateTransform_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
+void USH_PlayerReplicateComponent::Multi_UpdateReplicate_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr)
 {
 	// 멀티캐스트 적용할 컴포넌트 예외 처리
 	if (!player)

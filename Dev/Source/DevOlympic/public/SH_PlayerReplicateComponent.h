@@ -55,19 +55,19 @@ public:
 
 
 	// 위치 동기화 함수
-	void  UpdateTransform();
+	void  UpdateReplicate();
 
 	// 클라이언트에서 서버로 함수를 호출하기 위한 선언
 // 자신의 컨트롤러 위치를 서버에게 전달
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_UpdateTransform(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
-	bool Server_UpdateTransform_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
-	void Server_UpdateTransform_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
+	void Server_UpdateReplicate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
+	bool Server_UpdateReplicate_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
+	void Server_UpdateReplicate_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
 
 	// 서버에서 클라이언트를 움직일 함수
 	// 서버의 컨트롤러 위치를 클라이언트들에게 전달
 	UFUNCTION(NetMulticast, Reliable, WithValidation)
-	void Multi_UpdateTransform(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
-	bool Multi_UpdateTransform_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
-	void Multi_UpdateTransform_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
+	void Multi_UpdateReplicate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
+	bool Multi_UpdateReplicate_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
+	void Multi_UpdateReplicate_Implementation(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
 };
