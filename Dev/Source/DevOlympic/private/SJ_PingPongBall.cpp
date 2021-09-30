@@ -363,15 +363,23 @@ void ASJ_PingPongBall::ScoreGet(int id, bool scoreCheck)
 
 	// 점수 계산 함수
 	pingpongMNG->OnCollisionGround(id, scoreCheck);
+
 	// 충돌 초기화
 	inSideA = false;
 	inSideB = false;
+
 	// 플레이어 ID 초기화
 	playerID = -1;
+
+	// 점수 획득 사운드
+	UGameplayStatics::PlaySound2D(GetWorld(), scoreSound);
+
 	// 공 제거 타이머
 	GetWorldTimerManager().SetTimer(destroyHandle, this, &ASJ_PingPongBall::BallDestroy, 3.0f);
+
 	// 함수 호출 여부
 	isCallScoreGet = true;
+
 	// HIt이벤트 연산 여부
 	canPingPongBallHit = false;
 }

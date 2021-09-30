@@ -108,7 +108,7 @@ void ASJ_PingPongSpectator::Down()
 
 	float distance = FVector::Dist(IdlePos, myPos);
 
-	if (distance < 0.1f)
+	if (distance < 10.0f)
 	{
 		randomTime = FMath::RandRange(10.0f, 20.0f);
 		GetWorldTimerManager().SetTimer(jumpTimer, this, &ASJ_PingPongSpectator::JumpUp, randomTime);
