@@ -220,6 +220,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 		// 플레이어가 쳤을 때
 		else if (player)
 		{
+		GetWorld()->GetFirstPlayerController()->PlayHapticEffect(hitFxHaptic, EControllerHand::Right, 0.3f, false);
 			// 플레이어 A 가 쳤을 때
 			playerID = 0;
 

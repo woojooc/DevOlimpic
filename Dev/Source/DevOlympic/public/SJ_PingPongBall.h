@@ -75,4 +75,7 @@ public:
 
 	// 파괴 타이머
 	FTimerHandle destroyHandle;
+
+	UPROPERTY(EditAnywhere, Category = PlayerSetting)
+		class UHapticFeedbackEffect_Base* hitFxHaptic;
 };
