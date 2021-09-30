@@ -7,6 +7,7 @@
 #include "WJ_GameOverUI.h"
 #include "ModeSelect.h"
 #include "WJ_ResultText.h"
+#include "WJ_GameInstance.h"
 
 
 AVRGameModeBase::AVRGameModeBase()
@@ -23,9 +24,14 @@ void AVRGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// # 게임모드 설정
+	/*
 	// 게임모드 셀렉트 월드에서 찾아오기
 	modeSelect = Cast<AModeSelect>(UGameplayStatics::GetActorOfClass(GetWorld(), AModeSelect::StaticClass()));
 	editMode = modeSelect->m_state;
+	*/
+
+	auto gameInstance = Cast<UWJ_GameInstance>(GetGameInstance());
+	editMode = gameInstance->modeNum;
 
 	// # 게임 오버 UI 캐싱
 	TArray<AActor*> bpGameOverUI;

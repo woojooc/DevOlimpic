@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "DevOlympic.h"
 #include "Blueprint/UserWidget.h"
 #include "WJ_ModeSelectUserWidget.generated.h"
 

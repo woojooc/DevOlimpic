@@ -21,9 +21,21 @@ void UWJ_PingPongMgr::BeginPlay()
 
 	//gameModeBase 캐싱
 	gameModeBase = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	
+	// 벽 캐싱
+	AActor* wall = UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_PPSingleModeWall::StaticClass());
+
+	// # 점수판 캐싱
+	TArray<AActor*> bpPoints;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWJ_Point::StaticClass(),bpPoints);
 
 	if (gameModeBase->editMode == EEditMode::Multi)
 	{
+		// 벽 비활성화
+		if (wall)
+		{
+			wall->SetActorHiddenInGame(true);
+		}
 		// 플레이어 호스트 ( 0, A ) -> 탁구대 사이드 A
 		// 플레이어 게스트 ( 1, B ) -> 탁구대 사이드 B 에 소환
 
@@ -34,18 +46,13 @@ void UWJ_PingPongMgr::BeginPlay()
 		// # 플레이어 설정
 		playerActorA = UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_PingPongPlayer::StaticClass());
 		
-		// 벽 활성화
-		AActor* wall = UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_PPSingleModeWall::StaticClass());
+		// # 벽 활성화
 		if (wall)
 		{
 			playerActorB = wall;
 			wall->SetActorHiddenInGame(false);
 		}
 		
-		// # 점수판 캐싱
-		TArray<AActor*> bpPoints;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWJ_Point::StaticClass(),bpPoints);
-		//pointPannel = Cast<AWJ_Point>(UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_Point::StaticClass()));
 		if (bpPoints.Num() != 0)
 		{
 			for (int i = 0; i < bpPoints.Num(); i++)
@@ -240,15 +247,7 @@ void UWJ_PingPongMgr::MatchOver()
 	gameModeBase->SetLevelState(EPPLevelState::GameOver);
 }
 
-void UWJ_PingPongMgr::SetState(EPingPongState state)
-{
-	m_state = state;
-}
 
-EPingPongState UWJ_PingPongMgr::GetState()
-{
-	return m_state;
-}
 
 void UWJ_PingPongMgr::StartRally()
 {
@@ -416,4 +415,45 @@ void UWJ_PingPongMgr::autoServe()
 	StartRally();
 	//*/
 	// END TEST CODE
+}
+
+
+// # GET/ SET
+
+void UWJ_PingPongMgr::SetState(EPingPongState state)
+{
+	m_state = state;
+}
+
+EPingPongState UWJ_PingPongMgr::GetState()
+{
+	return m_state;
+}
+
+void UWJ_PingPongMgr::SetFPPData(FPingPongData data)
+{
+	pointA = data.pointA;
+	pointB = data.pointB;
+	set = data.set;
+	scoreA = data.scoreA;
+	scoreB = data.scoreB;
+	bServPlayer = data.bServPlayer;
+	servCount = data.servCount;
+	bSpawnBall = data.bSpawnBall;
+	bIsDeuce = data.bIsDeuce;
+}
+
+FPingPongData UWJ_PingPongMgr::GetFPPData()
+{
+	fPPData.pointA = pointA;
+	fPPData.pointB = pointB;
+	fPPData.set = set;
+	fPPData.scoreA = scoreA;
+	fPPData.scoreB = scoreB;
+	fPPData.bServPlayer = bServPlayer;
+	fPPData.servCount = servCount;
+	fPPData.bSpawnBall = bSpawnBall;
+	fPPData.bIsDeuce = bIsDeuce;
+
+	return fPPData;
 }

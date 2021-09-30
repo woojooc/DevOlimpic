@@ -19,6 +19,20 @@ protected:
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+
+	// # 서버 동기화
+	FPingPongData fPPData;
+	void SetFPPData(FPingPongData data);
+	FPingPongData GetFPPData();
+
+		// # 점수판	- 텍스트 오브젝트 캐싱
+	TArray<class AWJ_Point*> pointPannelarr;
+
+		// # 플레이어 캐싱
+	class AActor* playerActorA;
+	class AActor* playerActorB;
+
+
 	// 핑퐁게임 프롤우 enum 변수 값 가져오기 또는 설정하기
 	void SetState(EPingPongState state);
 	EPingPongState GetState();
@@ -43,13 +57,6 @@ public:
 private:
 	UPROPERTY()
 	class AVRGameModeBase* gameModeBase;
-
-	// # 점수판	- 텍스트 오브젝트 캐싱
-	TArray<class AWJ_Point*> pointPannelarr;
-
-	// # 플레이어 캐싱
-	class AActor* playerActorA;
-	class AActor* playerActorB;
 
 	// # 오토 서브 네트 포인트 캐싱
 	int netZ = 92;

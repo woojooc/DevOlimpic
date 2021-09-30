@@ -4,6 +4,7 @@
 #include "WJ_ModeSelectUserWidget.h"
 #include <Components/Button.h>
 #include <Kismet/GameplayStatics.h>
+#include "WJ_GameInstance.h"
 
 
 void UWJ_ModeSelectUserWidget::NativeConstruct()
@@ -16,11 +17,15 @@ void UWJ_ModeSelectUserWidget::NativeConstruct()
 
 void UWJ_ModeSelectUserWidget::ClickSingle()
 {
+	auto gameInstance = Cast<UWJ_GameInstance>(GetGameInstance());
+	gameInstance->SetModeNum(EEditMode::Single);
+
 	// Level ¿ÀÇÂ
 	UGameplayStatics::OpenLevel(GetWorld(),"WJPPMap");
 }
 
 void UWJ_ModeSelectUserWidget::ClickMulti()
 {
-	
+	auto gameInstance = Cast<UWJ_GameInstance>(GetGameInstance());
+	gameInstance->SetModeNum(EEditMode::Multi);
 }
