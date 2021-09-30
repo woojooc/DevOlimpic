@@ -129,7 +129,7 @@ void AVRGameModeBase::GameOver()
 	else
 	{
 		gameOverUI[0]->SetActorHiddenInGame(false);
-		gameOverUI[0]->SetActorEnableCollision(false);
+		gameOverUI[0]->SetActorEnableCollision(true);
 
 		resultText->SetActorHiddenInGame(false);
 

@@ -209,18 +209,17 @@ void UWJ_PingPongMgr::RallyOver()
 
 void UWJ_PingPongMgr::SetOver()
 {
-	set++;
+	if (scoreA == 2 || scoreB == 2 || set == scoreM)
+	{
+		SetState(EPingPongState::MatchOver);
+		return;
+	}
 	pointA = 0;
 	pointB = 0;
 	
 	pointPannelarr[0]->ResetPoint();
 
-	if (scoreA == scoreM-1 || scoreB == scoreM-1 || set == scoreM)
-	{
-		SetState(EPingPongState::MatchOver);
-		return;
-	}
-
+	set++;
 	SetState(EPingPongState::Serv);
 }
 
@@ -387,11 +386,11 @@ void UWJ_PingPongMgr::autoServe()
 	// 타점 랜덤 선택
 	float x = FMath::RandRange(-50, -128);
 	float y = FMath::RandRange(-55, 55);
-	float z = FMath::RandRange(110, 160);
+	float z = FMath::RandRange(100, 140);
 	FVector dir = FVector{ x, y, z } - ppball->GetActorLocation();
 	dir.Normalize();
 
-	sServePower = FMath::RandRange(1500, 1600);
+	sServePower = FMath::RandRange(1350, 1500);
 
 	// 공에 힘 추가하기
 	ppball->meshComp->SetEnableGravity(true);

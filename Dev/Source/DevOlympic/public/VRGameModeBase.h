@@ -43,7 +43,7 @@ public:
 	class UWJ_ObjectPool* objectPool;
 
 	// # ©╒ем дЁ╫л
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, Category = UI)
 	TArray<class AWJ_GameOverUI*> gameOverUI;	// 0 A, 1 B
 
 	UPROPERTY()

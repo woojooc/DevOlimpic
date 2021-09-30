@@ -20,8 +20,17 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	void HideUI();
+	void Show();
+
+
+	// # 
+	UPROPERTY(EditAnywhere, Category = "Components")
+	class USceneComponent* rootComp;
+	UPROPERTY(EditAnywhere, Category = "Components")
+	class UStaticMeshComponent* planeMesh;
+	UPROPERTY(EditAnywhere, Category = "Components")
+	class UWidgetComponent* menuUI;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
 	int id;

@@ -17,7 +17,7 @@ public:
 
 	void ShowWin();
 	void ShowLose();
-
+	void HidQeAll();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -29,4 +29,9 @@ protected:
 		class USceneComponent* winText;
 	UPROPERTY(EditAnywhere, Category = "TEXT")
 		class USceneComponent* loseText;
+
+	UPROPERTY(EditAnywhere, Category = "TEXT")
+	TArray<UStaticMeshComponent*> winTexts;
+	UPROPERTY(EditAnywhere, Category = "TEXT")
+	TArray<UStaticMeshComponent*> loseTexts;
 };
