@@ -95,18 +95,18 @@ void ASH_LobbyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (HasAuthority())
-	{
-		FString r_str_rep = FString::Printf(TEXT("Server"));
-		leftLog->SetText(FText::FromString(r_str_rep));
-		rightLog->SetText(FText::FromString(r_str_rep));
-	}
-	else
-	{
-		FString r_str_rep = FString::Printf(TEXT("Client"));
-		leftLog->SetText(FText::FromString(r_str_rep));
-		rightLog->SetText(FText::FromString(r_str_rep));
-	}
+	//if (HasAuthority())
+	//{
+	//	FString r_str_rep = FString::Printf(TEXT("Server"));
+	//	leftLog->SetText(FText::FromString(r_str_rep));
+	//	rightLog->SetText(FText::FromString(r_str_rep));
+	//}
+	//else
+	//{
+	//	FString r_str_rep = FString::Printf(TEXT("Client"));
+	//	leftLog->SetText(FText::FromString(r_str_rep));
+	//	rightLog->SetText(FText::FromString(r_str_rep));
+	//}
 }
 
 // Called every frame
