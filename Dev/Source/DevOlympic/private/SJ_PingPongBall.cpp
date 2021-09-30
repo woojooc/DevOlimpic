@@ -11,6 +11,7 @@
 #include "VRGameModeBase.h"
 #include "WJ_PingPongMgr.h"
 #include "WJ_PPSingleModeWall.h"
+#include "SJ_OutOfZone.h"
 
 // Sets default values
 ASJ_PingPongBall::ASJ_PingPongBall()
@@ -57,6 +58,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 		auto net = Cast<ASJ_Net>(OtherActor);
 		auto player = Cast<ASJ_PingPongPlayer>(OtherActor);
 		auto singleWall = Cast<AWJ_PPSingleModeWall>(OtherActor);
+		auto outOfZone = Cast<ASJ_OutOfZone>(OtherActor);
 
 		// 게임 모드 가져오기
 		auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
@@ -121,6 +123,9 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 				}
 			}
 
+			// 효과 재생
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), hitPointFX, GetActorLocation());
+
 			// 사운드 재생
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), pingpongSound, GetActorLocation());
 		}
@@ -166,6 +171,8 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 					}
 				}
 			}
+			// 효과 재생
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), hitPointFX, GetActorLocation());
 			// 사운드 재생
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), pingpongSound, GetActorLocation());
 		}
@@ -273,7 +280,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), pingpongSound, GetActorLocation());
 		}
 		// 장외로 되서 바닥에 부딪혔을때
-		else if (name.Contains("Floor"))
+		else if (name.Contains("Floor")) // 이 부분 장외 범위 처리 예정
 		{
 			// 서브 
 			if (pingpongMNG->p_State == EPPBallState::Serve)

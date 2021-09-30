@@ -6,6 +6,14 @@
 #include "GameFramework/Pawn.h"
 #include "SJ_PingPongSpectator.generated.h"
 
+UENUM()
+enum class EJumpState : uint8 
+{
+	Idle,
+	Jump,
+	Down
+};
+
 UCLASS()
 class DEVOLYMPIC_API ASJ_PingPongSpectator : public APawn
 {
@@ -51,10 +59,34 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	
+
 	UPROPERTY()
-	float currentTime;
+	FVector IdlePos;
+
 	UPROPERTY()
-	float upTime = 3.0f;
+	FVector jumpPos;
+
+	UPROPERTY()
+	FVector downPos;
+
+	UPROPERTY()
+	float jumpPower = 500;
+
+	UPROPERTY()
+	float randomFirstTime;
+
+	UPROPERTY()
+	float randomTime;
+
+	FTimerHandle firstJumpTimer;
+	FTimerHandle jumpTimer;
+
+	EJumpState j_State = EJumpState::Idle;
+
+	void Idle();
+	void Jump();
+	void Down();
 
 	void JumpUp();
 };

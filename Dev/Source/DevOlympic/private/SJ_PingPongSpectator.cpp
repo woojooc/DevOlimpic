@@ -42,6 +42,11 @@ void ASJ_PingPongSpectator::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	randomFirstTime = FMath::RandRange(2.0f, 5.0f);
+	
+	IdlePos = GetActorLocation();
+
+	GetWorldTimerManager().SetTimer(firstJumpTimer, this, &ASJ_PingPongSpectator::JumpUp, randomFirstTime);
 }
 
 // Called every frame
@@ -49,6 +54,18 @@ void ASJ_PingPongSpectator::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	switch (j_State)
+	{
+	case EJumpState::Idle:
+		Idle();
+		break;
+	case EJumpState::Jump:
+		Jump();
+		break;
+	case EJumpState::Down:
+		Down();
+		break;
+	}
 }
 
 // Called to bind functionality to input
@@ -58,13 +75,55 @@ void ASJ_PingPongSpectator::SetupPlayerInputComponent(UInputComponent* PlayerInp
 
 }
 
+void ASJ_PingPongSpectator::Idle()
+{
+	
+}
+
+void ASJ_PingPongSpectator::Jump()
+{
+	FVector myPos = GetActorLocation();
+
+	jumpPos = GetActorLocation() + FVector::UpVector * jumpPower;
+
+	myPos = FMath::Lerp(myPos, jumpPos, GetWorld()->DeltaTimeSeconds * 0.3f);
+
+	float distance = FVector::Dist(IdlePos, myPos);
+
+	if (distance >100.0f)
+	{
+		j_State = EJumpState::Down;
+	}
+
+	SetActorLocation(myPos);
+}
+
+void ASJ_PingPongSpectator::Down()
+{
+	FVector myPos = GetActorLocation();
+
+	downPos = GetActorLocation() + FVector::DownVector * jumpPower;
+
+	myPos = FMath::Lerp(myPos, downPos, GetWorld()->DeltaTimeSeconds * 0.5f);
+
+	float distance = FVector::Dist(IdlePos, myPos);
+
+	if (distance < 0.1f)
+	{
+		randomTime = FMath::RandRange(10.0f, 20.0f);
+		GetWorldTimerManager().SetTimer(jumpTimer, this, &ASJ_PingPongSpectator::JumpUp, randomTime);
+
+		UE_LOG(LogTemp, Warning, TEXT("ReSetTimer : %f"), randomTime);
+		j_State = EJumpState::Idle;
+	}
+
+	SetActorLocation(myPos);
+}
+
 void ASJ_PingPongSpectator::JumpUp()
 {
-	FVector me = GetActorLocation();
-	FVector upVector = root->GetUpVector();
-	// 위로 이동 했다가 다시 내려온다
-	FVector ss = FMath::Lerp(me, me + upVector * 100.0f , 3.0f);
-	SetActorLocation(ss);
+	UE_LOG(LogTemp, Warning, TEXT("Jump!"));
 
+	j_State = EJumpState::Jump;
 }
 
