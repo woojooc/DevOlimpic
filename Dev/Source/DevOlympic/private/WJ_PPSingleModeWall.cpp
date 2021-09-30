@@ -43,7 +43,7 @@ void AWJ_PPSingleModeWall::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 			FVector dir = FVector{ x, y, z } - ppball->GetActorLocation();
 			dir.Normalize();
 
-			ppManager->sServePower = FMath::RandRange(1500, 2100);
+			ppManager->sServePower = FMath::RandRange(1500, 1600);
 
 			// 공에 힘 추가하기
 			ppball->meshComp->SetEnableGravity(true);

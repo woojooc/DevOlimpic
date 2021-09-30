@@ -48,6 +48,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 	// 공이 점수 계산을 끝내면 Hit 이벤트 연산을 해주지 않게 하기 위함
 	if (canPingPongBallHit == true)
 	{
+
 		// 처음 생성 될때는 중력이 적용 되어 있지 않고 생성 효과도 나타난다.
 		// 따라서 라켓으로 공을 칠때는 중력을 적용 해주고 효과도 꺼준다.
 		meshComp->SetEnableGravity(true);

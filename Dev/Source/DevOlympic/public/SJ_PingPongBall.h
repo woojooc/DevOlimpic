@@ -40,6 +40,9 @@ public:
 	// 탁구공이 탁구대에 맞았을때 생기는 이펙트
 	UPROPERTY	(EditAnywhere, Category = HitPointEffect)
 	class UParticleSystem* hitPointFX;
+	// 탁구공이 날아갈 때 생기는 이펙트
+	UPROPERTY(EditAnywhere, Category = HitPointEffect)
+	class UParticleSystem* trailFX;
 
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
