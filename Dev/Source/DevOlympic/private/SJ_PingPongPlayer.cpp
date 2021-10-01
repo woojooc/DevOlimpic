@@ -73,7 +73,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 		playerFace->SetStaticMesh(face.Object);
 	}
 
-	ConstructorHelpers::FObjectFinder<UStaticMesh>body(TEXT("StaticMesh'/Engine/BasicShapes/Cylinder.Cylinder'"));
+	ConstructorHelpers::FObjectFinder<UStaticMesh>body(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_WideCapsule.Shape_WideCapsule'"));
 
 	if (body.Succeeded())
 	{

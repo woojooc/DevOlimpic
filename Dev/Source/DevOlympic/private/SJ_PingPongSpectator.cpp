@@ -113,7 +113,6 @@ void ASJ_PingPongSpectator::Down()
 		randomTime = FMath::RandRange(10.0f, 20.0f);
 		GetWorldTimerManager().SetTimer(jumpTimer, this, &ASJ_PingPongSpectator::JumpUp, randomTime);
 
-		UE_LOG(LogTemp, Warning, TEXT("ReSetTimer : %f"), randomTime);
 		j_State = EJumpState::Idle;
 	}
 
@@ -122,8 +121,6 @@ void ASJ_PingPongSpectator::Down()
 
 void ASJ_PingPongSpectator::JumpUp()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Jump!"));
-
 	j_State = EJumpState::Jump;
 }
 

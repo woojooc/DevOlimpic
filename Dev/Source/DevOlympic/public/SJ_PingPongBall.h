@@ -73,9 +73,14 @@ public:
 	// 액터 파괴 함수
 	void BallDestroy();
 
+	// 장외로 나가면 호출되는 함수
+	void ZoneExit();
+
 	// 파괴 타이머
 	FTimerHandle destroyHandle;
 
 	UPROPERTY(EditAnywhere, Category = PlayerSetting)
 		class UHapticFeedbackEffect_Base* hitFxHaptic;
+
+	
 };

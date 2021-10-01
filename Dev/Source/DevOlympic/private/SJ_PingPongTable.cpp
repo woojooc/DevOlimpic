@@ -52,19 +52,6 @@ ASJ_PingPongTable::ASJ_PingPongTable()
 		childNet->SetupAttachment(pingpongTable);
 		childNet->SetChildActorClass(netBP.Class);
 	}
-
-	/*
-	//OutOfZone
-	ConstructorHelpers::FClassFinder<ASJ_OutOfZone> zoneBP(TEXT("/Game/SJ/Blueprints/PingPong/PingPongTable/BP_SJ_OutOfZone"));
-
-	if (zoneBP.Succeeded())
-	{
-		outOfZone= CreateDefaultSubobject<UChildActorComponent>(TEXT("OutOfZone"));
-		outOfZone->SetupAttachment(pingpongTable);
-		childNet->SetChildActorClass(zoneBP.Class);
-	}
-	*/
-	
 }
 
 // Called when the game starts or when spawned

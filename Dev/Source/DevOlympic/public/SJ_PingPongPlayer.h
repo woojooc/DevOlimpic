@@ -59,11 +59,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = Player)
 		class UChildActorComponent* childRacket;
 
-	// 마리오 머티리얼
-	UPROPERTY(VisibleAnywhere, Category = PlayerSetting)
-	UMaterial* marioMat;
-
-	// 루이지 머티리얼
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -79,19 +74,17 @@ public:
 	UPROPERTY(EditAnywhere, Category = PlayerSetting)
 	int playerIndex;
 
-private:
-	
 	// 초기화 타이머
 	FTimerHandle resetHandle;
 
 	// 초기화 함수
 	void ResetHMD();
 
-	// 초기화 변수
+	// 입장시 위치 초기화 변수
 	FRotator hmdRotation;
 	FVector hmdLocation;
 
-	// 플레이어 머리 회전값
+	// HMD 회전값을 플레이어 머리에 전달하는 변수
 	FRotator headRotation;
 	FVector headLocation;
 };

@@ -59,9 +59,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 		auto net = Cast<ASJ_Net>(OtherActor);
 		auto player = Cast<ASJ_PingPongPlayer>(OtherActor);
 		auto singleWall = Cast<AWJ_PPSingleModeWall>(OtherActor);
-		auto outOfZone = Cast<ASJ_OutOfZone>(OtherActor);
 
-		// 게임 모드 가져오기
 		auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
 		// 탁구 게임모드 변수
 		UWJ_PingPongMgr* pingpongMNG = vrGameMNG->pingpongStateMgr;
@@ -347,7 +345,6 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 			}
 		}
 	}
-
 }
 
 void ASJ_PingPongBall::InitSideState()
@@ -389,5 +386,9 @@ void ASJ_PingPongBall::ScoreGet(int id, bool scoreCheck)
 void ASJ_PingPongBall::BallDestroy()
 {
 	Destroy();
+}
+
+void ASJ_PingPongBall::ZoneExit()
+{
 }
 
