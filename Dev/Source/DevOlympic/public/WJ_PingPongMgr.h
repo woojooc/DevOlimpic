@@ -91,4 +91,6 @@ private:
 	void RallyOver();
 	void SetOver();
 	void MatchOver();
+
+	void Setserve();
 };

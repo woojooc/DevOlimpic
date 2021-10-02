@@ -247,7 +247,10 @@ void UWJ_PingPongMgr::MatchOver()
 	gameModeBase->SetLevelState(EPPLevelState::GameOver);
 }
 
-
+void UWJ_PingPongMgr::Setserve()
+{
+	m_state = EPingPongState::Serv;
+}
 
 void UWJ_PingPongMgr::StartRally()
 {
@@ -368,7 +371,8 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 	}
 	//*/
 
-	SetState(EPingPongState::Serv);
+	// SJ_PingPongBall.cpp -> EndOfBall 함수로 기능 옮겨감
+	// SetState(EPingPongState::Serv);
 }
 
 void UWJ_PingPongMgr::NetServ()

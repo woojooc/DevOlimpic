@@ -56,6 +56,14 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = SideID)
 		bool inSideB;
 
+	// SideA 중복 충돌 검사
+	UPROPERTY(VisibleAnywhere, Category = SideOverlap)
+	int overlapA = 0;
+
+	// SideB 중복 충돌 검사
+	UPROPERTY(VisibleAnywhere, Category = SideOverlap)
+	int overlapB = 0;
+
 	// OnCollisionGround가 불렸는지를 체크하는 Bool
 	UPROPERTY(VisibleAnywhere, Category = BallState)
 		bool isCallScoreGet = false;
@@ -71,7 +79,7 @@ public:
 	void ScoreGet(int id, bool scoreCheck);
 
 	// 액터 파괴 함수
-	void BallDestroy();
+	void EndOfBall();
 
 	// 장외로 나가면 호출되는 함수
 	void ZoneExit();
