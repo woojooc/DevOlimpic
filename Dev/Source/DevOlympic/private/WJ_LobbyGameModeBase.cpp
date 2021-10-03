@@ -40,7 +40,8 @@ void AWJ_LobbyGameModeBase::OnOverlap(AActor* OverlappedActor, AActor* OtherActo
 		{
 			OpenUI();
 			auto gameInstance = Cast<UWJ_GameInstance>(GetGameInstance());
-			gameInstance->avatarID = avatarObj->avatarID;
+			
+			gameInstance->SetAvatarNum(avatarObj->avatarID);
 			bOpenedUI = true;
 		}	
 	}

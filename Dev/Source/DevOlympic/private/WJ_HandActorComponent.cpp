@@ -6,6 +6,7 @@
 #include "DrawDebugHelpers.h"
 #include "Components/TextRenderComponent.h"
 #include <Engine/SkeletalMeshSocket.h>
+#include <Components/CapsuleComponent.h>
 
 
 UWJ_HandActorComponent::UWJ_HandActorComponent()
@@ -160,14 +161,14 @@ void UWJ_HandActorComponent::GrabAction()
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepRelativeTransform;
 
 			// 손에 붙이기
-			avatarObj->bodyComp->SetSimulatePhysics(false);
-			avatarObj->bodyComp->AttachToComponent(player->rightHand, attachRules, TEXT("GrabPoint"));
+			avatarObj->collision->SetSimulatePhysics(false);
+			avatarObj->collision->AttachToComponent(player->rightHand, attachRules, TEXT("GrabPoint"));
 
 			// 반드시 붙인다음에 옮겨야 Relative가 의미가있다. 손의 위치로부터 상대좌표
-			avatarObj->bodyComp->SetRelativeLocation(avatarObj->grabOffset);
+			avatarObj->collision->SetRelativeLocation(avatarObj->grabOffset);
 
 			// 들어올리는 힘 vs 중력으로 떨어지는 힘이 계속 부딪히면서 계쏙 부들부들 떨게됨 -> 중력을 꺼야한다.
-			avatarObj->bodyComp->SetEnableGravity(false);
+			avatarObj->collision->SetEnableGravity(false);
 		}
 	}
 }
@@ -179,13 +180,13 @@ void UWJ_HandActorComponent::ReleaseAction()
 		return;
 	}
 
-	avatarObj->bodyComp->SetEnableGravity(true);
+	avatarObj->collision->SetEnableGravity(true);
 	//parent 옛날 버전 
 	//떼는 순간 원래 위치에서 바로 떨어질지, 등등
-	avatarObj->bodyComp->DetachFromComponent(FDetachmentTransformRules::KeepRelativeTransform);
+	avatarObj->collision->DetachFromComponent(FDetachmentTransformRules::KeepRelativeTransform);
 	//avatarObj->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
 
-	avatarObj->bodyComp->SetSimulatePhysics(true);
+	avatarObj->collision->SetSimulatePhysics(true);
 
 	avatarObj = nullptr;
 	grabObject = FHitResult();

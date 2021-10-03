@@ -23,13 +23,16 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Root")
 	class UStaticMeshComponent* rootComp;
+
+	UPROPERTY(EditAnywhere, Category = "Avatar")
+	class UCapsuleComponent* collision;
 	UPROPERTY(EditAnywhere,Category = "Avatar")
 	class UStaticMeshComponent* bodyComp;
 	UPROPERTY(EditAnywhere, Category = "Avatar")
 	class UStaticMeshComponent* headComp;
 
 	UPROPERTY(EditAnywhere, Category = PickUpSettings)
-	FVector grabOffset = FVector(0,0,-2);
+	FVector grabOffset = FVector(0,0,10);
 
 	UPROPERTY(EditAnywhere, Category = PickUpSettings)
 	FVector originalOffset = FVector(0,0,9);
