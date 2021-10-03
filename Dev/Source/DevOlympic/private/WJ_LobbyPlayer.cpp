@@ -10,6 +10,7 @@
 #include "WJ_HandActorComponent.h"
 #include <Components/TextRenderComponent.h>
 #include <Components/WidgetInteractionComponent.h>
+#include "WJ_LbMoveActorComponent.h"
 
 // Sets default values
 AWJ_LobbyPlayer::AWJ_LobbyPlayer()
@@ -50,6 +51,7 @@ AWJ_LobbyPlayer::AWJ_LobbyPlayer()
 	// 액터 컴포넌트
 	// 핸드 액터 컴포넌트
 	handComp = CreateDefaultSubobject<UWJ_HandActorComponent>(TEXT("Hand Component"));
+	moveComp = CreateDefaultSubobject<UWJ_LbMoveActorComponent>(TEXT("Move Component"));
 
 	// 3D 텍스트 컴포넌트를 손목 위에 붙이기
 	leftLog = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Left Log"));
@@ -100,5 +102,6 @@ void AWJ_LobbyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	handComp->SetupPlayerInputComponent(PlayerInputComponent);
+	moveComp->SetupPlayerInputComponent(PlayerInputComponent);
 }
 

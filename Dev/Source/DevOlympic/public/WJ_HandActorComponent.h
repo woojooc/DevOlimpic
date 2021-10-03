@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "DevOlympic.h"
 #include "Components/ActorComponent.h"
 #include "WJ_HandActorComponent.generated.h"
 
@@ -59,6 +59,9 @@ public:
 private:
 	void ButtonClick();
 	void ButtonRelease();
+
+	UPROPERTY(EditAnywhere, Category = GrabSettings)
+	float clickDistance = 2000;
 
 	// # 왼손 물체 집기 관련
 	void GrabAction();

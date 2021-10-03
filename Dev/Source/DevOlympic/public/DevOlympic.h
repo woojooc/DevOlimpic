@@ -4,6 +4,12 @@
 
 #include "CoreMinimal.h"
 
+// Game Channel
+#define ECC_Stadium			ECC_GameTraceChannel1
+#define ECC_Avatar			ECC_GameTraceChannel2
+#define ECC_LobbyPlayer		ECC_GameTraceChannel3
+#define ECC_EXIT			ECC_GameTraceChannel4
+
 UENUM(BlueprintType)
 enum class EPPLevelState : uint8
 {

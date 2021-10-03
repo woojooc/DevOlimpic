@@ -101,6 +101,34 @@ void UWJ_HandActorComponent::ButtonClick()
 	// 위젯 인터렉션 포인터의 클릭 포인터 키 값을 마우스 왼쪽 버튼 클릭으로 설정
 	// ⇒ 왼쪽 버튼을 누른것과 같은 효과를 준다.
 	player->widgetPointer->PressPointerKey(EKeys::LeftMouseButton);
+
+
+	// EXIT 오브젝트 선택
+	FHitResult hitInfo;
+	FVector startPos = player->leftHand->GetComponentLocation();
+
+	// 물리 객체와 동적 객체에 대해서 충돌 체크
+	FCollisionObjectQueryParams objParams;
+	objParams.AddObjectTypesToQuery(ECC_EXIT);
+	//objParams.AddObjectTypesToQuery(ECC_PhysicsBody);
+
+	// 플레이어 액터는 무시
+	FCollisionQueryParams queryParams;
+	queryParams.AddIgnoredActor(player);
+
+	FVector endPos = startPos + player->leftHand->GetForwardVector() * clickDistance;
+
+	if (GetWorld()->LineTraceSingleByObjectType(hitInfo, startPos, endPos, objParams, queryParams))
+	{
+		player->leftLog->SetText(FText::FromString(hitInfo.GetActor()->GetName()));
+
+		if (hitInfo.GetActor()->GetName().Contains(TEXT("EXIT")))
+		{
+			//게임을 종료
+			GetWorld()->GetFirstPlayerController()->ConsoleCommand("quit");
+		}
+	}
+	
 }
 
 void UWJ_HandActorComponent::ButtonRelease()
@@ -114,31 +142,7 @@ void UWJ_HandActorComponent::GrabAction()
 
 	if (grabActor == nullptr)
 	{
-		FHitResult hitInfo;
-		//auto grabSokect = player->rightHand->GetSocketByName(TEXT("GrabPoint"));;
-		FVector startPos = player->rightHand->GetSocketLocation(TEXT("GrabPoint"));
-
-		// 물리 객체와 동적 객체에 대해서 충돌 체크
-		FCollisionObjectQueryParams objParams;
-		objParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-		objParams.AddObjectTypesToQuery(ECC_PhysicsBody);
-
-		// 플레이어 액터는 무시
-		FCollisionQueryParams queryParams;
-		queryParams.AddIgnoredActor(player);
-
-		if (GetWorld()->SweepSingleByObjectType(hitInfo, startPos, startPos, FQuat::Identity, objParams, FCollisionShape::MakeSphere(15.f), queryParams))
-		{
-			grabObject = hitInfo;
-			player->rightLog->SetText(FText::FromString(hitInfo.GetActor()->GetName()));
-		}
-		else
-		{
-			grabObject = FHitResult();
-			player->rightLog->SetText(FText::FromString(TEXT("Null")));
-		}
-
-		DrawDebugSphere(GetWorld(), startPos, 15.f, 30, FColor::Green, false, -1, 0, 1);
+		DrawGrabLine();
 
 		return;
 	}
@@ -152,11 +156,12 @@ void UWJ_HandActorComponent::GrabAction()
 		{
 			// 나한테 붗었어도 오브젝트 본인의 월드좌표를 잃지 않는다. 자식 오브젝트처럼 행동은 함. 잡는 순간의 위치를 잃지않고 유지됨.
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
-			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepRelativeTransform;
 
 			// 손에 붙이기
 			avatarObj->bodyComp->SetSimulatePhysics(false);
-			avatarObj->AttachToComponent(player->rightHand, attachRules, TEXT("GrabPoint"));
+			avatarObj->bodyComp->AttachToComponent(player->rightHand, attachRules, TEXT("GrabPoint"));
 
 			// 반드시 붙인다음에 옮겨야 Relative가 의미가있다. 손의 위치로부터 상대좌표
 			avatarObj->bodyComp->SetRelativeLocation(avatarObj->grabOffset);
@@ -177,7 +182,8 @@ void UWJ_HandActorComponent::ReleaseAction()
 	avatarObj->bodyComp->SetEnableGravity(true);
 	//parent 옛날 버전 
 	//떼는 순간 원래 위치에서 바로 떨어질지, 등등
-	avatarObj->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	avatarObj->bodyComp->DetachFromComponent(FDetachmentTransformRules::KeepRelativeTransform);
+	//avatarObj->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
 
 	avatarObj->bodyComp->SetSimulatePhysics(true);
 
@@ -188,15 +194,16 @@ void UWJ_HandActorComponent::ReleaseAction()
 
 void UWJ_HandActorComponent::DrawGrabLine()
 {
-	if (avatarObj == nullptr)
-	{
+	//if (avatarObj == nullptr)
+	//{
 		FHitResult hitInfo;
 		FVector startPos = player->rightHand->GetComponentLocation();
 
 		// 물리 객체와 동적 객체에 대해서 충돌 체크
 		FCollisionObjectQueryParams objParams;
-		objParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-		objParams.AddObjectTypesToQuery(ECC_PhysicsBody);
+		//objParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+		objParams.AddObjectTypesToQuery(ECC_Avatar);
+		//objParams.AddObjectTypesToQuery(ECC_PhysicsBody);
 
 		// 플레이어 액터는 무시
 		FCollisionQueryParams queryParams;
@@ -211,7 +218,7 @@ void UWJ_HandActorComponent::DrawGrabLine()
 			grabObject = FHitResult();
 		}
 
-		DrawDebugSphere(GetWorld(), startPos, 15.f, 30, FColor::Green, false, -1, 0, 1);
+		//DrawDebugSphere(GetWorld(), startPos, 15.f, 30, FColor::Green, false, -1, 0, 1);
 	
-	}
+	//}
 }

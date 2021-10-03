@@ -51,6 +51,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
 		class UWJ_HandActorComponent* handComp;
 
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class UWJ_LbMoveActorComponent* moveComp;
+
 	// 로그 컴포넌트
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
 		class UTextRenderComponent* leftLog;
