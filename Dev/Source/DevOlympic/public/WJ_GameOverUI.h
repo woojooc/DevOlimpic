@@ -34,4 +34,7 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
 	int id;
+
+	UPROPERTY(VisibleAnywhere, Category = Visible)
+	bool isActive;
 };

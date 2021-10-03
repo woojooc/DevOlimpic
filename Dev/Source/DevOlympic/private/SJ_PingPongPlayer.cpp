@@ -10,6 +10,11 @@
 #include "Components/StaticMeshComponent.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Components/ChildActorComponent.h"
+#include <Kismet/GameplayStatics.h>
+#include "WJ_GameOverUI.h"
+#include "SJ_SelectUIComponent.h"
+#include <Components/WidgetInteractionComponent.h>
+#include "VRGameModeBase.h"
 
 // Sets default values
 ASJ_PingPongPlayer::ASJ_PingPongPlayer()
@@ -64,6 +69,17 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	// 오른손 라켓
 	racket = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Racket"));
 	racket->SetupAttachment(rightHand);
+
+	// 왼손 레이저
+	razer = CreateDefaultSubobject<UChildActorComponent>(TEXT("RazerComponent"));
+	razer->SetupAttachment(leftController);
+
+	selectComp = CreateDefaultSubobject<USJ_SelectUIComponent>(TEXT("Select Component"));
+
+	// 위젯 상호작용 컴포넌트 생성
+	widgetPointer = CreateDefaultSubobject<UWidgetInteractionComponent>(TEXT("Widget Pointer"));
+	// 컴포넌트 오른손에 붙이기
+	widgetPointer->SetupAttachment(leftController);
 
 	// 스태틱메쉬 동적 할당
 	ConstructorHelpers::FObjectFinder<UStaticMesh> face(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
@@ -139,6 +155,30 @@ void ASJ_PingPongPlayer::BeginPlay()
 	UHeadMountedDisplayFunctionLibrary::SetTrackingOrigin(EHMDTrackingOrigin::Eye);
 
 	GetWorldTimerManager().SetTimer(resetHandle, this, &ASJ_PingPongPlayer::ResetHMD, 2.0f);
+
+	// gameOverUI = Cast<AWJ_GameOverUI>(UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_GameOverUI::StaticClass()));
+
+	TArray<AActor*> bpGameOverUI;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWJ_GameOverUI::StaticClass(), bpGameOverUI);
+
+	if (bpGameOverUI.Num() > 0)
+	{
+		for (int i = 0; i < bpGameOverUI.Num(); i++)
+		{
+			AWJ_GameOverUI* emptyPlace = nullptr;
+			gameOverUI.Add(emptyPlace);
+		}
+
+		for (int i = 0; i < bpGameOverUI.Num(); i++)
+		{
+			auto ui = Cast<AWJ_GameOverUI>(bpGameOverUI[i]);
+			gameOverUI[ui->id] = ui;
+		}
+	}
+	gameMode = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	razer->SetHiddenInGame(true);
+	
 }
 
 // Called every frame
@@ -149,6 +189,11 @@ void ASJ_PingPongPlayer::Tick(float DeltaTime)
 	UHeadMountedDisplayFunctionLibrary::GetOrientationAndPosition(headRotation, headLocation);
 
 	playerFace->SetRelativeRotation(headRotation);
+
+	if (gameMode->levelState == EPPLevelState::GameOver)
+	{
+		razer->SetHiddenInGame(false);
+	}
 }
 
 // Called to bind functionality to input
@@ -156,10 +201,54 @@ void ASJ_PingPongPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	selectComp->SetupPlayerInputComponent(PlayerInputComponent);
+	PlayerInputComponent->BindAction("ShowUI", IE_Pressed, this, &ASJ_PingPongPlayer::ShowUI);
 }
 
 void ASJ_PingPongPlayer::ResetHMD()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
+}
+
+void ASJ_PingPongPlayer::ShowUI()
+{
+	/*
+	if (playerIndex == 0)
+	{
+		if (gameOverUI[0]->isActive == false)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("ShowUI"));
+			razer->SetHiddenInGame(false);
+			gameOverUI[0]->Show();
+		}
+		else if (gameOverUI[0]->isActive == true)
+		{
+			razer->SetHiddenInGame(true);
+			gameOverUI[0]->HideUI();
+		}
+	}
+	else if (playerIndex == 1)
+	{
+		if (gameOverUI[1]->isActive == false)
+		{
+			gameOverUI[1]->Show();
+		}
+		else if (gameOverUI[1]->isActive == true)
+		{
+			gameOverUI[1]->HideUI();
+		}
+	}
+	*/
+	if (gameOverUI[playerIndex]->isActive == false)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ShowUI"));
+		razer->SetHiddenInGame(false);
+		gameOverUI[playerIndex]->Show();
+	}
+	else if (gameOverUI[playerIndex]->isActive == true)
+	{
+		razer->SetHiddenInGame(true);
+		gameOverUI[playerIndex]->HideUI();
+	}
 }
 
