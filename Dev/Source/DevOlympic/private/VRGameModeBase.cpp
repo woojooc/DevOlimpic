@@ -50,8 +50,8 @@ void AVRGameModeBase::BeginPlay()
 			auto ui = Cast<AWJ_GameOverUI>(bpGameOverUI[i]);
 			gameOverUI[ui->id] = ui;
 
-			gameOverUI[ui->id]->SetActorHiddenInGame(false);
-			gameOverUI[ui->id]->SetActorEnableCollision(true);
+			gameOverUI[ui->id]->SetActorHiddenInGame(true);
+			gameOverUI[ui->id]->SetActorEnableCollision(false);
 		}
 	}
 
