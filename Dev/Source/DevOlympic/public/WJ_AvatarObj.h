@@ -29,7 +29,7 @@ public:
 	class UStaticMeshComponent* headComp;
 
 	UPROPERTY(EditAnywhere, Category = PickUpSettings)
-	FVector grabOffset = FVector(0,0,15);
+	FVector grabOffset = FVector(0,0,-2);
 
 	UPROPERTY(EditAnywhere, Category = PickUpSettings)
 	FVector originalOffset = FVector(0,0,9);

@@ -12,8 +12,8 @@ AWJ_AvatarObj::AWJ_AvatarObj()
 
 	bodyComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyComp"));
 	bodyComp->SetupAttachment(rootComp);
-	bodyComp->SetSimulatePhysics(true);
-	bodyComp->SetEnableGravity(true);
+	bodyComp->SetSimulatePhysics(false);
+	bodyComp->SetEnableGravity(false);
 	bodyComp->SetCollisionProfileName(TEXT("Avatar"));
 
 

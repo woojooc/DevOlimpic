@@ -14,4 +14,27 @@ class DEVOLYMPIC_API AWJ_LobbyGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+	
+public:
+	AWJ_LobbyGameModeBase();
+
+	virtual void BeginPlay() override;
+
+	virtual void InitGameState() override;
+
+	UFUNCTION()
+	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
+
+private:
+
+	UPROPERTY(EditAnywhere, Category = "WorldObj")
+	class AWJ_LobbyMenu* menuObj;
+
+	UPROPERTY(EditAnywhere, Category = "WorldObj")
+	class AActor* playPortObj;
+
+	void OpenUI();
+	void CloseUI();
+
+	bool bOpenedUI = false;
 };

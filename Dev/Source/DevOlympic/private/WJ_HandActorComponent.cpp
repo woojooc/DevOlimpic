@@ -156,8 +156,8 @@ void UWJ_HandActorComponent::GrabAction()
 		{
 			// 나한테 붗었어도 오브젝트 본인의 월드좌표를 잃지 않는다. 자식 오브젝트처럼 행동은 함. 잡는 순간의 위치를 잃지않고 유지됨.
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
-			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-			FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepRelativeTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepRelativeTransform;
 
 			// 손에 붙이기
 			avatarObj->bodyComp->SetSimulatePhysics(false);
