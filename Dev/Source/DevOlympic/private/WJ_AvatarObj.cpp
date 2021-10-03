@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "WJ_AvatarObj.h"
@@ -6,22 +5,25 @@
 // Sets default values
 AWJ_AvatarObj::AWJ_AvatarObj()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	rootComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RootComp"));
+	SetRootComponent(rootComp);
+
+	bodyComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyComp"));
+	bodyComp->SetupAttachment(rootComp);
+	bodyComp->SetSimulatePhysics(true);
+	bodyComp->SetEnableGravity(true);
+	bodyComp->SetCollisionProfileName(TEXT("Avatar"));
+
+
+	headComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HeadComp"));
+	headComp->SetupAttachment(bodyComp);
 }
 
-// Called when the game starts or when spawned
 void AWJ_AvatarObj::BeginPlay()
 {
 	Super::BeginPlay();
 	
-}
-
-// Called every frame
-void AWJ_AvatarObj::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
 }
 

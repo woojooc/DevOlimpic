@@ -40,4 +40,6 @@ public:
 
 	UFUNCTION()
 	void OpenServerMainMenu();
+	UFUNCTION()
+	void OpenModeMenu();
 };

@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -12,17 +11,23 @@ class DEVOLYMPIC_API AWJ_AvatarObj : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AWJ_AvatarObj();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
 	int avatarID;
+
+	UPROPERTY(EditAnywhere, Category = "Root")
+	class UStaticMeshComponent* rootComp;
+	UPROPERTY(EditAnywhere,Category = "Avatar")
+	class UStaticMeshComponent* bodyComp;
+	UPROPERTY(EditAnywhere, Category = "Avatar")
+	class UStaticMeshComponent* headComp;
+
+	UPROPERTY(EditAnywhere, Category = PickUpSettings)
+	FVector grabOffset;
 };

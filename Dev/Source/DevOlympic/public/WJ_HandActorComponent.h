@@ -59,4 +59,14 @@ public:
 private:
 	void ButtonClick();
 	void ButtonRelease();
+
+	// # 왼손 물체 집기 관련
+	void GrabAction();
+	void ReleaseAction();
+	void DrawGrabLine();
+
+	bool bIsShowing = false;
+
+	class AWJ_AvatarObj* avatarObj;
+	FHitResult grabObject;
 };

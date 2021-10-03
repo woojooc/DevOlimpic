@@ -21,7 +21,7 @@ AWJ_LobbyPlayer::AWJ_LobbyPlayer()
 	SetRootComponent(capsuleComp);
 	capsuleComp->SetCapsuleHalfHeight(65.0f);
 	capsuleComp->SetCapsuleRadius(40.0f);
-	capsuleComp->SetCollisionProfileName(TEXT("VR_Player"));
+	capsuleComp->SetCollisionProfileName(TEXT("LobbyPlayer"));
 
 	cameraRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Camera Root"));
 	cameraRoot->SetupAttachment(RootComponent);
@@ -51,7 +51,6 @@ AWJ_LobbyPlayer::AWJ_LobbyPlayer()
 	// 핸드 액터 컴포넌트
 	handComp = CreateDefaultSubobject<UWJ_HandActorComponent>(TEXT("Hand Component"));
 
-
 	// 3D 텍스트 컴포넌트를 손목 위에 붙이기
 	leftLog = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Left Log"));
 	leftLog->SetupAttachment(leftController);
@@ -78,7 +77,7 @@ AWJ_LobbyPlayer::AWJ_LobbyPlayer()
 	// 위젯 상호작용 컴포넌트 생성
 	widgetPointer = CreateDefaultSubobject<UWidgetInteractionComponent>(TEXT("Widget Pointer"));
 	// 컴포넌트 오른손에 붙이기
-	widgetPointer->SetupAttachment(rightController);
+	widgetPointer->SetupAttachment(leftController);
 }
 
 // Called when the game starts or when spawned

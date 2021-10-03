@@ -5,6 +5,7 @@
 #include <Components/WidgetComponent.h>
 #include "WJ_ModeSelectUserWidget.h"
 #include <Components/Button.h>
+#include "SH_MainMenu.h"
 
 // Sets default values
 AWJ_LobbyMenu::AWJ_LobbyMenu()
@@ -43,6 +44,9 @@ void AWJ_LobbyMenu::BeginPlay()
 	
 	UWJ_ModeSelectUserWidget* modeWidget = Cast<UWJ_ModeSelectUserWidget>(modeSelectUI->GetUserWidgetObject());
 	modeWidget->Btn_Multi->OnClicked.AddDynamic(this,&AWJ_LobbyMenu::OpenServerMainMenu);
+
+	USH_MainMenu* serverWidget = Cast<USH_MainMenu>(mainMenuUI->GetUserWidgetObject());
+	serverWidget->btn_Quit->OnClicked.AddDynamic(this, &AWJ_LobbyMenu::OpenModeMenu);
 }
 
 // Called every frame
@@ -62,5 +66,21 @@ void AWJ_LobbyMenu::OpenServerMainMenu()
 
 	planeServerMesh->SetHiddenInGame(false);
 	mainMenuUI->SetHiddenInGame(false);
+	planeServerMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	mainMenuUI->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void AWJ_LobbyMenu::OpenModeMenu()
+{
+	planeMesh->SetHiddenInGame(false);
+	modeSelectUI->SetHiddenInGame(false);
+	planeMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	modeSelectUI->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+
+
+	planeServerMesh->SetHiddenInGame(true);
+	mainMenuUI->SetHiddenInGame(true);
+	planeServerMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	mainMenuUI->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 

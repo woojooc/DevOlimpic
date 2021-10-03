@@ -10,7 +10,7 @@ void USH_MainMenu::NativeConstruct()
 
 	btn_Host->OnClicked.AddDynamic(this, &USH_MainMenu::HostGame);
 	btn_Join->OnClicked.AddDynamic(this, &USH_MainMenu::JoinGame);
-	btn_Quit->OnClicked.AddDynamic(this, &USH_MainMenu::QuitGame);
+	//btn_Quit->OnClicked.AddDynamic(this, &USH_MainMenu::QuitGame);
 
 }
 
