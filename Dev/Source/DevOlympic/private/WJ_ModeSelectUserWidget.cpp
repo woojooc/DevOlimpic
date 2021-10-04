@@ -12,7 +12,7 @@ void UWJ_ModeSelectUserWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	Btn_Single->OnClicked.AddDynamic(this, &UWJ_ModeSelectUserWidget::ClickSingle);
-	//Btn_Multi->OnClicked.AddDynamic(this, &UWJ_ModeSelectUserWidget::ClickMulti);
+	Btn_Multi->OnClicked.AddDynamic(this, &UWJ_ModeSelectUserWidget::ClickMulti);
 }
 
 void UWJ_ModeSelectUserWidget::ClickSingle()
@@ -28,4 +28,6 @@ void UWJ_ModeSelectUserWidget::ClickMulti()
 {
 	auto gameInstance = Cast<UWJ_GameInstance>(GetGameInstance());
 	gameInstance->SetModeNum(EEditMode::Multi);
+
+	//UE_LOG(LogTemp, Warning, TEXT("gameInstance : %d"), gameInstance->modeNum);
 }

@@ -7,6 +7,7 @@
 #include "WJ_Point.h"
 #include "SJ_PingPongPlayer.h"
 #include "SJ_PingPongBall.h"
+#include "WJ_GameInstance.h"
 
 
 UWJ_PingPongMgr::UWJ_PingPongMgr()
@@ -19,9 +20,14 @@ void UWJ_PingPongMgr::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UE_LOG(LogTemp, Warning, TEXT("PingPongMGr BeginPlay"));
+
 	//gameModeBase 캐싱
 	gameModeBase = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
 	
+	auto gameInstance = Cast<UWJ_GameInstance>(gameModeBase->GetGameInstance());
+	gameModeBase->editMode = gameInstance->modeNum;
+
 	// 벽 캐싱
 	AActor* wall = UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_PPSingleModeWall::StaticClass());
 
@@ -34,8 +40,12 @@ void UWJ_PingPongMgr::BeginPlay()
 		// 벽 비활성화
 		if (wall)
 		{
+			UE_LOG(LogTemp,Warning,TEXT("wall HiddenIngame"));
 			wall->SetActorHiddenInGame(true);
 		}
+	
+		UE_LOG(LogTemp,Warning,TEXT("wall HiddenIngame : %d"),wall->IsHidden());
+
 		// 플레이어 호스트 ( 0, A ) -> 탁구대 사이드 A
 		// 플레이어 게스트 ( 1, B ) -> 탁구대 사이드 B 에 소환
 
