@@ -158,12 +158,12 @@ void USH_PlayerReplicateComponent::Multi_UpdateReplicate_Implementation(FTransfo
 	// 멀티캐스트 적용할 컴포넌트 예외 처리
 	if (!leftController)
 	{
-		leftController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("LeftMotionController")));
+		leftController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("LeftMotionContoller")));
 	}
 	// 멀티캐스트 적용할 컴포넌트 예외 처리
 	if (!rightController)
 	{
-		rightController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("RightMotionController")));
+		rightController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("RightMotionContoller")));
 	}
 	// 로컬 조작 플레이어가 아니라면
 	if (!player->IsLocallyControlled())
