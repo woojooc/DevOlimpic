@@ -12,6 +12,7 @@
 #include "WJ_PingPongMgr.h"
 #include "WJ_PPSingleModeWall.h"
 #include "SJ_OutOfZone.h"
+#include "SH_PingPongBallRepComponent.h"
 
 // Sets default values
 ASJ_PingPongBall::ASJ_PingPongBall()
@@ -25,6 +26,8 @@ ASJ_PingPongBall::ASJ_PingPongBall()
 	wrapFX = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WrapFX"));
 	wrapFX->SetupAttachment(meshComp);
 	wrapFX->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	ballRepComp = CreateDefaultSubobject<USH_PingPongBallRepComponent>(TEXT("RepComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -72,7 +75,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 		{
 			// 중복 충돌 검사
 			overlapB = 0;
-			 overlapA++;
+			overlapA++;
 
 			// SideA 충돌 여부
 			if (inSideA == false)
@@ -147,7 +150,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 			// 중복 충돌 검사
 			overlapA = 0;
 			overlapB++;
-			
+
 			if (inSideB == false)
 			{
 				inSideB = true;
@@ -228,7 +231,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 			}
 		}
 		// 플레이어가 쳤을 때
-		else if (player)
+		else if (player && player->playerIndex == 0)
 		{
 			// 햅틱 효과
 			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(hitFxHaptic, EControllerHand::Right, 0.3f, false);
@@ -244,6 +247,42 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 					UE_LOG(LogTemp, Warning, TEXT("StartRally"));
 					pingpongMNG->StartRally();
 
+					// 점수 계산 후 서브를 하기 때문에 여기서 함수 호출 여부 초기화
+					isCallScoreGet = false;
+				}
+				// 서브가 무사히 넘어오면 랠리로 이어짐
+				else if (inSideA == true && inSideB == true)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Next Receive"));
+					pingpongMNG->p_State = EPPBallState::Recive;
+				}
+			}
+			// 리시브
+			else if (pingpongMNG->p_State == EPPBallState::Recive)
+			{
+				// 서로 한 번씩 주고 받기가 성공 하면 SideA,B 충돌 여부를 초기화 한다.
+				if (inSideA == true && inSideB == true)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Reset Hit Position"));
+					InitSideState();
+				}
+			}
+
+			// 사운드 재생
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(), pingpongSound, GetActorLocation());
+		}
+		else if (player && player->playerIndex == 1)
+		{
+			// 플레이어 B 가 쳤을 때
+			playerID = 1;
+
+			// 서브
+			if (pingpongMNG->p_State == EPPBallState::Serve)
+			{
+				if (inSideA == false && inSideB == false)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("StartRally"));
+					pingpongMNG->StartRally();
 					// 점수 계산 후 서브를 하기 때문에 여기서 함수 호출 여부 초기화
 					isCallScoreGet = false;
 				}
@@ -421,8 +460,16 @@ void ASJ_PingPongBall::EndOfBall()
 	// 탁구 게임모드 변수
 	UWJ_PingPongMgr* pingpongMNG = vrGameMNG->pingpongStateMgr;
 
-	pingpongMNG->SetState(EPingPongState::Serv);
-	Destroy();
+	if (pingpongMNG->GetState() == EPingPongState::SetOver || pingpongMNG->GetState() == EPingPongState::MatchOver)
+	{
+		Destroy();
+		return;
+	}
+	else
+	{
+		pingpongMNG->SetState(EPingPongState::Serv);
+		Destroy();
+	}
 }
 
 void ASJ_PingPongBall::ZoneExit()
