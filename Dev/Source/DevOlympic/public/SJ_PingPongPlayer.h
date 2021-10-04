@@ -59,6 +59,24 @@ public:
 	UPROPERTY(EditAnywhere, Category = Player)
 		class UChildActorComponent* childRacket;
 
+	// 레이저
+	UPROPERTY(EditAnywhere, Category = Player)
+	class UChildActorComponent* razer;
+
+	UPROPERTY(EditAnywhere, Category = Player)
+	class USJ_SelectUIComponent* selectComp;
+
+	// 위젯 상호작용 포인터
+	UPROPERTY(EditAnywhere, Category = WidgetInteraction)
+	class UWidgetInteractionComponent* widgetPointer;
+
+	// 게임 모드
+	UPROPERTY(EditAnywhere, Category = GameMode)
+	class AVRGameModeBase* gameMode;
+
+	UPROPERTY(EditAnywhere, Category = UI)
+	TArray<class AWJ_GameOverUI*> gameOverUI;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -79,6 +97,8 @@ public:
 
 	// 초기화 함수
 	void ResetHMD();
+
+	void ShowUI();
 
 	// 입장시 위치 초기화 변수
 	FRotator hmdRotation;

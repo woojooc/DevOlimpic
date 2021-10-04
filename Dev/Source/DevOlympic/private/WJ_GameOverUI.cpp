@@ -27,23 +27,38 @@ void AWJ_GameOverUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	isActive = false;
 }
 
 void AWJ_GameOverUI::HideUI()
 {
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(false);
+
+	/*
 	menuUI->SetHiddenInGame(true);
 	menuUI->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	planeMesh->SetHiddenInGame(true);
 	planeMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	*/
+	
+	isActive = false;
 }
 
 void AWJ_GameOverUI::Show()
 {
+	SetActorHiddenInGame(false);
+	SetActorEnableCollision(true);
+
+	/*
 	menuUI->SetHiddenInGame(false);
 	menuUI->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	planeMesh->SetHiddenInGame(false);
 	planeMesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	*/
+	
+	isActive = true;
 }
 
