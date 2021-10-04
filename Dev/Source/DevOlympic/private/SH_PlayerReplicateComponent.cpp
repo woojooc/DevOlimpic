@@ -31,8 +31,8 @@ void USH_PlayerReplicateComponent::BeginPlay()
 	// 카메라 컴포넌트 받아오기
 	playerCam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
 	// 왼손, 오른손 컨트롤러 받아오기
-	leftController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("LeftMotionController")));
-	rightController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("RightMotionController")));
+	leftController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("LeftMotionContoller")));
+	rightController = Cast<UMotionControllerComponent>(player->GetDefaultSubobjectByName(TEXT("RightMotionContoller")));
 
 	// 플레이어 인덱스를 가져오기 위한 플레이어 스크립트 캐스팅
 	class ASJ_PingPongPlayer* temp = Cast<ASJ_PingPongPlayer>(GetOwner());
