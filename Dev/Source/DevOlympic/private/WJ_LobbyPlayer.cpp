@@ -87,6 +87,8 @@ void AWJ_LobbyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	leftLog->SetText(TEXT(""));
+	rightLog->SetText(TEXT(""));
 }
 
 // Called every frame
