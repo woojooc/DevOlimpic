@@ -86,8 +86,8 @@ ASH_LobbyPlayer::ASH_LobbyPlayer()
 	// 컴포넌트 오른손에 붙이기
 	widgetPointer->SetupAttachment(rightController);
 
-	// 위치 동기화 컴포넌트
-	replicateComponent = CreateDefaultSubobject<USH_PlayerReplicateComponent>(TEXT("Replicate Component"));
+	//// 위치 동기화 컴포넌트
+	//replicateComponent = CreateDefaultSubobject<USH_PlayerReplicateComponent>(TEXT("Replicate Component"));
 }
 
 // Called when the game starts or when spawned
@@ -95,18 +95,18 @@ void ASH_LobbyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	//if (HasAuthority())
-	//{
-	//	FString r_str_rep = FString::Printf(TEXT("Server"));
-	//	leftLog->SetText(FText::FromString(r_str_rep));
-	//	rightLog->SetText(FText::FromString(r_str_rep));
-	//}
-	//else
-	//{
-	//	FString r_str_rep = FString::Printf(TEXT("Client"));
-	//	leftLog->SetText(FText::FromString(r_str_rep));
-	//	rightLog->SetText(FText::FromString(r_str_rep));
-	//}
+	if (HasAuthority())
+	{
+		FString r_str_rep = FString::Printf(TEXT("Server"));
+		leftLog->SetText(FText::FromString(r_str_rep));
+		rightLog->SetText(FText::FromString(r_str_rep));
+	}
+	else
+	{
+		FString r_str_rep = FString::Printf(TEXT("Client"));
+		leftLog->SetText(FText::FromString(r_str_rep));
+		rightLog->SetText(FText::FromString(r_str_rep));
+	}
 }
 
 // Called every frame
@@ -114,25 +114,25 @@ void ASH_LobbyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//l_handRepTrans = leftController->GetComponentTransform();
-	//r_handRepTrans = rightController->GetComponentTransform();
+	l_handRepTrans = leftController->GetComponentTransform();
+	r_handRepTrans = rightController->GetComponentTransform();
 
-	//// 로컬플레이어라면
-	//if (IsLocallyControlled())
-	//{
-	//	// 로컬플레이어가 서버가 아니라면
-	//	if (!HasAuthority())
-	//	{
-	//		// 서버 함수 실행
-	//		Server_HandMove(l_handRepTrans, r_handRepTrans);
-	//	}
-	//	// 서버라면
-	//	else
-	//	{
-	//		// 곧바로 멀티캐스트 함수 실행
-	//		Multi_HandMove(l_handRepTrans, r_handRepTrans);
-	//	}
-	//}
+	// 로컬플레이어라면
+	if (IsLocallyControlled())
+	{
+		// 로컬플레이어가 서버가 아니라면
+		if (!HasAuthority())
+		{
+			// 서버 함수 실행
+			Server_HandMove(l_handRepTrans, r_handRepTrans);
+		}
+		// 서버라면
+		else
+		{
+			// 곧바로 멀티캐스트 함수 실행
+			Multi_HandMove(l_handRepTrans, r_handRepTrans);
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -175,30 +175,30 @@ void ASH_LobbyPlayer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 }
 
 
-//bool ASH_LobbyPlayer::Server_HandMove_Validate(FTransform l_Trans, FTransform r_Trans)
-//{
-//	return true;
-//}
-//
-//void ASH_LobbyPlayer::Server_HandMove_Implementation(FTransform l_Trans, FTransform r_Trans)
-//{
-//	// 멀티캐스트 실행
-//	Multi_HandMove(l_Trans, r_Trans);
-//}
-//
-//bool ASH_LobbyPlayer::Multi_HandMove_Validate(FTransform l_Trans, FTransform r_Trans)
-//{
-//	return true;
-//}
-//
-//void ASH_LobbyPlayer::Multi_HandMove_Implementation(FTransform l_Trans, FTransform r_Trans)
-//{
-//
-//	if (!IsLocallyControlled())
-//	{
-//		// 클라이언트에서 받은 손 위치 함수를 전달
-//		leftController->SetWorldTransform(l_Trans);;
-//		rightController->SetWorldTransform(r_Trans);
-//	}
-//
-//}
+bool ASH_LobbyPlayer::Server_HandMove_Validate(FTransform l_Trans, FTransform r_Trans)
+{
+	return true;
+}
+
+void ASH_LobbyPlayer::Server_HandMove_Implementation(FTransform l_Trans, FTransform r_Trans)
+{
+	// 멀티캐스트 실행
+	Multi_HandMove(l_Trans, r_Trans);
+}
+
+bool ASH_LobbyPlayer::Multi_HandMove_Validate(FTransform l_Trans, FTransform r_Trans)
+{
+	return true;
+}
+
+void ASH_LobbyPlayer::Multi_HandMove_Implementation(FTransform l_Trans, FTransform r_Trans)
+{
+
+	if (!IsLocallyControlled())
+	{
+		// 클라이언트에서 받은 손 위치 함수를 전달
+		leftController->SetWorldTransform(l_Trans);;
+		rightController->SetWorldTransform(r_Trans);
+	}
+
+}

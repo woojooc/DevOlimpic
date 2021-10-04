@@ -43,6 +43,10 @@ public:
 	class UMotionControllerComponent* rightController;
 
 
+	// 게임 시작함수
+	void StartGame();
+
+
 	// 동기화할 위치 값을 담을 트랜스폼 변수
 	UPROPERTY()
 		FTransform player_Tr;
@@ -58,7 +62,7 @@ public:
 	void  UpdateReplicate();
 
 	// 클라이언트에서 서버로 함수를 호출하기 위한 선언
-// 자신의 컨트롤러 위치를 서버에게 전달
+	// 자신의 컨트롤러 위치를 서버에게 전달
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_UpdateReplicate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
 	bool Server_UpdateReplicate_Validate(FTransform playerTr, FTransform cameraTr, FTransform lcontTr, FTransform rcontTr);
