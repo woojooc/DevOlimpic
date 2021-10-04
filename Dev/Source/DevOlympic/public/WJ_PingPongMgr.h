@@ -22,7 +22,7 @@ public:
 
 	// # 서버 동기화
 	FPingPongData fPPData;
-	void SetFPPData(FPingPongData data);
+	void SetFPPData(FPingPongData data);	// 서버에서 데이터 받아옴
 	FPingPongData GetFPPData();
 
 		// # 점수판	- 텍스트 오브젝트 캐싱

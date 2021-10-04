@@ -113,7 +113,14 @@ int AVRGameModeBase::GetWinner()
 // #Flow
 void AVRGameModeBase::Intro()
 {
-	SetLevelState(EPPLevelState::PingPong);
+	if (editMode == EEditMode::Multi)
+	{
+
+	}
+	else
+	{
+		SetLevelState(EPPLevelState::PingPong);
+	}
 }
 
 void AVRGameModeBase::PingPong()

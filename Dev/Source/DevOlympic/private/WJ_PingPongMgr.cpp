@@ -373,6 +373,8 @@ void UWJ_PingPongMgr::OnCollisionGround(int player, bool in)
 
 	// SJ_PingPongBall.cpp -> EndOfBall 함수로 기능 옮겨감
 	// SetState(EPingPongState::Serv);
+
+	GetFPPData();
 }
 
 void UWJ_PingPongMgr::NetServ()
