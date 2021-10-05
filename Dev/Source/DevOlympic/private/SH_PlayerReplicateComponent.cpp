@@ -5,10 +5,12 @@
 #include <GameFramework/Pawn.h>
 #include <Camera/CameraComponent.h>
 #include <MotionControllerComponent.h>
+#include "WJ_PingPongMgr.h"
 
 // 언리얼 네트워크 헤더 추가
 #include "Net/UnrealNetwork.h"
 #include "SJ_PingPongPlayer.h"
+#include "VRGameModeBase.h"
 
 // Sets default values for this component's properties
 USH_PlayerReplicateComponent::USH_PlayerReplicateComponent()
@@ -38,6 +40,39 @@ void USH_PlayerReplicateComponent::BeginPlay()
 	class ASJ_PingPongPlayer* temp = Cast<ASJ_PingPongPlayer>(GetOwner());
 
 
+	gameState = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
+	pingpongStateMgr = gameState->pingpongStateMgr;
+
+	// 서버라면
+	if(gameState->HasAuthority())
+	{
+		//  서버 방의 서버 플레이어
+		if (player->IsLocallyControlled())
+		{
+			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
+		}
+		// 서버 방의 클라이언트 플레이어
+		else
+		{
+			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
+			pingpongStateMgr->SetState(EPingPongState::Serv);
+		}
+	}
+	// 클라이언트 방이라면
+	else
+	{
+		//  클라이언트 방의 클라이언트 플레이어
+		if (player->IsLocallyControlled())
+		{
+			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
+			pingpongStateMgr->SetState(EPingPongState::Serv);
+		}
+		// 클라이언트 방의 서버 플레이어
+		else
+		{
+			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
+		}
+	}
 }
 
 

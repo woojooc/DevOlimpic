@@ -42,6 +42,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Replicate Setting")
 	class UMotionControllerComponent* rightController;
 
+	UPROPERTY()
+	class AVRGameModeBase* gameState;
+	UPROPERTY()
+	class UWJ_PingPongMgr* pingpongStateMgr;
+
+
 
 	// 게임 시작함수
 	void StartGame();

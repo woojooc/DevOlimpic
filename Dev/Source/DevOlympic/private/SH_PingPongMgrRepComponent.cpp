@@ -32,11 +32,17 @@ void USH_PingPongMgrRepComponent::BeginPlay()
 	if(vrGameModeBase)
 	pingPongManager = vrGameModeBase->pingpongStateMgr;
 
-	if (!vrGameModeBase->HasAuthority())
-	{
-		pingPongManager->SetState(EPingPongState::Serv);
-	}
-
+	//// 서버라면
+	//if (vrGameModeBase->HasAuthority())
+	//{
+	//	pingPongManager->playerActorA = Cast<AActor>(this);
+	//}
+	//// 클라이언트라면
+	//else
+	//{
+	//	pingPongManager->playerActorB = Cast<AActor>(this);
+	//	pingPongManager->SetState(EPingPongState::Serv);
+	//}
 }
 
 
