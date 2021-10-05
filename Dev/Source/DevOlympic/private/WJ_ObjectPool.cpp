@@ -37,7 +37,41 @@ ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEd
 
 	if (mode == EEditMode::Multi)
 	{
+		if (player == 0)
+		{
+			//UE_LOG(LogTemp,Warning,TEXT("GetPingPongBall Player 0"));
+			spawnLoc.X = offsetLocA.X;
+			spawnLoc.Z = offsetLocA.Z;
 
+			// y값 제한
+			if (spawnLoc.Y <= -73)
+			{
+				spawnLoc.Y = -73;
+			}
+			else if (spawnLoc.Y >= 73)
+			{
+				spawnLoc.Y = 73;
+			}
+
+			ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
+		}
+		else
+		{
+			spawnLoc.X = offsetLocB.X;
+			spawnLoc.Z = offsetLocA.Z;
+
+			// y값 제한
+			if (spawnLoc.Y <= -73)
+			{
+				spawnLoc.Y = -73;
+			}
+			else if (spawnLoc.Y >= 73)
+			{
+				spawnLoc.Y = 73;
+			}
+
+			ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
+		}
 	}
 	else
 	{
