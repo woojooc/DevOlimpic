@@ -87,39 +87,52 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 
 
 
-	//// 인덱스 할당
-	//// 서버방이라면
-	//if (HasAuthority())
-	//{
-	//	// 내 플레이어라면
-	//	if (IsLocallyControlled())
-	//	{
-	//		// 번호 0번 할당
-	//		playerIndex = 0;
-	//	}
-	//	// 초대된 클라이언트 플레이어라면
-	//	else
-	//	{
-	//		// 번호 0번 할당
-	//		playerIndex = 1;
-	//	}
-	//}
-	//// 클라이언트 방이라면
-	//else
-	//{
-	//	// 내 플레이어라면
-	//	if (IsLocallyControlled())
-	//	{
-	//		// 번호 1번 할당
-	//		playerIndex = 1;
-	//	}
-	//	// 기존에 방에 있던 서버 플레이어라면
-	//	else
-	//	{
-	//		// 번호 0번 할당
-	//		playerIndex = 0;
-	//	}
-	//}
+
+	//// 플레이어 컨트롤러 빙의
+	//AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+}
+
+// Called when the game starts or when spawned
+void ASJ_PingPongPlayer::BeginPlay()
+{
+	Super::BeginPlay();
+
+
+
+	// 인덱스 할당
+	// 서버방이라면
+	if (HasAuthority())
+	{
+		// 내 플레이어라면
+		if (IsLocallyControlled())
+		{
+			// 번호 0번 할당
+			playerIndex = 0;
+		}
+		// 초대된 클라이언트 플레이어라면
+		else
+		{
+			// 번호 0번 할당
+			playerIndex = 1;
+		}
+	}
+	// 클라이언트 방이라면
+	else
+	{
+		// 내 플레이어라면
+		if (IsLocallyControlled())
+		{
+			// 번호 1번 할당
+			playerIndex = 1;
+		}
+		// 기존에 방에 있던 서버 플레이어라면
+		else
+		{
+			// 번호 0번 할당
+			playerIndex = 0;
+		}
+	}
 
 	// 스태틱메쉬 동적 할당
 	ConstructorHelpers::FObjectFinder<UStaticMesh> face(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
@@ -154,7 +167,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	{
 		if (marioBody.Succeeded())
 		{
-			playerBody->SetMaterial(0,marioBody.Object);
+			playerBody->SetMaterial(0, marioBody.Object);
 		}
 	}
 
@@ -178,15 +191,10 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	}
 
 
-	//// 플레이어 컨트롤러 빙의
-	//AutoPossessPlayer = EAutoReceiveInput::Player0;
 
-}
 
-// Called when the game starts or when spawned
-void ASJ_PingPongPlayer::BeginPlay()
-{
-	Super::BeginPlay();
+
+
 
 	// 헤드 마운트 디스플레이 장치의 초기 위치값을 설정하기
 	UHeadMountedDisplayFunctionLibrary::GetOrientationAndPosition(hmdRotation, hmdLocation);

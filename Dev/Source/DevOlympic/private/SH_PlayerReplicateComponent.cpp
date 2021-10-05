@@ -55,6 +55,7 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		else
 		{
 			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
+			// 클라이언트가 입장하면 게임 실행
 			pingpongStateMgr->SetState(EPingPongState::Serv);
 		}
 	}
@@ -65,6 +66,7 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		if (player->IsLocallyControlled())
 		{
 			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
+			// 클라이언트가 입장하면 게임 실행
 			pingpongStateMgr->SetState(EPingPongState::Serv);
 		}
 		// 클라이언트 방의 서버 플레이어
