@@ -48,6 +48,8 @@ public:
 
 	UPROPERTY()
 		class AWJ_ResultText* resultText;
+	UPROPERTY()
+	class USH_PingPongMgrRepComponent* pingPongMgrRepComponent;
 
 	// # 게임 결과
 	int winner;

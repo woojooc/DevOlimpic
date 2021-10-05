@@ -26,9 +26,17 @@ void USH_PingPongMgrRepComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
+
+
 	vrGameModeBase = Cast<AVRGameModeBase>(GetOwner());
 	if(vrGameModeBase)
 	pingPongManager = vrGameModeBase->pingpongStateMgr;
+
+	if (!vrGameModeBase->HasAuthority())
+	{
+		pingPongManager->SetState(EPingPongState::Serv);
+	}
+
 }
 
 
@@ -107,7 +115,6 @@ void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation(int _poin
 	temp.servCount = _servCount;
 	temp.bSpawnBall = _bSpawnBall;
 	temp.bIsDeuce = _bIsDeuce;
-
 
 	// 새롭게 할당된 값 매니저에 적용
 	pingPongManager->SetFPPData(temp);
