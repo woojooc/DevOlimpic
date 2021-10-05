@@ -139,7 +139,7 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 void UWJ_PingPongMgr::Intro()
 {
-	SetState(EPingPongState::Serv);
+	//SetState(EPingPongState::Serv);
 }
 
 void UWJ_PingPongMgr::Serv()
