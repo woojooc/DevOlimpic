@@ -50,7 +50,16 @@ enum class EPPBallState : uint8
 	Recive
 };
 
+UENUM(BlueprintType)
+enum class ETutoUIType : uint8
+{
+	AvatarGrab,
+	UIClick,
+	EXIT
+};
 
+
+// 구조체
 struct FPingPongData
 {
 public:
@@ -67,3 +76,4 @@ public:
 
 	bool bIsDeuce;		// true시 듀스 상태. 점수 2점차 나야 세트 종료. 빠른 게임 모드시 비활성화 되어있음
 };
+

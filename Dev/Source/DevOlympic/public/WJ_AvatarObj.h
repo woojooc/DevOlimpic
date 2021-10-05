@@ -21,6 +21,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Settings")
 	int avatarID;
 
+	// Component
 	UPROPERTY(EditAnywhere, Category = "Root")
 	class UStaticMeshComponent* rootComp;
 
@@ -31,9 +32,18 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Avatar")
 	class UStaticMeshComponent* headComp;
 
+	// TEXT
+	UPROPERTY(EditAnywhere, Category = "Text")
+	class UTextRenderComponent* arrowTxt;
+	UPROPERTY(EditAnywhere, Category = "Text")
+	class UTextRenderComponent* selectTxt;
+
+	// Offset
 	UPROPERTY(EditAnywhere, Category = PickUpSettings)
 	FVector grabOffset = FVector(0,0,10);
 
 	UPROPERTY(EditAnywhere, Category = PickUpSettings)
 	FVector originalOffset = FVector(0,0,9);
+
+	void HideText();
 };

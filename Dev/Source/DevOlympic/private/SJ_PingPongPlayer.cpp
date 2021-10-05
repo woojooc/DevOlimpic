@@ -142,7 +142,6 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 
 	// 플레이어 컨트롤러 빙의
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
-
 }
 
 // Called when the game starts or when spawned

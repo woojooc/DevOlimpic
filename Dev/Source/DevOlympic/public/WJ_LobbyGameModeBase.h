@@ -27,6 +27,18 @@ public:
 
 private:
 
+	// Tuto
+	UPROPERTY()
+	TArray<class AWJ_TutorialObj*> avatarGrabUI;
+
+	UPROPERTY()
+	TArray<class AWJ_TutorialObj*> uiClickUI;
+
+	// Avatar List
+	UPROPERTY()
+	TArray<class AWJ_AvatarObj*> avatarObjs;
+	
+	// UI
 	UPROPERTY(EditAnywhere, Category = "WorldObj")
 	class AWJ_LobbyMenu* menuObj;
 
