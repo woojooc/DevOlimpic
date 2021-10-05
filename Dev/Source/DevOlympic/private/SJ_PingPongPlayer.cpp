@@ -119,6 +119,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	//	}
 	//}
 
+	/*
 	// 스태틱메쉬 동적 할당
 	ConstructorHelpers::FObjectFinder<UStaticMesh> face(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 
@@ -174,7 +175,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 			playerBody->SetMaterial(0, luigiBody.Object);
 		}
 	}
-
+	*/
 
 	//// 플레이어 컨트롤러 빙의
 	//AutoPossessPlayer = EAutoReceiveInput::Player0;
@@ -216,7 +217,18 @@ void ASJ_PingPongPlayer::BeginPlay()
 	gameMode = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 
 	razer->SetHiddenInGame(true);
-	
+
+	if (playerIndex == 0)
+	{
+		playerFace->SetMaterial(0, marioFace);
+		playerBody->SetMaterial(0, marioBody);
+	}
+	else if (playerIndex == 1)
+	{
+
+		playerFace->SetMaterial(0, luigiFace);
+		playerBody->SetMaterial(0, luigiBody);
+	}
 }
 
 // Called every frame
