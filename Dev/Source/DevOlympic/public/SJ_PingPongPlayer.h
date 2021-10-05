@@ -66,8 +66,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = Player)
 	class USJ_SelectUIComponent* selectComp;
 
-	//UPROPERTY(EditAnywhere, Category = Player)
-	//class USH_PlayerReplicateComponent* playerRepComp;
+	UPROPERTY(EditAnywhere, Category = Player)
+	class USH_PlayerReplicateComponent* playerRepComp;
 
 	// 위젯 상호작용 포인터
 	UPROPERTY(EditAnywhere, Category = WidgetInteraction)
