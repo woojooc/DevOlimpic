@@ -46,22 +46,22 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		{
 			// 번호 0번 할당
 			temp->playerIndex = 0;
-			// 위치 값 설정
-			FVector loc = FVector(-198, 0, 112);
-			FRotator rot = FRotator(0, 0, 0);
-			player->SetActorLocation(loc);
-			player->SetActorRotation(rot);
+			//// 위치 값 설정
+			//FVector loc = FVector(-198, 0, 112);
+			//FRotator rot = FRotator(0, 0, 0);
+			//player->SetActorLocation(loc);
+			//player->SetActorRotation(rot);
 		}
 		// 초대된 클라이언트 플레이어라면
 		else
 		{
 			// 번호 0번 할당
 			temp->playerIndex = 1;
-			// 위치 값 설정
-			FVector loc = FVector(-198, 0, 112);
-			FRotator rot = FRotator(0, 0, -180);
-			player->SetActorLocation(loc);
-			player->SetActorRotation(rot);
+			//// 위치 값 설정
+			//FVector loc = FVector(-198, 0, 112);
+			//FRotator rot = FRotator(0, 0, -180);
+			//player->SetActorLocation(loc);
+			//player->SetActorRotation(rot);
 		}
 	}
 	// 클라이언트 방이라면
@@ -72,22 +72,22 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		{
 			// 번호 1번 할당
 			temp->playerIndex = 1;
-			// 위치 값 설정
-			FVector loc = FVector(-198, 0, 112);
-			FRotator rot = FRotator(0, 0, -180);
-			player->SetActorLocation(loc);
-			player->SetActorRotation(rot);
+			//// 위치 값 설정
+			//FVector loc = FVector(-198, 0, 112);
+			//FRotator rot = FRotator(0, 0, -180);
+			//player->SetActorLocation(loc);
+			//player->SetActorRotation(rot);
 		}
 		// 기존에 방에 있던 서버 플레이어라면
 		else
 		{
 			// 번호 0번 할당
 			temp->playerIndex = 0;
-			// 위치 값 설정
-			FVector loc = FVector(-198, 0, 112);
-			FRotator rot = FRotator(0, 0, 0);
-			player->SetActorLocation(loc);
-			player->SetActorRotation(rot);
+			//// 위치 값 설정
+			//FVector loc = FVector(-198, 0, 112);
+			//FRotator rot = FRotator(0, 0, 0);
+			//player->SetActorLocation(loc);
+			//player->SetActorRotation(rot);
 		}
 	}
 }
