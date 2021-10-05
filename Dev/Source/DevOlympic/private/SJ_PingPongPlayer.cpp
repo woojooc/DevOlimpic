@@ -85,39 +85,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	// 컴포넌트 오른손에 붙이기
 	widgetPointer->SetupAttachment(leftController);
 
-	//// 인덱스 할당
-	//// 서버방이라면
-	//if (HasAuthority())
-	//{
-	//	// 내 플레이어라면
-	//	if (IsLocallyControlled())
-	//	{
-	//		// 번호 0번 할당
-	//		playerIndex = 0;
-	//	}
-	//	// 초대된 클라이언트 플레이어라면
-	//	else
-	//	{
-	//		// 번호 0번 할당
-	//		playerIndex = 1;
-	//	}
-	//}
-	//// 클라이언트 방이라면
-	//else
-	//{
-	//	// 내 플레이어라면
-	//	if (IsLocallyControlled())
-	//	{
-	//		// 번호 1번 할당
-	//		playerIndex = 1;
-	//	}
-	//	// 기존에 방에 있던 서버 플레이어라면
-	//	else
-	//	{
-	//		// 번호 0번 할당
-	//		playerIndex = 0;
-	//	}
-	//}
+
 
 	/*
 	// 스태틱메쉬 동적 할당
@@ -217,6 +185,43 @@ void ASJ_PingPongPlayer::BeginPlay()
 	gameMode = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 
 	razer->SetHiddenInGame(true);
+
+
+	// 인덱스 할당
+	// 서버방이라면
+	if (HasAuthority())
+	{
+		// 내 플레이어라면
+		if (IsLocallyControlled())
+		{
+			// 번호 0번 할당
+			playerIndex = 0;
+		}
+		// 초대된 클라이언트 플레이어라면
+		else
+		{
+			// 번호 0번 할당
+			playerIndex = 1;
+		}
+	}
+	// 클라이언트 방이라면
+	else
+	{
+		// 내 플레이어라면
+		if (IsLocallyControlled())
+		{
+			// 번호 1번 할당
+			playerIndex = 1;
+		}
+		// 기존에 방에 있던 서버 플레이어라면
+		else
+		{
+			// 번호 0번 할당
+			playerIndex = 0;
+		}
+	}
+
+
 
 	if (playerIndex == 0)
 	{
