@@ -27,7 +27,7 @@ ASJ_PingPongBall::ASJ_PingPongBall()
 	wrapFX->SetupAttachment(meshComp);
 	wrapFX->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	ballRepComp = CreateDefaultSubobject<USH_PingPongBallRepComponent>(TEXT("RepComponent"));
+	//ballRepComp = CreateDefaultSubobject<USH_PingPongBallRepComponent>(TEXT("RepComponent"));
 }
 
 // Called when the game starts or when spawned

@@ -76,7 +76,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	razer->SetupAttachment(leftController);
 
 	selectComp = CreateDefaultSubobject<USJ_SelectUIComponent>(TEXT("Select Component"));
-	playerRepComp = CreateDefaultSubobject<USH_PlayerReplicateComponent>(TEXT("ReplicateComponent"));
+	//playerRepComp = CreateDefaultSubobject<USH_PlayerReplicateComponent>(TEXT("ReplicateComponent"));
 
 	// 위젯 상호작용 컴포넌트 생성
 	widgetPointer = CreateDefaultSubobject<UWidgetInteractionComponent>(TEXT("Widget Pointer"));
