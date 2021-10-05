@@ -23,7 +23,7 @@ void AVRGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("GameModeBase BeginPlay"));
+	//UE_LOG(LogTemp, Warning, TEXT("GameModeBase BeginPlay"));
 
 	// # 게임모드 설정
 	/*
@@ -68,10 +68,10 @@ void AVRGameModeBase::BeginPlay()
 	}
 }
 
-void AVRGameModeBase::InitGameState()
-{
-	Super::InitGameState();
-}
+//void AVRGameModeBase::InitGameState()
+//{
+//	Super::InitGameState();
+//}
 
 void AVRGameModeBase::Tick(float DeltaSeconds)
 {

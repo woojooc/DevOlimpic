@@ -21,7 +21,7 @@ void AWJ_PPSingleModeWall::BeginPlay()
 	racket->OnComponentHit.AddDynamic(this, &AWJ_PPSingleModeWall::OnHit);
 
 	ppball = nullptr;
-	auto gameMode = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	auto gameMode = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 	ppManager = gameMode->pingpongStateMgr;
 
 }

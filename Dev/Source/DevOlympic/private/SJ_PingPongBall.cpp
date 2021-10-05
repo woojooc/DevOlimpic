@@ -63,7 +63,7 @@ void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 		auto player = Cast<ASJ_PingPongPlayer>(OtherActor);
 		auto singleWall = Cast<AWJ_PPSingleModeWall>(OtherActor);
 
-		auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+		auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 		// 탁구 게임모드 변수
 		UWJ_PingPongMgr* pingpongMNG = vrGameMNG->pingpongStateMgr;
 
@@ -426,7 +426,7 @@ void ASJ_PingPongBall::InitSideState()
 void ASJ_PingPongBall::ScoreGet(int id, bool scoreCheck)
 {
 	// 게임 모드 가져오기
-	auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 	// 탁구 게임모드 변수
 	UWJ_PingPongMgr* pingpongMNG = vrGameMNG->pingpongStateMgr;
 
@@ -456,7 +456,7 @@ void ASJ_PingPongBall::ScoreGet(int id, bool scoreCheck)
 void ASJ_PingPongBall::EndOfBall()
 {
 	// 게임 모드 가져오기
-	auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 	// 탁구 게임모드 변수
 	UWJ_PingPongMgr* pingpongMNG = vrGameMNG->pingpongStateMgr;
 
@@ -475,7 +475,9 @@ void ASJ_PingPongBall::EndOfBall()
 void ASJ_PingPongBall::ZoneExit()
 {
 	// 게임 모드 가져오기
-	auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetGameState()
+		
+		);
 	// 탁구 게임모드 변수
 	UWJ_PingPongMgr* pingpongMNG = vrGameMNG->pingpongStateMgr;
 

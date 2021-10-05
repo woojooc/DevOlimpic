@@ -177,7 +177,7 @@ void ASJ_PingPongPlayer::BeginPlay()
 			gameOverUI[ui->id] = ui;
 		}
 	}
-	gameMode = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	gameMode = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 
 	razer->SetHiddenInGame(true);
 	
