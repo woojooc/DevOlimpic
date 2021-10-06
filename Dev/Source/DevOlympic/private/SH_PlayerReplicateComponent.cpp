@@ -50,6 +50,7 @@ void USH_PlayerReplicateComponent::BeginPlay()
 			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
 			player->SetActorLocation(FVector(-198, 0, 112));
 			player->SetActorRotation(FRotator(0, 0, 0));
+			
 
 		}
 		// 서버 방의 클라이언트 플레이어
@@ -57,7 +58,7 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		{
 			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
 			player->SetActorLocation(FVector(198, 0, 112));
-			player->SetActorRotation(FRotator(0, 0, -180));
+			player->SetActorRotation(FRotator(180, 0, -180));
 			// 클라이언트가 입장하면 게임 실행
 			pingpongStateMgr->SetState(EPingPongState::Serv);
 		}
@@ -70,7 +71,7 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		{
 			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
 			player->SetActorLocation(FVector(198, 0, 112));
-			player->SetActorRotation(FRotator(0, 0, -180));
+			player->SetActorRotation(FRotator(180, 0, -180));
 			// 클라이언트가 입장하면 게임 실행
 			pingpongStateMgr->SetState(EPingPongState::Serv);
 		}
