@@ -49,41 +49,41 @@ void UWJ_PingPongMgr::BeginPlay()
 
 	if (gameModeBase->editMode == EEditMode::Multi)
 	{
-		//// 벽 비활성화
-		//if (wall)
-		//{
-		//	UE_LOG(LogTemp,Warning,TEXT("wall HiddenIngame"));
-		//	wall->SetActorHiddenInGame(true);
-		//}
+		// 벽 비활성화
+		if (wall)
+		{
+			UE_LOG(LogTemp,Warning,TEXT("wall HiddenIngame"));
+			wall->SetActorHiddenInGame(true);
+		}
 	
-		//UE_LOG(LogTemp,Warning,TEXT("wall HiddenIngame : %d"),wall->IsHidden());
+		UE_LOG(LogTemp,Warning,TEXT("wall HiddenIngame : %d"),wall->IsHidden());
 
-		//// 플레이어 호스트 ( 0, A ) -> 탁구대 사이드 A
-		//if (gameModeBase->HasAuthority())
-		//{
-		//	pointPannelarr[0]->SetColor(FColor::Blue);
-		//	pointPannelarr[1]->SetColor(FColor::Red);
+		// 플레이어 호스트 ( 0, A ) -> 탁구대 사이드 A
+		if (gameModeBase->HasAuthority())
+		{
+			pointPannelarr[0]->SetColor(FColor::Blue);
+			pointPannelarr[1]->SetColor(FColor::Red);
 
-		//	// 플레이어 B 점수판 비활성화
-		//	pointPannelarr[2]->SetColor(FColor::Blue);
-		//	pointPannelarr[3]->SetColor(FColor::Red);
-		//	pointPannelarr[2]->SetActorHiddenInGame(true);
-		//	pointPannelarr[3]->SetActorHiddenInGame(true);
-		//}
-		//// 플레이어 게스트 ( 1, B ) -> 탁구대 사이드 B 에 소환
-		//else
-		//{
-		//	pointPannelarr[0]->SetColor(FColor::Blue);
-		//	pointPannelarr[1]->SetColor(FColor::Red);
-		//	pointPannelarr[0]->SetActorHiddenInGame(true);
-		//	pointPannelarr[1]->SetActorHiddenInGame(true);
+			// 플레이어 B 점수판 비활성화
+			pointPannelarr[2]->SetColor(FColor::Blue);
+			pointPannelarr[3]->SetColor(FColor::Red);
+			pointPannelarr[2]->SetActorHiddenInGame(true);
+			pointPannelarr[3]->SetActorHiddenInGame(true);
+		}
+		// 플레이어 게스트 ( 1, B ) -> 탁구대 사이드 B 에 소환
+		else
+		{
+			pointPannelarr[0]->SetColor(FColor::Blue);
+			pointPannelarr[1]->SetColor(FColor::Red);
+			pointPannelarr[0]->SetActorHiddenInGame(true);
+			pointPannelarr[1]->SetActorHiddenInGame(true);
 
-		//	// 플레이어 B 점수판 비활성화
-		//	pointPannelarr[2]->SetColor(FColor::Blue);
-		//	pointPannelarr[3]->SetColor(FColor::Red);
-		//}
+			// 플레이어 B 점수판 비활성화
+			pointPannelarr[2]->SetColor(FColor::Blue);
+			pointPannelarr[3]->SetColor(FColor::Red);
+		}
 
-		//// 첫 서브 랜덤으로 뽑기
+		// 첫 서브 랜덤으로 뽑기
 	}
 	else
 	{
