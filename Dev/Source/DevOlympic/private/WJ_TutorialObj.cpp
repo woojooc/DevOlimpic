@@ -16,6 +16,13 @@ void AWJ_TutorialObj::BeginPlay()
 	SetActorEnableCollision(false);
 	player = Cast<AWJ_LobbyPlayer>(UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_LobbyPlayer::StaticClass()));
 	playerCam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
+<<<<<<< Updated upstream
+=======
+
+	maxScale = GetActorRelativeScale3D();
+	minScale = maxScale * 0.6;
+	SetActorRelativeScale3D(minScale);
+>>>>>>> Stashed changes
 }
 
 void AWJ_TutorialObj::Tick(float DeltaTime)
@@ -28,6 +35,8 @@ void AWJ_TutorialObj::Tick(float DeltaTime)
 
 	//playerCam->GetComponentLocation() + (playerCam->GetForwardVector() * 200 + playerCam->GetUpVector()*100 )
 	
+
+
 	if (bCanEyeTrace == true)
 	{
 		FVector location = GetActorLocation();
@@ -38,5 +47,57 @@ void AWJ_TutorialObj::Tick(float DeltaTime)
 		rotator.Yaw += 180;
 		SetActorRotation(rotator);
 	}
+<<<<<<< Updated upstream
+=======
+
+	if (bOpen)
+	{
+		Open();
+	}
+
+	if (bClose)
+	{
+		Close();
+	}
+}
+
+void AWJ_TutorialObj::SetOpen()
+{
+	bOpen = true;
+}
+
+void AWJ_TutorialObj::SetClose()
+{
+	bClose = true;
+}
+
+void AWJ_TutorialObj::Open()
+{
+	FVector scale = FMath::Lerp(scale, maxScale,0.5);
+
+	float dist = FVector::Dist(scale, maxScale);
+	if (dist < 1)
+	{
+		scale = maxScale;
+		bOpen = false;
+	}
+	SetActorRelativeScale3D(scale);
+}
+
+void AWJ_TutorialObj::Close()
+{
+	FVector scale = FMath::Lerp(scale, minScale, 0.5);
+
+	float dist = FVector::Dist(scale, minScale);
+	if (dist < 1)
+	{
+		scale = minScale;
+		bClose = false;
+
+		// 다 작아지면 SetHidden true
+		SetActorHiddenInGame(true);
+	}
+	SetActorRelativeScale3D(scale);
+>>>>>>> Stashed changes
 }
 
