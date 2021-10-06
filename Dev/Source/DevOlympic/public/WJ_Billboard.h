@@ -42,4 +42,7 @@ public:
 	UPROPERTY()
 	class UCameraComponent* playerCam;
 
+	UPROPERTY(EditAnywhere,Category = "Player")
+	int playerID;
+
 };
