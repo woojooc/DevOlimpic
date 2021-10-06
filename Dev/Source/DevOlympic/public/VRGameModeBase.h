@@ -5,9 +5,6 @@
 #include "GameFramework/GameStateBase.h"
 #include "VRGameModeBase.generated.h"
 
-/**
- *
- */
 UCLASS()
 class DEVOLYMPIC_API AVRGameModeBase : public AGameStateBase
 {
@@ -37,17 +34,17 @@ public:
 
 	// # ¿¢ÅÍ ÄÄÆ÷³ÍÆ®
 	UPROPERTY(EditAnywhere, Category = Components)
-		class UWJ_PingPongMgr* pingpongStateMgr;
+	class UWJ_PingPongMgr* pingpongStateMgr;
 
 	UPROPERTY(EditAnywhere, Category = Components)
-		class UWJ_ObjectPool* objectPool;
+	class UWJ_ObjectPool* objectPool;
 
 	// # ¿¢ÅÍ Ä³½Ì
 	UPROPERTY(EditAnywhere, Category = UI)
-		TArray<class AWJ_GameOverUI*> gameOverUI;	// 0 A, 1 B
+	TArray<class AWJ_GameOverUI*> gameOverUI;	// 0 A, 1 B
 
 	UPROPERTY()
-		class AWJ_ResultText* resultText;
+	class AWJ_ResultText* resultText;
 	UPROPERTY()
 	class USH_PingPongMgrRepComponent* pingPongMgrRepComponent;
 
