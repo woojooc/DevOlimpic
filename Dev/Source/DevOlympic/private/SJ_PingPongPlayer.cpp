@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "SJ_PingPongPlayer.h"
 #include "Components/CapsuleComponent.h"
@@ -19,10 +17,8 @@
 #include <Components/SceneCaptureComponent2D.h>
 #include "Engine/TextureRenderTarget2D.h"
 
-// Sets default values
 ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 {
-	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	// 플레이어 캡슐 콜라이더 
@@ -84,6 +80,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	widgetPointer = CreateDefaultSubobject<UWidgetInteractionComponent>(TEXT("Widget Pointer"));
 	// 컴포넌트 오른손에 붙이기
 	widgetPointer->SetupAttachment(leftController);
+
 
 	// 캡쳐 카메라 컴포넌트
 	captureCamera = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("CaptureCamera"));
@@ -171,7 +168,6 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 }// End of 생성자
 
-// Called when the game starts or when spawned
 void ASJ_PingPongPlayer::BeginPlay()
 {
 	Super::BeginPlay();

@@ -42,4 +42,16 @@ public:
 	void OpenServerMainMenu();
 	UFUNCTION()
 	void OpenModeMenu();
+
+	// ¸ð¼Ç
+	bool bOpen = false;
+	bool bClose = false;
+	void SetOpen();
+	void SetClose();
+
+	void Open();
+	void Close();
+
+	FVector maxScale;
+	FVector minScale;
 };

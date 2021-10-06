@@ -47,6 +47,10 @@ void AWJ_LobbyMenu::BeginPlay()
 
 	USH_MainMenu* serverWidget = Cast<USH_MainMenu>(mainMenuUI->GetUserWidgetObject());
 	serverWidget->btn_Quit->OnClicked.AddDynamic(this, &AWJ_LobbyMenu::OpenModeMenu);
+
+	maxScale = GetActorScale3D();
+	minScale = maxScale * 0.3;
+	SetActorScale3D(minScale);
 }
 
 // Called every frame
@@ -54,6 +58,15 @@ void AWJ_LobbyMenu::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (bOpen)
+	{
+		Open();
+	}
+
+	if (bClose)
+	{
+		Close();
+	}
 }
 
 void AWJ_LobbyMenu::OpenServerMainMenu()
@@ -82,5 +95,46 @@ void AWJ_LobbyMenu::OpenModeMenu()
 	mainMenuUI->SetHiddenInGame(true);
 	planeServerMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	mainMenuUI->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
+void AWJ_LobbyMenu::SetOpen()
+{
+	bOpen = true;
+}
+
+void AWJ_LobbyMenu::SetClose()
+{
+	bClose = true;
+}
+
+void AWJ_LobbyMenu::Open()
+{
+	FVector curScale = GetActorScale3D();
+	FVector scale = FMath::Lerp(curScale, maxScale, 0.1);
+
+	float dist = FVector::Dist(scale, maxScale);
+	if (dist < 0.5)
+	{
+		scale = maxScale;
+		bOpen = false;
+	}
+	SetActorScale3D(scale);
+}
+
+void AWJ_LobbyMenu::Close()
+{
+	FVector curScale = GetActorScale3D();
+	FVector scale = FMath::Lerp(curScale, minScale, 0.1);
+
+	float dist = FVector::Dist(scale, minScale);
+	if (dist < 0.5)
+	{
+		scale = minScale;
+		bClose = false;
+
+		// 다 작아지면 SetHidden true
+		SetActorHiddenInGame(true);
+	}
+	SetActorScale3D(scale);
 }
 

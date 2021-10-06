@@ -1,6 +1,7 @@
 #include "WJ_LbMoveActorComponent.h"
 #include "WJ_LobbyPlayer.h"
 #include "MotionControllerComponent.h"
+#include "WJ_LobbyGameModeBase.h"
 
 
 UWJ_LbMoveActorComponent::UWJ_LbMoveActorComponent()

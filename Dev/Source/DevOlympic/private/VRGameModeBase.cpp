@@ -25,7 +25,7 @@ void AVRGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("GameModeBase BeginPlay"));
+	//UE_LOG(LogTemp, Warning, TEXT("GameModeBase BeginPlay"));
 
 	// # 게임모드 설정
 	/*
@@ -37,8 +37,8 @@ void AVRGameModeBase::BeginPlay()
 	auto gameInstance = Cast<UWJ_GameInstance>(GetGameInstance());
 	editMode = gameInstance->modeNum;
 
-	UE_LOG(LogTemp,Warning,TEXT("gameInstance : %d"), gameInstance->modeNum);
-	UE_LOG(LogTemp,Warning,TEXT("editMode : %d"),editMode);
+	//UE_LOG(LogTemp,Warning,TEXT("gameInstance : %d"), gameInstance->modeNum);
+	//UE_LOG(LogTemp,Warning,TEXT("editMode : %d"),editMode);
 
 	// # 게임 오버 UI 캐싱
 	TArray<AActor*> bpGameOverUI;

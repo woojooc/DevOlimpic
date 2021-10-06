@@ -64,4 +64,6 @@ public:
 	// 위젯 상호작용 포인터
 	UPROPERTY(EditAnywhere, Category = WidgetInteraction)
 		class UWidgetInteractionComponent* widgetPointer;
+
+
 };

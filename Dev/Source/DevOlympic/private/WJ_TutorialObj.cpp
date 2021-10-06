@@ -17,9 +17,9 @@ void AWJ_TutorialObj::BeginPlay()
 	player = Cast<AWJ_LobbyPlayer>(UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_LobbyPlayer::StaticClass()));
 	playerCam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
 
-	maxScale = GetActorRelativeScale3D();
-	minScale = maxScale * 0.6;
-	SetActorRelativeScale3D(minScale);
+	maxScale = GetActorScale3D();
+	minScale = maxScale * 0.3;
+	SetActorScale3D(minScale);
 }
 
 void AWJ_TutorialObj::Tick(float DeltaTime)
@@ -39,11 +39,13 @@ void AWJ_TutorialObj::Tick(float DeltaTime)
 
 	if (bOpen)
 	{
+		//UE_LOG(LogTemp,Warning,TEXT("Open"));
 		Open();
 	}
 
 	if (bClose)
 	{
+		//UE_LOG(LogTemp, Warning, TEXT("Close"));
 		Close();
 	}
 }
@@ -60,23 +62,25 @@ void AWJ_TutorialObj::SetClose()
 
 void AWJ_TutorialObj::Open()
 {
-	FVector scale = FMath::Lerp(scale, maxScale,0.2);
+	FVector curScale = GetActorScale3D();
+	FVector scale = FMath::Lerp(curScale, maxScale, 0.1);
 
 	float dist = FVector::Dist(scale, maxScale);
-	if (dist < 1)
+	if (dist < 0.5)
 	{
 		scale = maxScale;
 		bOpen = false;
 	}
-	SetActorRelativeScale3D(scale);
+	SetActorScale3D(scale);
 }
 
 void AWJ_TutorialObj::Close()
 {
-	FVector scale = FMath::Lerp(scale, minScale, 0.2);
+	FVector curScale = GetActorScale3D();
+	FVector scale = FMath::Lerp(curScale, minScale, 0.1);
 
 	float dist = FVector::Dist(scale, minScale);
-	if (dist < 1)
+	if (dist < 0.5)
 	{
 		scale = minScale;
 		bClose = false;
@@ -84,6 +88,6 @@ void AWJ_TutorialObj::Close()
 		// 다 작아지면 SetHidden true
 		SetActorHiddenInGame(true);
 	}
-	SetActorRelativeScale3D(scale);
+	SetActorScale3D(scale);
 }
 

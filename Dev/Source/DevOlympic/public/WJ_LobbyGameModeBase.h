@@ -25,14 +25,18 @@ public:
 	UFUNCTION()
 	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
 
+	UFUNCTION(BlueprintCallable, Category = "UIFunction")
+	void HideMoveUI();
 private:
 
 	// Tuto
 	UPROPERTY()
 	TArray<class AWJ_TutorialObj*> avatarGrabUI;
-
 	UPROPERTY()
 	TArray<class AWJ_TutorialObj*> uiClickUI;
+	UPROPERTY()
+	TArray<class AWJ_TutorialObj*> moveUI;
+
 
 	// Avatar List
 	UPROPERTY()

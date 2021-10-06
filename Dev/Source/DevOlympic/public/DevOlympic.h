@@ -55,7 +55,8 @@ enum class ETutoUIType : uint8
 {
 	AvatarGrab,
 	UIClick,
-	EXIT
+	EXIT,
+	Move
 };
 
 

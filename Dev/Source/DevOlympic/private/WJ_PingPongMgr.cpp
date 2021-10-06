@@ -20,7 +20,7 @@ void UWJ_PingPongMgr::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("PingPongMGr BeginPlay"));
+	//UE_LOG(LogTemp, Warning, TEXT("PingPongMGr BeginPlay"));
 
 	//gameModeBase Ä³½Ì
 	gameModeBase = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
