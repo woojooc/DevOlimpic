@@ -21,8 +21,8 @@ AWJ_Billboard::AWJ_Billboard()
 	playerNameTxt = CreateDefaultSubobject<UTextRenderComponent>(TEXT("PlayerName"));
 	playerNameTxt->SetupAttachment(rootComp);
 
-	captureCamera = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("CaptureCamera"));
-	captureCamera->SetupAttachment(rootComp);
+	//captureCamera = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("CaptureCamera"));
+	//captureCamera->SetupAttachment(rootComp);
 
 	videoPlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VideoPlane"));
 	videoPlane->SetupAttachment(rootComp);
@@ -33,10 +33,10 @@ void AWJ_Billboard::BeginPlay()
 	Super::BeginPlay();
 	
 	SetActorEnableCollision(false);
-	player = Cast<AWJ_LobbyPlayer>(UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_LobbyPlayer::StaticClass()));
+	player = Cast<APawn>(UGameplayStatics::GetActorOfClass(GetWorld(), APawn::StaticClass()));
 	playerCam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
 
-	playerNameTxt->SetText(TEXT(""));
+	//playerNameTxt->SetText(TEXT(""));
 }
 
 void AWJ_Billboard::Tick(float DeltaTime)
@@ -46,6 +46,7 @@ void AWJ_Billboard::Tick(float DeltaTime)
 	// 위치 회전
 
 	// 마주보게 하기
+	/*
 	FVector location = GetActorLocation();
 	FVector camLocation = playerCam->GetComponentLocation();
 
@@ -53,5 +54,6 @@ void AWJ_Billboard::Tick(float DeltaTime)
 	rotator.Roll = GetActorRotation().Roll;
 	rotator.Yaw += 180;
 	SetActorRotation(rotator);
+	*/
 }
 

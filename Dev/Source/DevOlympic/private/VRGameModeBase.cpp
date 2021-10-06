@@ -8,6 +8,8 @@
 #include "ModeSelect.h"
 #include "WJ_ResultText.h"
 #include "WJ_GameInstance.h"
+#include "WJ_Billboard.h"
+#include <Components/TextRenderComponent.h>
 
 
 AVRGameModeBase::AVRGameModeBase()
@@ -60,11 +62,48 @@ void AVRGameModeBase::BeginPlay()
 		}
 	}
 
+	// 결과 텍스트 오브젝트 캐싱
 	resultText = Cast<AWJ_ResultText>(UGameplayStatics::GetActorOfClass(GetWorld(), AWJ_ResultText::StaticClass()));
 	if (resultText)
 	{
 		resultText->SetActorHiddenInGame(true);
 		resultText->SetActorEnableCollision(false);
+	}
+
+	// 전광판 캐싱
+	TArray<AActor*> billboardObjs;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWJ_Billboard::StaticClass(), billboardObjs);
+
+	if (billboardObjs.Num() > 0)
+	{
+		for (int i = 0; i < billboardObjs.Num(); i++)
+		{
+			AWJ_Billboard* emptyObj;
+			billObjs.Add(emptyObj);
+		}
+
+		for (int i = 0; i < billboardObjs.Num(); i++)
+		{
+			auto obj = Cast<AWJ_Billboard>(billboardObjs[i]);
+			billObjs[obj->playerID] = obj;
+		}
+	}
+
+	if (editMode == EEditMode::Multi)
+	{
+		if (HasAuthority())
+		{
+			billObjs[0]->playerNameTxt->SetText(TEXT("A"));
+		}
+		else
+		{
+			billObjs[1]->playerNameTxt->SetText(TEXT("B"));
+		}
+	}
+	else
+	{
+		billObjs[0]->playerNameTxt->SetText(TEXT("A"));
+		billObjs[1]->SetActorHiddenInGame(true);
 	}
 }
 

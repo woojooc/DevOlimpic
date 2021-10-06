@@ -38,7 +38,7 @@ public:
 
 
 	UPROPERTY()
-	class AWJ_LobbyPlayer* player;
+	class APawn* player;
 	UPROPERTY()
 	class UCameraComponent* playerCam;
 

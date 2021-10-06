@@ -80,6 +80,10 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 	TArray<class AWJ_GameOverUI*> gameOverUI;
 
+	// Ä¸Åß Ä«¸Þ¶ó
+	UPROPERTY(EditAnywhere, Category = CaptureCamera)
+	class USceneCaptureComponent2D* captureCamera;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -16,6 +16,8 @@
 #include <Components/WidgetInteractionComponent.h>
 #include "VRGameModeBase.h"
 #include "SH_PlayerReplicateComponent.h"
+#include <Components/SceneCaptureComponent2D.h>
+#include "Engine/TextureRenderTarget2D.h"
 
 // Sets default values
 ASJ_PingPongPlayer::ASJ_PingPongPlayer()
@@ -83,6 +85,31 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	// 컴포넌트 오른손에 붙이기
 	widgetPointer->SetupAttachment(leftController);
 
+	// 캡쳐 카메라 컴포넌트
+	captureCamera = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("CaptureCamera"));
+	captureCamera->SetupAttachment(capsuleComp);
+	captureCamera->SetRelativeLocation(FVector(73.514626, -83.108612, 71.499596));
+	captureCamera->SetRelativeRotation(FRotator(-18.746458, 128.827133,7.095927));
+
+	if (playerIndex == 0)
+	{
+		ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> renderTarget(TEXT("TextureRenderTarget2D'/Game/WJ/Material/PingPong/RT_BillboardTargetA.RT_BillboardTargetA'"));
+
+		if (renderTarget.Succeeded())
+		{
+			captureCamera->TextureTarget = renderTarget.Object;
+		}
+	}
+	else
+	{
+		ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> renderTarget(TEXT("TextureRenderTarget2D'/Game/WJ/Material/PingPong/RT_BillboardTargetB.RT_BillboardTargetB'"));
+
+		if (renderTarget.Succeeded())
+		{
+			captureCamera->TextureTarget = renderTarget.Object;
+		}
+	}
+
 	// 스태틱메쉬 동적 할당
 	ConstructorHelpers::FObjectFinder<UStaticMesh> face(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 
@@ -142,7 +169,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 
 	// 플레이어 컨트롤러 빙의
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
-}
+}// End of 생성자
 
 // Called when the game starts or when spawned
 void ASJ_PingPongPlayer::BeginPlay()

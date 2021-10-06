@@ -49,6 +49,13 @@ public:
 	UPROPERTY()
 	class AWJ_ResultText* resultText;
 
+	UPROPERTY()
+	TArray<class AWJ_Billboard*> billObjs;
+
+
+	// # 플레이어 컈싱
+	
+
 	// # 게임 결과
 	int winner;
 	void SetWinner(int id);
