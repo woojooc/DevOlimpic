@@ -85,8 +85,7 @@ void USH_PingPongBallRepComponent::UpdateReplicate()
 	if (!pingPongBall->HasAuthority())
 	{
 		// 서버 함수 실행
-		// 주석처리 -> 서버의 정보만을 동기화
-		//Server_UpdateReplicate(rep_playerID, rep_inSideA, rep_inSideB, rep_overlapA, rep_overlapB, rep_isCallScoreGet, rep_canPingPongBallHit);
+		Server_UpdateReplicate(rep_playerID, rep_inSideA, rep_inSideB, rep_overlapA, rep_overlapB, rep_isCallScoreGet, rep_canPingPongBallHit);
 	}
 	// 서버라면
 	else

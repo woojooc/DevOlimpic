@@ -77,8 +77,7 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 	if (!vrGameModeBase->HasAuthority())
 	{
 		// 서버 함수 실행
-		// 주석처리 -> 서버 정보만을 동기화
-		//Server_UpdateReplicate(rep_pointA, rep_pointB, rep_set, rep_scoreA, rep_scoreB, rep_bServPlayer, rep_servCount, rep_bSpawnBall, rep_bIsDeuce, rep_p_State);
+		Server_UpdateReplicate(rep_pointA, rep_pointB, rep_set, rep_scoreA, rep_scoreB, rep_bServPlayer, rep_servCount, rep_bSpawnBall, rep_bIsDeuce, rep_p_State);
 	}
 	// 서버라면
 	else
