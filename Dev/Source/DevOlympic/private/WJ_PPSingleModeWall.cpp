@@ -18,16 +18,17 @@ void AWJ_PPSingleModeWall::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	racket->OnComponentHit.AddDynamic(this, &AWJ_PPSingleModeWall::OnHit);
+	//racket->OnComponentHit.AddDynamic(this, &AWJ_PPSingleModeWall::OnHit);
 
 	ppball = nullptr;
-	auto gameMode = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
-	ppManager = gameMode->pingpongStateMgr;
+	//auto gameMode = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	//ppManager = gameMode->pingpongStateMgr;
 
 }
 
 void AWJ_PPSingleModeWall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+/*
 	ppball = Cast<ASJ_PingPongBall>(OtherActor);
 
 	if (ppball)
@@ -50,6 +51,7 @@ void AWJ_PPSingleModeWall::OnHit(UPrimitiveComponent* HitComponent, AActor* Othe
 			ppball->meshComp->AddForce(dir * ppManager->sServePower);
 		}
 	}
+*/
 }
 
 
