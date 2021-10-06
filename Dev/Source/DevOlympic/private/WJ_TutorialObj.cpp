@@ -16,13 +16,10 @@ void AWJ_TutorialObj::BeginPlay()
 	SetActorEnableCollision(false);
 	player = Cast<AWJ_LobbyPlayer>(UGameplayStatics::GetActorOfClass(GetWorld(),AWJ_LobbyPlayer::StaticClass()));
 	playerCam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
-<<<<<<< Updated upstream
-=======
 
 	maxScale = GetActorRelativeScale3D();
 	minScale = maxScale * 0.6;
 	SetActorRelativeScale3D(minScale);
->>>>>>> Stashed changes
 }
 
 void AWJ_TutorialObj::Tick(float DeltaTime)
@@ -47,8 +44,6 @@ void AWJ_TutorialObj::Tick(float DeltaTime)
 		rotator.Yaw += 180;
 		SetActorRotation(rotator);
 	}
-<<<<<<< Updated upstream
-=======
 
 	if (bOpen)
 	{
@@ -98,6 +93,5 @@ void AWJ_TutorialObj::Close()
 		SetActorHiddenInGame(true);
 	}
 	SetActorRelativeScale3D(scale);
->>>>>>> Stashed changes
 }
 
