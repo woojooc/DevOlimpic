@@ -18,8 +18,6 @@ USH_PlayerReplicateComponent::USH_PlayerReplicateComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
 
@@ -50,8 +48,6 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		if (player->IsLocallyControlled())
 		{
 			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
-			//player->SetActorLocation(FVector::(-198,0,112));
-			//player->SetActorRotation(FRotator::(0, 0, 0));
 		}
 		// 서버 방의 클라이언트 플레이어
 		else
