@@ -26,14 +26,6 @@ void AWJ_TutorialObj::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//FQuat orientation;
-	//FVector position;
-	//GEngine->HMDDevice->GetCurrentOrientationAndPosition(orientation, position);
-
-	//playerCam->GetComponentLocation() + (playerCam->GetForwardVector() * 200 + playerCam->GetUpVector()*100 )
-	
-
-
 	if (bCanEyeTrace == true)
 	{
 		FVector location = GetActorLocation();
@@ -68,7 +60,7 @@ void AWJ_TutorialObj::SetClose()
 
 void AWJ_TutorialObj::Open()
 {
-	FVector scale = FMath::Lerp(scale, maxScale,0.5);
+	FVector scale = FMath::Lerp(scale, maxScale,0.2);
 
 	float dist = FVector::Dist(scale, maxScale);
 	if (dist < 1)
@@ -81,7 +73,7 @@ void AWJ_TutorialObj::Open()
 
 void AWJ_TutorialObj::Close()
 {
-	FVector scale = FMath::Lerp(scale, minScale, 0.5);
+	FVector scale = FMath::Lerp(scale, minScale, 0.2);
 
 	float dist = FVector::Dist(scale, minScale);
 	if (dist < 1)
