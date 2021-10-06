@@ -25,8 +25,24 @@ public:
 	UFUNCTION()
 	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
 
+	void HideThumbTutoUI();
 private:
 
+	// Tuto
+	UPROPERTY()
+	TArray<class AWJ_TutorialObj*> avatarGrabUI;
+
+	UPROPERTY()
+	TArray<class AWJ_TutorialObj*> uiClickUI;
+
+	UPROPERTY()
+	TArray<class AWJ_TutorialObj*> thumbUI;
+
+	// Avatar List
+	UPROPERTY()
+	TArray<class AWJ_AvatarObj*> avatarObjs;
+	
+	// UI
 	UPROPERTY(EditAnywhere, Category = "WorldObj")
 	class AWJ_LobbyMenu* menuObj;
 
