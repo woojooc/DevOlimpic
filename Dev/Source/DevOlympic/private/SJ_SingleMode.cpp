@@ -5,6 +5,8 @@
 #include "SJ_SinglePingPongPlayer.h"
 #include "SJ_SingleModeBall.h"
 #include <Kismet/GameplayStatics.h>
+#include"SJ_SingleModeInfo.h"
+#include <Kismet/GameplayStatics.h>
 
 ASJ_SingleMode::ASJ_SingleMode()
 {
@@ -14,7 +16,8 @@ ASJ_SingleMode::ASJ_SingleMode()
 void ASJ_SingleMode::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("GameModeIn"));
+
+	infoText = Cast<ASJ_SingleModeInfo>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_SingleModeInfo::StaticClass()));
 	isPlayerHit  = true;
 }
 
@@ -41,6 +44,7 @@ void ASJ_SingleMode::Tick(float DeltaSeconds)
 
 void ASJ_SingleMode::ServeMode()
 {
+	infoText->SetInfo();
 	if (isPlayerHit == true)
 	{
 		currentTime += GetWorld()->DeltaTimeSeconds;
@@ -56,6 +60,7 @@ void ASJ_SingleMode::ServeMode()
 
 void ASJ_SingleMode::RecieveMode()
 {
+	infoText->SetInfo();
 	currentTime += GetWorld()->DeltaTimeSeconds;
 
 	if (currentTime >= recieveModeDelay)

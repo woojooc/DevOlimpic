@@ -60,7 +60,7 @@ void ASJ_SingleModeBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherA
 	}
 
 	// ¹Ù´Ú¿¡ ´êÀ¸¸é »èÁ¦
-	if (name.Contains("Floor"))
+	if (name.Contains("PPRing"))
 	{
 		Destroy();
 	}

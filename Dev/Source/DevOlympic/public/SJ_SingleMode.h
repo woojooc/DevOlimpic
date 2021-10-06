@@ -58,4 +58,5 @@ public:
 	const FVector offsetLocB = FVector{ 120.f,0.f,135.f };
 
 	class ASJ_SingleModeBall* singlePingPongBall;
+	class ASJ_SingleModeInfo* infoText;
 };
