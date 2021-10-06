@@ -31,8 +31,21 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Eyetrace")
 	bool bCanEyeTrace = false;
 
+	bool bOpen = false;
+	bool bClose = false;
+	void SetOpen();
+	void SetClose();
+
+	void Open();
+	void Close();
+
+	FVector maxScale;
+	FVector minScale;
+
 	UPROPERTY()
 	class AWJ_LobbyPlayer* player;
 	UPROPERTY()
 	class UCameraComponent* playerCam;
+
+
 };

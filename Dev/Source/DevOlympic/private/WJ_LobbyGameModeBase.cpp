@@ -49,6 +49,7 @@ void AWJ_LobbyGameModeBase::BeginPlay()
 			if (tuto->tutoType == ETutoUIType::AvatarGrab)
 			{
 				avatarGrabUI.Add(tuto);
+				tuto->SetOpen();
 			}
 			else if (tuto->tutoType == ETutoUIType::UIClick)
 			{
@@ -89,11 +90,13 @@ void AWJ_LobbyGameModeBase::OnOverlap(AActor* OverlappedActor, AActor* OtherActo
 			}
 			for (int i = 0; i < avatarGrabUI.Num(); i++)
 			{	
-				avatarGrabUI[i]->SetActorHiddenInGame(true);
+				//avatarGrabUI[i]->SetActorHiddenInGame(true);
+				avatarGrabUI[i]->SetClose();
 			}
 			for (int i = 0; i < uiClickUI.Num(); i++)
 			{
 				uiClickUI[i]->SetActorHiddenInGame(false);
+				uiClickUI[i]->SetOpen();
 			}
 		}	
 	}
@@ -103,7 +106,8 @@ void AWJ_LobbyGameModeBase::HideThumbTutoUI()
 {
 	for (int i = 0; i < thumbUI.Num(); i++)
 	{
-		thumbUI[i]->SetActorHiddenInGame(true);
+		//thumbUI[i]->SetActorHiddenInGame(true);
+		thumbUI[i]->SetClose();
 	}
 }
 
@@ -111,8 +115,6 @@ void AWJ_LobbyGameModeBase::OpenUI()
 {
 	menuObj->SetActorHiddenInGame(false);
 	menuObj->SetActorEnableCollision(true);
-
-
 }
 
 void AWJ_LobbyGameModeBase::CloseUI()
