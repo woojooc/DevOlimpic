@@ -50,6 +50,8 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		if (player->IsLocallyControlled())
 		{
 			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
+			//player->SetActorLocation(FVector::(-198,0,112));
+			//player->SetActorRotation(FRotator::(0, 0, 0));
 		}
 		// 서버 방의 클라이언트 플레이어
 		else
@@ -89,7 +91,6 @@ void USH_PlayerReplicateComponent::TickComponent(float DeltaTime, ELevelTick Tic
 
 void USH_PlayerReplicateComponent::UpdateReplicate()
 {
-
 	// 로컬플레이어라면
 	if (player->IsLocallyControlled())
 	{
