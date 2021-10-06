@@ -35,6 +35,18 @@ void UWJ_PingPongMgr::BeginPlay()
 	TArray<AActor*> bpPoints;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWJ_Point::StaticClass(),bpPoints);
 
+	for (int i = 0; i < bpPoints.Num(); i++)
+	{
+		AWJ_Point* emptyPlace = nullptr;
+		pointPannelarr.Add(emptyPlace);
+	}
+
+	for (int i = 0; i < bpPoints.Num(); i++)
+	{
+		auto pannel = Cast<AWJ_Point>(bpPoints[i]);
+		pointPannelarr[pannel->order] = pannel;
+	}
+
 	if (gameModeBase->editMode == EEditMode::Multi)
 	{
 		// 벽 비활성화
@@ -47,7 +59,29 @@ void UWJ_PingPongMgr::BeginPlay()
 		UE_LOG(LogTemp,Warning,TEXT("wall HiddenIngame : %d"),wall->IsHidden());
 
 		// 플레이어 호스트 ( 0, A ) -> 탁구대 사이드 A
+		if (gameModeBase->HasAuthority())
+		{
+			pointPannelarr[0]->SetColor(FColor::Blue);
+			pointPannelarr[1]->SetColor(FColor::Red);
+
+			// 플레이어 B 점수판 비활성화
+			pointPannelarr[2]->SetColor(FColor::Blue);
+			pointPannelarr[3]->SetColor(FColor::Red);
+			pointPannelarr[2]->SetActorHiddenInGame(true);
+			pointPannelarr[3]->SetActorHiddenInGame(true);
+		}
 		// 플레이어 게스트 ( 1, B ) -> 탁구대 사이드 B 에 소환
+		else
+		{
+			pointPannelarr[0]->SetColor(FColor::Blue);
+			pointPannelarr[1]->SetColor(FColor::Red);
+			pointPannelarr[0]->SetActorHiddenInGame(true);
+			pointPannelarr[1]->SetActorHiddenInGame(true);
+
+			// 플레이어 B 점수판 비활성화
+			pointPannelarr[2]->SetColor(FColor::Blue);
+			pointPannelarr[3]->SetColor(FColor::Red);
+		}
 
 		// 첫 서브 랜덤으로 뽑기
 	}
@@ -65,22 +99,13 @@ void UWJ_PingPongMgr::BeginPlay()
 		
 		if (bpPoints.Num() != 0)
 		{
-			for (int i = 0; i < bpPoints.Num(); i++)
-			{
-				AWJ_Point* emptyPlace = nullptr;
-				pointPannelarr.Add(emptyPlace);
-			}
-
-			for (int i = 0; i < bpPoints.Num(); i++)
-			{
-				auto pannel = Cast<AWJ_Point>(bpPoints[i]);
-				pointPannelarr[pannel->order] = pannel;
-			}
-
+		
 			pointPannelarr[0]->SetColor(FColor::Blue);
 			pointPannelarr[1]->SetColor(FColor::Red);
 			
 			// 플레이어 B 점수판 비활성화
+			pointPannelarr[2]->SetColor(FColor::Blue);
+			pointPannelarr[3]->SetColor(FColor::Red);
 			pointPannelarr[2]->SetActorHiddenInGame(true);
 			pointPannelarr[3]->SetActorHiddenInGame(true);
 		}
