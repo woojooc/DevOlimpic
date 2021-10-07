@@ -52,7 +52,7 @@ void USH_PingPongMgrRepComponent::TickComponent(float DeltaTime, ELevelTick Tick
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// 업데이트에서 변수 동기화
-	UpdateReplicate();
+	//UpdateReplicate();
 }
 
 
