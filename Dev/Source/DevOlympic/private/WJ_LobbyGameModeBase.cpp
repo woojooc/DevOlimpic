@@ -50,8 +50,9 @@ void AWJ_LobbyGameModeBase::BeginPlay()
 			{
 				avatarGrabUI.Add(tuto);
 
+				tuto->SetActorHiddenInGame(true);
 				FTimerHandle uiOpenTimer;
-				GetWorldTimerManager().SetTimer(uiOpenTimer, tuto, &AWJ_TutorialObj::SetOpen, 2.0f);
+				GetWorldTimerManager().SetTimer(uiOpenTimer, tuto, &AWJ_TutorialObj::SetOpen, 4.5f);
 				//tuto->SetOpen();
 			}
 			else if (tuto->tutoType == ETutoUIType::UIClick)
@@ -63,8 +64,9 @@ void AWJ_LobbyGameModeBase::BeginPlay()
 			{
 				moveUI.Add(tuto);
 
+				tuto->SetActorHiddenInGame(true);
 				FTimerHandle uiOpenTimer;
-				GetWorldTimerManager().SetTimer(uiOpenTimer, tuto, &AWJ_TutorialObj::SetOpen, 2.0f);
+				GetWorldTimerManager().SetTimer(uiOpenTimer, tuto, &AWJ_TutorialObj::SetOpen, 4.5f);
 				//tuto->SetOpen();
 			}
 		}
