@@ -20,4 +20,5 @@ void USJ_InGameUserWidget::ClickLobby()
 
 void USJ_InGameUserWidget::ClickQuit()
 {
+	GetWorld()->GetFirstPlayerController()->ConsoleCommand("quit");
 }

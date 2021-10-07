@@ -21,7 +21,7 @@ void UWJ_ModeSelectUserWidget::ClickSingle()
 	gameInstance->SetModeNum(EEditMode::Single);
 
 	// Level ¿ÀÇÂ
-	UGameplayStatics::OpenLevel(GetWorld(),"WJPPMap");
+	UGameplayStatics::OpenLevel(GetWorld(),"SingleModeMap");
 }
 
 void UWJ_ModeSelectUserWidget::ClickMulti()
