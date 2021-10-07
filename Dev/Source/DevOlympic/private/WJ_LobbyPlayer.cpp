@@ -11,6 +11,7 @@
 #include <Components/TextRenderComponent.h>
 #include <Components/WidgetInteractionComponent.h>
 #include "WJ_LbMoveActorComponent.h"
+#include <HeadMountedDisplayFunctionLibrary.h>
 
 // Sets default values
 AWJ_LobbyPlayer::AWJ_LobbyPlayer()
@@ -90,6 +91,7 @@ void AWJ_LobbyPlayer::BeginPlay()
 	leftLog->SetText(FText::FromString(TEXT("")));
 	rightLog->SetText(FText::FromString(TEXT("")));
 
+	FTimerHandle resetHandle;
 	GetWorldTimerManager().SetTimer(resetHandle, this, &AWJ_LobbyPlayer::ResetHMD, 2.0f);
 }
 
