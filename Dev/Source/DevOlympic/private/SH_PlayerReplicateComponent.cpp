@@ -5,10 +5,12 @@
 #include <GameFramework/Pawn.h>
 #include <Camera/CameraComponent.h>
 #include <MotionControllerComponent.h>
+#include "WJ_PingPongMgr.h"
 
 // 언리얼 네트워크 헤더 추가
 #include "Net/UnrealNetwork.h"
 #include "SJ_PingPongPlayer.h"
+#include "VRGameModeBase.h"
 
 // Sets default values for this component's properties
 USH_PlayerReplicateComponent::USH_PlayerReplicateComponent()
@@ -16,8 +18,6 @@ USH_PlayerReplicateComponent::USH_PlayerReplicateComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
 
@@ -37,57 +37,50 @@ void USH_PlayerReplicateComponent::BeginPlay()
 	// 플레이어 인덱스를 가져오기 위한 플레이어 스크립트 캐스팅
 	class ASJ_PingPongPlayer* temp = Cast<ASJ_PingPongPlayer>(GetOwner());
 
-	// 인덱스 할당
-	// 서버방이라면
-	if (player->HasAuthority())
+
+	gameState = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
+	pingpongStateMgr = gameState->pingpongStateMgr;
+
+	// 서버라면
+	if(gameState->HasAuthority())
 	{
-		// 내 플레이어라면
+		//  서버 방의 서버 플레이어
 		if (player->IsLocallyControlled())
 		{
-			// 번호 0번 할당
-			temp->playerIndex = 0;
-			// 위치 값 설정
-			FVector loc = FVector(-198, 0, 112);
-			FRotator rot = FRotator(0, 0, 0);
-			player->SetActorLocation(loc);
-			player->SetActorRotation(rot);
+			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
+			player->SetActorLocation(FVector(-198, 0, 112));
+			player->SetActorRotation(FRotator(0, 0, 0));
+			
+
 		}
-		// 초대된 클라이언트 플레이어라면
+		// 서버 방의 클라이언트 플레이어
 		else
 		{
-			// 번호 0번 할당
-			temp->playerIndex = 1;
-			// 위치 값 설정
-			FVector loc = FVector(-198, 0, 112);
-			FRotator rot = FRotator(0, 0, -180);
-			player->SetActorLocation(loc);
-			player->SetActorRotation(rot);
+			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
+			player->SetActorLocation(FVector(198, 0, 112));
+			player->SetActorRotation(FRotator(180, 0, -180));
+			// 클라이언트가 입장하면 게임 실행
+			pingpongStateMgr->SetState(EPingPongState::Serv);
 		}
 	}
 	// 클라이언트 방이라면
 	else
 	{
-		// 내 플레이어라면
+		//  클라이언트 방의 클라이언트 플레이어
 		if (player->IsLocallyControlled())
 		{
-			// 번호 1번 할당
-			temp->playerIndex = 1;
-			// 위치 값 설정
-			FVector loc = FVector(-198, 0, 112);
-			FRotator rot = FRotator(0, 0, -180);
-			player->SetActorLocation(loc);
-			player->SetActorRotation(rot);
+			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
+			player->SetActorLocation(FVector(198, 0, 112));
+			player->SetActorRotation(FRotator(180, 0, -180));
+			// 클라이언트가 입장하면 게임 실행
+			pingpongStateMgr->SetState(EPingPongState::Serv);
 		}
-		// 기존에 방에 있던 서버 플레이어라면
+		// 클라이언트 방의 서버 플레이어
 		else
 		{
-			// 번호 0번 할당
-			temp->playerIndex = 0;
-			// 위치 값 설정
-			FVector loc = FVector(-198, 0, 112);
-			FRotator rot = FRotator(0, 0, 0);
-			player->SetActorLocation(loc);
-			player->SetActorRotation(rot);
+			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
+			player->SetActorLocation(FVector(-198, 0, 112));
+			player->SetActorRotation(FRotator(0, 0, 0));
 		}
 	}
 }
@@ -104,7 +97,6 @@ void USH_PlayerReplicateComponent::TickComponent(float DeltaTime, ELevelTick Tic
 
 void USH_PlayerReplicateComponent::UpdateReplicate()
 {
-
 	// 로컬플레이어라면
 	if (player->IsLocallyControlled())
 	{

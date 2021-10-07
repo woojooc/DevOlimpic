@@ -2,14 +2,11 @@
 #pragma once
 
 #include "DevOlympic.h"
-#include "GameFramework/GameModeBase.h"
+#include "GameFramework/GameStateBase.h"
 #include "VRGameModeBase.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class DEVOLYMPIC_API AVRGameModeBase : public AGameModeBase
+class DEVOLYMPIC_API AVRGameModeBase : public AGameStateBase
 {
 	GENERATED_BODY()
 
@@ -19,13 +16,13 @@ public:
 
 	virtual void BeginPlay() override;
 
-	virtual void InitGameState() override;
+	//virtual void InitGameState() override;
 
 	virtual void Tick(float DeltaSeconds) override;
 
-	
+
 public:
-	
+
 	// # Level Flow Enum
 	EPPLevelState levelState;
 	void SetLevelState(EPPLevelState state);
@@ -48,6 +45,8 @@ public:
 
 	UPROPERTY()
 	class AWJ_ResultText* resultText;
+	UPROPERTY()
+	class USH_PingPongMgrRepComponent* pingPongMgrRepComponent;
 
 	UPROPERTY()
 	TArray<class AWJ_Billboard*> billObjs;

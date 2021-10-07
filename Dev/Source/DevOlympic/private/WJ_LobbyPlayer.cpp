@@ -107,3 +107,8 @@ void AWJ_LobbyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	moveComp->SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void AWJ_LobbyPlayer::SetMoved()
+{
+	bIsMoved = true;
+}
+

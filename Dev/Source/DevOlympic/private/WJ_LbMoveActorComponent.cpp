@@ -39,6 +39,11 @@ void UWJ_LbMoveActorComponent::MoveHorizontal(float value)
 		return;
 	}
 
+	if (player->bIsMoved == false)
+	{
+		player->SetMoved();
+	}
+
 	FVector dir = player->GetActorRightVector() * value;
 	player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
 }
@@ -47,6 +52,11 @@ void UWJ_LbMoveActorComponent::MoveVertical(float value)
 	if (player == nullptr)
 	{
 		return;
+	}
+
+	if (player->bIsMoved == false)
+	{
+		player->SetMoved();
 	}
 
 	FVector dir = player->GetActorForwardVector() * value;

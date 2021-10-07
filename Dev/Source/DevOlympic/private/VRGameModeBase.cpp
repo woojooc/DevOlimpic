@@ -19,6 +19,8 @@ AVRGameModeBase::AVRGameModeBase()
 	// #Component 생성
 	pingpongStateMgr = CreateDefaultSubobject<UWJ_PingPongMgr>(TEXT("PingPongStateManager"));
 	objectPool = CreateDefaultSubobject<UWJ_ObjectPool>(TEXT("ObjectPool"));
+	// 매니저 컴포넌트 동기화 
+	pingPongMgrRepComponent = CreateDefaultSubobject<USH_PingPongMgrRepComponent>(TEXT("PingPongMgrRepComponent"));
 }
 
 void AVRGameModeBase::BeginPlay()
@@ -107,10 +109,10 @@ void AVRGameModeBase::BeginPlay()
 	}
 }
 
-void AVRGameModeBase::InitGameState()
-{
-	Super::InitGameState();
-}
+//void AVRGameModeBase::InitGameState()
+//{
+//	Super::InitGameState();
+//}
 
 void AVRGameModeBase::Tick(float DeltaSeconds)
 {
