@@ -65,6 +65,7 @@ public:
 
 
 	void Intro();
+	void Setting();
 	void PingPong();
 	void GameOver();
 

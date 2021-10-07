@@ -75,6 +75,7 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 	// 게임 시작 여부
 	rep_isGameStarted = vrGameModeBase->isGameStarted;
 	rep_m_state = pingPongManager->m_state;
+	rep_levelState = vrGameModeBase->levelState;
 
 	// 서버가 아니라면
 	if (!vrGameModeBase->HasAuthority())
@@ -93,7 +94,8 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 			rep_bIsDeuce,
 			rep_p_State,
 			rep_isGameStarted,
-			rep_m_state
+			rep_m_state,
+			rep_levelState
 		);
 	}
 	// 서버라면
@@ -113,7 +115,8 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 			rep_bIsDeuce,
 			rep_p_State,
 			rep_isGameStarted,
-			rep_m_state
+			rep_m_state,
+			rep_levelState
 		);
 	}
 }
@@ -131,7 +134,8 @@ bool USH_PingPongMgrRepComponent::Server_UpdateReplicate_Validate
 	bool _bIsDeuce,
 	EPPBallState _p_State,
 	bool _isGameStarted,
-	EPingPongState _m_state
+	EPingPongState _m_state,
+	EPPLevelState _levelState
 )
 {
 	return true;
@@ -150,7 +154,8 @@ void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation\
 	bool _bIsDeuce,
 	EPPBallState _p_State,
 	bool _isGameStarted,
-	EPingPongState _m_state
+	EPingPongState _m_state,
+	EPPLevelState _levelState
 	)
 {
 	Multi_UpdateReplicate_Implementation
@@ -166,7 +171,8 @@ void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation\
 		_bIsDeuce,
 		_p_State,
 		_isGameStarted,
-		_m_state
+		_m_state,
+		_levelState
 	);
 }
 
@@ -183,7 +189,8 @@ bool USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Validate
 	bool _bIsDeuce,
 	EPPBallState _p_State,
 	bool _isGameStarted,
-	EPingPongState _m_state
+	EPingPongState _m_state,
+	EPPLevelState _levelState
 )
 {
 	return true;
@@ -202,7 +209,8 @@ void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation
 	bool _bIsDeuce,
 	EPPBallState _p_State,
 	bool _isGameStarted,
-	EPingPongState _m_state
+	EPingPongState _m_state,
+	EPPLevelState _levelState
 )
 {
 	// 멀티캐스트 적용할 컴포넌트 예외 처리
@@ -231,6 +239,7 @@ void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation
 
 	// 게임 시작 여부 전달
 	vrGameModeBase->isGameStarted = _isGameStarted;
+	vrGameModeBase->levelState = _levelState;
 
 }
 

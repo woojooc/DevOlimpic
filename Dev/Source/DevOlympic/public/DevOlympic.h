@@ -14,6 +14,7 @@ UENUM(BlueprintType)
 enum class EPPLevelState : uint8
 {
 	Intro,
+	Setting,
 	PingPong,
 	GameOver
 };
