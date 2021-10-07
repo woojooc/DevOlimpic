@@ -47,20 +47,19 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		//  서버 방의 서버 플레이어
 		if (player->IsLocallyControlled())
 		{
-			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
+			//pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
 			player->SetActorLocation(FVector(-198, 0, 112));
 			player->SetActorRotation(FRotator(0, 0, 0));
-			
-
 		}
 		// 서버 방의 클라이언트 플레이어
 		else
 		{
-			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
+			//pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
 			player->SetActorLocation(FVector(198, 0, 112));
 			player->SetActorRotation(FRotator(180, 0, -180));
 			// 클라이언트가 입장하면 게임 실행
-			pingpongStateMgr->SetState(EPingPongState::Serv);
+			gameState->SetLevelState(EPPLevelState::Setting);
+			//pingpongStateMgr->SetState(EPingPongState::Serv);
 		}
 	}
 	// 클라이언트 방이라면
@@ -69,18 +68,20 @@ void USH_PlayerReplicateComponent::BeginPlay()
 		//  클라이언트 방의 클라이언트 플레이어
 		if (player->IsLocallyControlled())
 		{
-			pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
+			//pingpongStateMgr->playerActorB = Cast<AActor>(GetOwner());
 			player->SetActorLocation(FVector(198, 0, 112));
 			player->SetActorRotation(FRotator(180, 0, -180));
 			// 클라이언트가 입장하면 게임 실행
-			pingpongStateMgr->SetState(EPingPongState::Serv);
+			gameState->SetLevelState(EPPLevelState::Setting);
+
+			//pingpongStateMgr->SetState(EPingPongState::Serv);
 		}
 		// 클라이언트 방의 서버 플레이어
 		else
 		{
-			pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
-			player->SetActorLocation(FVector(-198, 0, 112));
-			player->SetActorRotation(FRotator(0, 0, 0));
+			//pingpongStateMgr->playerActorA = Cast<AActor>(GetOwner());
+			//player->SetActorLocation(FVector(-198, 0, 112));
+			//player->SetActorRotation(FRotator(0, 0, 0));
 		}
 	}
 }

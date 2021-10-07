@@ -2,6 +2,9 @@
 
 #include "WJ_ObjectPool.h"
 #include "SJ_PingPongBall.h"
+#include "Net/UnrealNetwork.h"
+#include <Kismet/GameplayStatics.h>
+#include "SJ_PingPongPlayer.h"
 
 UWJ_ObjectPool::UWJ_ObjectPool()
 {
@@ -31,6 +34,19 @@ ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEd
 	FActorSpawnParameters Param;
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	
+	TArray<AActor*> players;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASJ_PingPongPlayer::StaticClass(), players);
+	if (players.Num() > 0)
+	{
+		for (int i = 0; i < players.Num(); i++)
+		{
+			if (Cast<ASJ_PingPongPlayer>(players[i])->playerIndex == player)
+			{
+				actor = players[i];
+			}
+		}
+	}
+
 	FVector spawnLoc = actor->GetActorLocation();
 
 	ASJ_PingPongBall* ppBall = nullptr;
@@ -53,6 +69,7 @@ ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEd
 				spawnLoc.Y = 73;
 			}
 
+			if(GetWorld()->GetGameState()->HasAuthority())
 			ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
 		}
 		else
@@ -70,6 +87,7 @@ ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEd
 				spawnLoc.Y = 73;
 			}
 
+			if (GetWorld()->GetGameState()->HasAuthority())
 			ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
 		}
 	}

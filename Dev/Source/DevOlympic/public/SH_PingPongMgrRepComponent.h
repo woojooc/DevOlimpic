@@ -42,6 +42,8 @@ public:
 
 	// 서브 상태 동기화 변수
 	EPPBallState rep_p_State;
+	EPingPongState rep_m_state;
+	EPPLevelState rep_levelState;
 
 	// 탁구 게임 시작 여부 동기화 변수
 	bool rep_isGameStarted;
@@ -64,7 +66,10 @@ public:
 			bool _bSpawnBall,
 			bool _bIsDeuce,
 			EPPBallState _p_State,
-			bool _isGameStarted
+			bool _isGameStarted,
+			EPingPongState _m_state,
+			EPPLevelState _levelState
+
 	);
 	bool Server_UpdateReplicate_Validate
 	(
@@ -78,7 +83,9 @@ public:
 		bool _bSpawnBall,
 		bool _bIsDeuce,
 		EPPBallState _p_State,
-		bool _isGameStarted
+		bool _isGameStarted,
+		EPingPongState _m_state,
+		EPPLevelState _levelState
 	);
 	void Server_UpdateReplicate_Implementation
 	(
@@ -92,7 +99,9 @@ public:
 		bool _bSpawnBall,
 		bool _bIsDeuce,
 		EPPBallState _p_State,
-		bool _isGameStarted
+		bool _isGameStarted,
+		EPingPongState _m_state,
+		EPPLevelState _levelState
 	);
 
 	// 서버에서 클라이언트를 움직일 함수
@@ -110,7 +119,9 @@ public:
 		bool _bSpawnBall,
 		bool _bIsDeuce,
 		EPPBallState _p_State,
-		bool _isGameStarted
+		bool _isGameStarted,
+		EPingPongState _m_state,
+		EPPLevelState _levelState
 	);
 	bool Multi_UpdateReplicate_Validate
 	(
@@ -124,7 +135,9 @@ public:
 		bool _bSpawnBall,
 		bool _bIsDeuce,
 		EPPBallState _p_State,
-		bool _isGameStarted
+		bool _isGameStarted,
+		EPingPongState _m_state,
+		EPPLevelState _levelState
 	);
 	void Multi_UpdateReplicate_Implementation
 	(
@@ -138,6 +151,8 @@ public:
 		bool _bSpawnBall,
 		bool _bIsDeuce,
 		EPPBallState _p_State,
-		bool _isGameStarted
+		bool _isGameStarted,
+		EPingPongState _m_state,
+		EPPLevelState _levelState
 	);
 };

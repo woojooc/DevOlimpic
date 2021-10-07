@@ -74,25 +74,29 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 	rep_p_State = pingPongManager->p_State;
 	// 게임 시작 여부
 	rep_isGameStarted = vrGameModeBase->isGameStarted;
+	rep_m_state = pingPongManager->m_state;
+	rep_levelState = vrGameModeBase->levelState;
 
 	// 서버가 아니라면
 	if (!vrGameModeBase->HasAuthority())
 	{
-		// 서버 함수 실행
-		Server_UpdateReplicate
-		(
-			rep_pointA,
-			rep_pointB,
-			rep_set,
-			rep_scoreA,
-			rep_scoreB,
-			rep_bServPlayer,
-			rep_servCount,
-			rep_bSpawnBall,
-			rep_bIsDeuce,
-			rep_p_State,
-			rep_isGameStarted
-		);
+		//// 서버 함수 실행
+		//Server_UpdateReplicate
+		//(
+		//	rep_pointA,
+		//	rep_pointB,
+		//	rep_set,
+		//	rep_scoreA,
+		//	rep_scoreB,
+		//	rep_bServPlayer,
+		//	rep_servCount,
+		//	rep_bSpawnBall,
+		//	rep_bIsDeuce,
+		//	rep_p_State,
+		//	rep_isGameStarted,
+		//	rep_m_state,
+		//	rep_levelState
+		//);
 	}
 	// 서버라면
 	else
@@ -110,7 +114,9 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 			rep_bSpawnBall,
 			rep_bIsDeuce,
 			rep_p_State,
-			rep_isGameStarted
+			rep_isGameStarted,
+			rep_m_state,
+			rep_levelState
 		);
 	}
 }
@@ -127,7 +133,9 @@ bool USH_PingPongMgrRepComponent::Server_UpdateReplicate_Validate
 	bool _bSpawnBall,
 	bool _bIsDeuce,
 	EPPBallState _p_State,
-	bool _isGameStarted
+	bool _isGameStarted,
+	EPingPongState _m_state,
+	EPPLevelState _levelState
 )
 {
 	return true;
@@ -145,23 +153,27 @@ void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation\
 	bool _bSpawnBall,
 	bool _bIsDeuce,
 	EPPBallState _p_State,
-	bool _isGameStarted
+	bool _isGameStarted,
+	EPingPongState _m_state,
+	EPPLevelState _levelState
 	)
 {
-	Multi_UpdateReplicate_Implementation
-	(
-		_pointA,
-		_pointB,
-		_set,
-		_scoreA,
-		_scoreB,
-		_bServPlayer,
-		_servCount,
-		_bSpawnBall,
-		_bIsDeuce,
-		_p_State,
-		_isGameStarted
-	);
+	//Multi_UpdateReplicate_Implementation
+	//(
+	//	_pointA,
+	//	_pointB,
+	//	_set,
+	//	_scoreA,
+	//	_scoreB,
+	//	_bServPlayer,
+	//	_servCount,
+	//	_bSpawnBall,
+	//	_bIsDeuce,
+	//	_p_State,
+	//	_isGameStarted,
+	//	_m_state,
+	//	_levelState
+	//);
 }
 
 bool USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Validate
@@ -176,7 +188,9 @@ bool USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Validate
 	bool _bSpawnBall,
 	bool _bIsDeuce,
 	EPPBallState _p_State,
-	bool _isGameStarted
+	bool _isGameStarted,
+	EPingPongState _m_state,
+	EPPLevelState _levelState
 )
 {
 	return true;
@@ -194,7 +208,9 @@ void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation
 	bool _bSpawnBall,
 	bool _bIsDeuce,
 	EPPBallState _p_State,
-	bool _isGameStarted
+	bool _isGameStarted,
+	EPingPongState _m_state,
+	EPPLevelState _levelState
 )
 {
 	// 멀티캐스트 적용할 컴포넌트 예외 처리
@@ -219,8 +235,11 @@ void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation
 	pingPongManager->SetFPPData(temp);
 	// 서브 변수 값 매니저에 적용
 	pingPongManager->p_State = _p_State;
+	pingPongManager->m_state = _m_state;
 
 	// 게임 시작 여부 전달
 	vrGameModeBase->isGameStarted = _isGameStarted;
+	vrGameModeBase->levelState = _levelState;
+
 }
 

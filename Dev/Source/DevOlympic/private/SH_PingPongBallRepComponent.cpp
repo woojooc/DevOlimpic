@@ -85,7 +85,7 @@ void USH_PingPongBallRepComponent::UpdateReplicate()
 	if (!pingPongBall->HasAuthority())
 	{
 		// 서버 함수 실행
-		Server_UpdateReplicate(rep_playerID, rep_inSideA, rep_inSideB, rep_overlapA, rep_overlapB, rep_isCallScoreGet, rep_canPingPongBallHit);
+		//Server_UpdateReplicate(rep_playerID, rep_inSideA, rep_inSideB, rep_overlapA, rep_overlapB, rep_isCallScoreGet, rep_canPingPongBallHit);
 	}
 	// 서버라면
 	else
@@ -102,7 +102,7 @@ bool USH_PingPongBallRepComponent::Server_UpdateReplicate_Validate( int32 _playe
 
 void USH_PingPongBallRepComponent::Server_UpdateReplicate_Implementation( int32 _playerID, bool _inSideA, bool _inSideB, int _overlapA, int _overlapB, bool _isCallScoreGet, bool _canPingPongBallHit)
 {
-	Multi_UpdateReplicate_Implementation(_playerID,  _inSideA,  _inSideB,  _overlapA,  _overlapB,  _isCallScoreGet,  _canPingPongBallHit);
+	//Multi_UpdateReplicate_Implementation(_playerID,  _inSideA,  _inSideB,  _overlapA,  _overlapB,  _isCallScoreGet,  _canPingPongBallHit);
 }
 
 bool USH_PingPongBallRepComponent::Multi_UpdateReplicate_Validate( int32 _playerID, bool _inSideA, bool _inSideB, int _overlapA, int _overlapB, bool _isCallScoreGet, bool _canPingPongBallHit)

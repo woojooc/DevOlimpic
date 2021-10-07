@@ -10,6 +10,7 @@
 #include "WJ_GameInstance.h"
 #include "WJ_Billboard.h"
 #include <Components/TextRenderComponent.h>
+#include "SJ_PingPongPlayer.h"
 
 
 AVRGameModeBase::AVRGameModeBase()
@@ -123,6 +124,9 @@ void AVRGameModeBase::Tick(float DeltaSeconds)
 	case EPPLevelState::Intro:
 		Intro();
 		break;
+	case EPPLevelState::Setting:
+		Setting();
+		break;
 	case EPPLevelState::PingPong:
 		PingPong();
 		break;
@@ -167,6 +171,29 @@ void AVRGameModeBase::Intro()
 	{
 		SetLevelState(EPPLevelState::PingPong);
 	}
+}
+
+void AVRGameModeBase::Setting()
+{
+	TArray<AActor*> players;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASJ_PingPongPlayer::StaticClass(), players);
+	if (players.Num() > 0)
+	{
+		for (int i = 0; i < players.Num(); i++)
+		{
+			if (Cast<ASJ_PingPongPlayer>(players[i])->playerIndex == 0)
+			{
+				pingpongStateMgr->playerActorA = players[i];
+				// 플레이어 아이디도 받아와서 저장하기.
+			}
+			else
+			{
+				pingpongStateMgr->playerActorB = players[i];
+			}
+		}
+	}
+
+	SetLevelState(EPPLevelState::PingPong);
 }
 
 void AVRGameModeBase::PingPong()

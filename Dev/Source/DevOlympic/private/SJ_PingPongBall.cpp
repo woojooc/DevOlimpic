@@ -13,6 +13,7 @@
 #include "WJ_PPSingleModeWall.h"
 #include "SJ_OutOfZone.h"
 #include "SH_PingPongBallRepComponent.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 ASJ_PingPongBall::ASJ_PingPongBall()
@@ -48,6 +49,10 @@ void ASJ_PingPongBall::Tick(float DeltaTime)
 
 void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	//if (!GetWorld()->GetGameState()->HasAuthority())
+	//{
+	//	return;
+	//}
 	// 공이 점수 계산을 끝내면 Hit 이벤트 연산을 해주지 않게 하기 위함
 	if (canPingPongBallHit == true)
 	{
@@ -476,7 +481,7 @@ void ASJ_PingPongBall::ZoneExit()
 {
 	// 게임 모드 가져오기
 	auto vrGameMNG = Cast<AVRGameModeBase>(GetWorld()->GetGameState()
-		
+
 		);
 	// 탁구 게임모드 변수
 	UWJ_PingPongMgr* pingpongMNG = vrGameMNG->pingpongStateMgr;
