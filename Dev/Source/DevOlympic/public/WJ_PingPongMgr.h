@@ -53,6 +53,8 @@ public:
 
 	// 서브 상태 플로우
 	EPPBallState p_State = EPPBallState::Serve;
+	// 핑퐁 게임 플로우 enum
+	EPingPongState m_state = EPingPongState::Intro;
 
 private:
 	UPROPERTY()
@@ -62,9 +64,7 @@ private:
 	int netZ = 92;
 	class ASJ_PingPongBall* ppball;
 
-	// 핑퐁 게임 플로우 enum
-	EPingPongState m_state = EPingPongState::Intro;
-	
+
 	// # 플레이타임 조절 위한 점수 제한 변수
 	int pointM = 5;		// 원래 룰은 11로 적용해야함.
 	int scoreM = 3;		// 원래 룰은 5로 적용해야함. 그리고 scoreM-1 되어 있는 부분은 3이 되어야 함.

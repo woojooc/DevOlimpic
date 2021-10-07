@@ -74,6 +74,7 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 	rep_p_State = pingPongManager->p_State;
 	// 게임 시작 여부
 	rep_isGameStarted = vrGameModeBase->isGameStarted;
+	rep_m_state = pingPongManager->m_state;
 
 	// 서버가 아니라면
 	if (!vrGameModeBase->HasAuthority())
@@ -91,7 +92,8 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 			rep_bSpawnBall,
 			rep_bIsDeuce,
 			rep_p_State,
-			rep_isGameStarted
+			rep_isGameStarted,
+			rep_m_state
 		);
 	}
 	// 서버라면
@@ -110,7 +112,8 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 			rep_bSpawnBall,
 			rep_bIsDeuce,
 			rep_p_State,
-			rep_isGameStarted
+			rep_isGameStarted,
+			rep_m_state
 		);
 	}
 }
@@ -127,7 +130,8 @@ bool USH_PingPongMgrRepComponent::Server_UpdateReplicate_Validate
 	bool _bSpawnBall,
 	bool _bIsDeuce,
 	EPPBallState _p_State,
-	bool _isGameStarted
+	bool _isGameStarted,
+	EPingPongState _m_state
 )
 {
 	return true;
@@ -145,7 +149,8 @@ void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation\
 	bool _bSpawnBall,
 	bool _bIsDeuce,
 	EPPBallState _p_State,
-	bool _isGameStarted
+	bool _isGameStarted,
+	EPingPongState _m_state
 	)
 {
 	Multi_UpdateReplicate_Implementation
@@ -160,7 +165,8 @@ void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation\
 		_bSpawnBall,
 		_bIsDeuce,
 		_p_State,
-		_isGameStarted
+		_isGameStarted,
+		_m_state
 	);
 }
 
@@ -176,7 +182,8 @@ bool USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Validate
 	bool _bSpawnBall,
 	bool _bIsDeuce,
 	EPPBallState _p_State,
-	bool _isGameStarted
+	bool _isGameStarted,
+	EPingPongState _m_state
 )
 {
 	return true;
@@ -194,7 +201,8 @@ void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation
 	bool _bSpawnBall,
 	bool _bIsDeuce,
 	EPPBallState _p_State,
-	bool _isGameStarted
+	bool _isGameStarted,
+	EPingPongState _m_state
 )
 {
 	// 멀티캐스트 적용할 컴포넌트 예외 처리
@@ -219,8 +227,10 @@ void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation
 	pingPongManager->SetFPPData(temp);
 	// 서브 변수 값 매니저에 적용
 	pingPongManager->p_State = _p_State;
+	pingPongManager->m_state = _m_state;
 
 	// 게임 시작 여부 전달
 	vrGameModeBase->isGameStarted = _isGameStarted;
+
 }
 
