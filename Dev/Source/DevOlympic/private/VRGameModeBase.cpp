@@ -95,16 +95,16 @@ void AVRGameModeBase::BeginPlay()
 	{
 		if (HasAuthority())
 		{
-			billObjs[0]->playerNameTxt->SetText(TEXT("A"));
+			billObjs[0]->playerNameTxt->SetText(FText::FromString(TEXT("A")));
 		}
 		else
 		{
-			billObjs[1]->playerNameTxt->SetText(TEXT("B"));
+			billObjs[1]->playerNameTxt->SetText(FText::FromString(TEXT("B")));
 		}
 	}
 	else
 	{
-		billObjs[0]->playerNameTxt->SetText(TEXT("A"));
+		billObjs[0]->playerNameTxt->SetText(FText::FromString(TEXT("A")));
 		billObjs[1]->SetActorHiddenInGame(true);
 	}
 }

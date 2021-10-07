@@ -92,6 +92,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = Material)
 	class UMaterial* luigiBody;
 
+	// Ä¸Åß Ä«¸Þ¶ó
+	UPROPERTY(EditAnywhere, Category = CaptureCamera)
+		class USceneCaptureComponent2D* captureCamera;
+
+	UPROPERTY()
+	TArray<class UTextureRenderTarget2D*> renderTexture;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

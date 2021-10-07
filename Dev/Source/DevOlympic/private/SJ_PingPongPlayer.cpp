@@ -18,7 +18,8 @@
 #include "SH_PlayerReplicateComponent.h"
 // 언리얼 네트워크 헤더 추가
 #include "Net/UnrealNetwork.h"
-
+#include <Components/SceneCaptureComponent2D.h>
+#include <Engine/TextureRenderTarget2D.h>
 // Sets default values
 ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 {
@@ -85,7 +86,22 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	// 컴포넌트 오른손에 붙이기
 	widgetPointer->SetupAttachment(leftController);
 
+	// 캡쳐 카메라 컴포넌트
+	captureCamera = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("CaptureCamera"));
+	captureCamera->SetupAttachment(capsuleComp);
+	captureCamera->SetRelativeLocation(FVector(73.514626, -83.108612, 71.499596));
+	captureCamera->SetRelativeRotation(FRotator(-18.746458, 128.827133, 7.095927));
 
+	ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> renderTargetA(TEXT("TextureRenderTarget2D'/Game/WJ/Material/PingPong/RT_BillboardTargetA.RT_BillboardTargetA'"));
+	if (renderTargetA.Succeeded())
+	{
+		renderTexture.Add(renderTargetA.Object);
+	}
+	ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> renderTargetB(TEXT("TextureRenderTarget2D'/Game/WJ/Material/PingPong/RT_BillboardTargetB.RT_BillboardTargetB'"));
+	if (renderTargetB.Succeeded())
+	{
+		renderTexture.Add(renderTargetB.Object);
+	}
 
 	/*
 	// 스태틱메쉬 동적 할당
@@ -147,7 +163,6 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 
 	//// 플레이어 컨트롤러 빙의
 	//AutoPossessPlayer = EAutoReceiveInput::Player0;
-
 }
 
 // Called when the game starts or when spawned
@@ -186,7 +201,6 @@ void ASJ_PingPongPlayer::BeginPlay()
 
 	razer->SetHiddenInGame(true);
 
-
 	// 인덱스 할당
 	// 서버방이라면
 	if (HasAuthority())
@@ -221,18 +235,20 @@ void ASJ_PingPongPlayer::BeginPlay()
 		}
 	}
 
-
-
 	if (playerIndex == 0)
 	{
 		playerFace->SetMaterial(0, marioFace);
 		playerBody->SetMaterial(0, marioBody);
+
+		captureCamera->TextureTarget = renderTexture[0];
 	}
 	else if (playerIndex == 1)
 	{
 
 		playerFace->SetMaterial(0, luigiFace);
 		playerBody->SetMaterial(0, luigiBody);
+
+		captureCamera->TextureTarget = renderTexture[1];
 	}
 }
 
