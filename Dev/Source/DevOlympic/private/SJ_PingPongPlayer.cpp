@@ -43,7 +43,7 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 
 	// 플레이어 얼굴
 	playerFace = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlayerFace"));
-	playerFace->SetupAttachment(cameraRoot);
+	playerFace->SetupAttachment(playerCam);
 
 	// 플레이어 몸통
 	playerBody = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlayerBody"));
@@ -259,7 +259,7 @@ void ASJ_PingPongPlayer::Tick(float DeltaTime)
 
 	UHeadMountedDisplayFunctionLibrary::GetOrientationAndPosition(headRotation, headLocation);
 
-	playerFace->SetRelativeRotation(headRotation);
+	// playerFace->SetRelativeRotation(headRotation);
 
 	if (gameMode->levelState == EPPLevelState::GameOver)
 	{
