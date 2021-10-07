@@ -43,6 +43,8 @@ public:
 	// 서브 상태 동기화 변수
 	EPPBallState rep_p_State;
 
+	// 탁구 게임 시작 여부 동기화 변수
+	bool rep_isGameStarted;
 
 	// 매니저 동기화 함수
 	void  UpdateReplicate();
@@ -50,8 +52,8 @@ public:
 	// 클라이언트에서 서버로 함수를 호출하기 위한 선언
 	// 자신의 컨트롤러 위치를 서버에게 전달
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_UpdateReplicate
-	(
+		void Server_UpdateReplicate
+		(
 			int _pointA,
 			int _pointB,
 			int _set,
@@ -61,7 +63,8 @@ public:
 			int _servCount,
 			bool _bSpawnBall,
 			bool _bIsDeuce,
-			EPPBallState _p_State
+			EPPBallState _p_State,
+			bool _isGameStarted
 	);
 	bool Server_UpdateReplicate_Validate
 	(
@@ -74,7 +77,8 @@ public:
 		int _servCount,
 		bool _bSpawnBall,
 		bool _bIsDeuce,
-		EPPBallState _p_State
+		EPPBallState _p_State,
+		bool _isGameStarted
 	);
 	void Server_UpdateReplicate_Implementation
 	(
@@ -87,7 +91,8 @@ public:
 		int _servCount,
 		bool _bSpawnBall,
 		bool _bIsDeuce,
-		EPPBallState _p_State
+		EPPBallState _p_State,
+		bool _isGameStarted
 	);
 
 	// 서버에서 클라이언트를 움직일 함수
@@ -104,7 +109,8 @@ public:
 		int _servCount,
 		bool _bSpawnBall,
 		bool _bIsDeuce,
-		EPPBallState _p_State
+		EPPBallState _p_State,
+		bool _isGameStarted
 	);
 	bool Multi_UpdateReplicate_Validate
 	(
@@ -117,7 +123,8 @@ public:
 		int _servCount,
 		bool _bSpawnBall,
 		bool _bIsDeuce,
-		EPPBallState _p_State
+		EPPBallState _p_State,
+		bool _isGameStarted
 	);
 	void Multi_UpdateReplicate_Implementation
 	(
@@ -130,6 +137,7 @@ public:
 		int _servCount,
 		bool _bSpawnBall,
 		bool _bIsDeuce,
-		EPPBallState _p_State
+		EPPBallState _p_State,
+		bool _isGameStarted
 	);
 };
