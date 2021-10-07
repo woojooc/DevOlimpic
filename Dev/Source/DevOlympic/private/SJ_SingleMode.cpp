@@ -82,8 +82,8 @@ void ASJ_SingleMode::ServeModeBallCreate()
 
 	ASJ_SingleModeBall* singleBall = nullptr;
 
-	spawnLoc.X = offsetLocA.X;
-	spawnLoc.Z = offsetLocA.Z;
+	spawnLoc.X = offsetLocA.X-25;
+	spawnLoc.Z = offsetLocA.Z+30;
 	spawnLoc.Y = 60;
 
 	/*if (spawnLoc.Y <= 73)
@@ -136,7 +136,7 @@ void ASJ_SingleMode::AutoServe()
 	FVector dir = FVector{ x, y, z } - singlePingPongBall->GetActorLocation();
 	dir.Normalize();
 
-	float sServePower = FMath::RandRange(1350, 1500);
+	float sServePower = FMath::RandRange(800, 1000);
 
 	// 공에 힘 추가하기
 	singlePingPongBall->ball->SetEnableGravity(true);

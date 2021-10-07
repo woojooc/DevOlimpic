@@ -5,6 +5,7 @@
 #include "Net/UnrealNetwork.h"
 #include <Kismet/GameplayStatics.h>
 #include "SJ_PingPongPlayer.h"
+#include "GameFramework/GameStateBase.h"
 
 UWJ_ObjectPool::UWJ_ObjectPool()
 {
@@ -56,17 +57,17 @@ ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEd
 		if (player == 0)
 		{
 			//UE_LOG(LogTemp,Warning,TEXT("GetPingPongBall Player 0"));
-			spawnLoc.X = offsetLocA.X;
-			spawnLoc.Z = offsetLocA.Z;
+			spawnLoc.X = offsetLocA.X - 25;
+			spawnLoc.Z = offsetLocA.Z + 30;
 
 			// y°ª Á¦ÇÑ
 			if (spawnLoc.Y <= -73)
 			{
-				spawnLoc.Y = -73;
+				spawnLoc.Y = -73 - 10;
 			}
 			else if (spawnLoc.Y >= 73)
 			{
-				spawnLoc.Y = 73;
+				spawnLoc.Y = 73 + 10;
 			}
 
 			if(GetWorld()->GetGameState()->HasAuthority())

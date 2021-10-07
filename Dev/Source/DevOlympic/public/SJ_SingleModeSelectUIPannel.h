@@ -35,4 +35,16 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = Visible)
 	bool isActive;
+
+	bool bOpen = false;
+	bool bClose = false;
+
+	FVector maxScale;
+	FVector minScale;
+
+	void SetOpen();
+	void SetClose();
+
+	void Open();
+	void Close();
 };
