@@ -52,6 +52,7 @@ void AWJ_TutorialObj::Tick(float DeltaTime)
 
 void AWJ_TutorialObj::SetOpen()
 {
+	SetActorHiddenInGame(false);
 	bOpen = true;
 }
 
