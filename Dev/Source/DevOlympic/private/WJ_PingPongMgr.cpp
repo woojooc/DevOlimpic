@@ -114,9 +114,8 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	pointPannelarr[3]->SetPoint(0, scoreA);
 	pointPannelarr[3]->SetPoint(1, scoreB);
 
-	if (gameModeBase->HasAuthority())
-	{
-		switch (m_state)
+
+	switch (m_state)
 	{
 	case EPingPongState::Intro:
 		// ´ë±â
@@ -155,7 +154,6 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 	default:
 		break;
-	}
 	}
 }
 
