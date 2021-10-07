@@ -82,31 +82,6 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	widgetPointer->SetupAttachment(leftController);
 
 
-	// 캡쳐 카메라 컴포넌트
-	captureCamera = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("CaptureCamera"));
-	captureCamera->SetupAttachment(capsuleComp);
-	captureCamera->SetRelativeLocation(FVector(73.514626, -83.108612, 71.499596));
-	captureCamera->SetRelativeRotation(FRotator(-18.746458, 128.827133,7.095927));
-
-	if (playerIndex == 0)
-	{
-		ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> renderTarget(TEXT("TextureRenderTarget2D'/Game/WJ/Material/PingPong/RT_BillboardTargetA.RT_BillboardTargetA'"));
-
-		if (renderTarget.Succeeded())
-		{
-			captureCamera->TextureTarget = renderTarget.Object;
-		}
-	}
-	else
-	{
-		ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> renderTarget(TEXT("TextureRenderTarget2D'/Game/WJ/Material/PingPong/RT_BillboardTargetB.RT_BillboardTargetB'"));
-
-		if (renderTarget.Succeeded())
-		{
-			captureCamera->TextureTarget = renderTarget.Object;
-		}
-	}
-
 	// 스태틱메쉬 동적 할당
 	ConstructorHelpers::FObjectFinder<UStaticMesh> face(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 
@@ -199,7 +174,7 @@ void ASJ_PingPongPlayer::BeginPlay()
 			gameOverUI[ui->id] = ui;
 		}
 	}
-	gameMode = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	gameMode = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 
 	razer->SetHiddenInGame(true);
 	

@@ -36,7 +36,7 @@ void AVRGameModeBase::BeginPlay()
 	editMode = modeSelect->m_state;
 	*/
 
-	auto gameInstance = Cast<UWJ_GameInstance>(GetGameInstance());
+	auto gameInstance = Cast<UWJ_GameInstance>(GetWorld()->GetGameInstance());
 	editMode = gameInstance->modeNum;
 
 	//UE_LOG(LogTemp,Warning,TEXT("gameInstance : %d"), gameInstance->modeNum);

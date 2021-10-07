@@ -23,9 +23,9 @@ void UWJ_PingPongMgr::BeginPlay()
 	//UE_LOG(LogTemp, Warning, TEXT("PingPongMGr BeginPlay"));
 
 	//gameModeBase Ä³½Ì
-	gameModeBase = Cast<AVRGameModeBase>(GetWorld()->GetAuthGameMode());
+	gameModeBase = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 	
-	auto gameInstance = Cast<UWJ_GameInstance>(gameModeBase->GetGameInstance());
+	auto gameInstance = Cast<UWJ_GameInstance>(GetWorld()->GetGameInstance());
 	gameModeBase->editMode = gameInstance->modeNum;
 
 	// º® Ä³½Ì
@@ -98,6 +98,11 @@ void UWJ_PingPongMgr::BeginPlay()
 void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (gameModeBase->editMode == EEditMode::Single)
+	{
+		return;
+	}
 
 	switch (m_state)
 	{

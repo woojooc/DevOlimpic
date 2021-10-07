@@ -37,7 +37,6 @@ private:
 	UPROPERTY()
 	TArray<class AWJ_TutorialObj*> moveUI;
 
-
 	// Avatar List
 	UPROPERTY()
 	TArray<class AWJ_AvatarObj*> avatarObjs;
