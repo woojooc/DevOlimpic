@@ -158,22 +158,22 @@ void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation\
 	EPPLevelState _levelState
 	)
 {
-	Multi_UpdateReplicate_Implementation
-	(
-		_pointA,
-		_pointB,
-		_set,
-		_scoreA,
-		_scoreB,
-		_bServPlayer,
-		_servCount,
-		_bSpawnBall,
-		_bIsDeuce,
-		_p_State,
-		_isGameStarted,
-		_m_state,
-		_levelState
-	);
+	//Multi_UpdateReplicate_Implementation
+	//(
+	//	_pointA,
+	//	_pointB,
+	//	_set,
+	//	_scoreA,
+	//	_scoreB,
+	//	_bServPlayer,
+	//	_servCount,
+	//	_bSpawnBall,
+	//	_bIsDeuce,
+	//	_p_State,
+	//	_isGameStarted,
+	//	_m_state,
+	//	_levelState
+	//);
 }
 
 bool USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Validate
