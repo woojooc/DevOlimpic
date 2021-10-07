@@ -2,6 +2,7 @@
 
 #include "WJ_ObjectPool.h"
 #include "SJ_PingPongBall.h"
+#include "Net/UnrealNetwork.h"
 
 UWJ_ObjectPool::UWJ_ObjectPool()
 {
@@ -53,6 +54,7 @@ ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEd
 				spawnLoc.Y = 73;
 			}
 
+			if(GetWorld()->GetGameState()->HasAuthority())
 			ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
 		}
 		else
@@ -70,6 +72,7 @@ ASJ_PingPongBall* UWJ_ObjectPool::GetPingPongBall(AActor* actor, int player, EEd
 				spawnLoc.Y = 73;
 			}
 
+			if (GetWorld()->GetGameState()->HasAuthority())
 			ppBall = GetWorld()->SpawnActor<ASJ_PingPongBall>(pingpongFactory, spawnLoc, FRotator::ZeroRotator, Param);
 		}
 	}
