@@ -42,9 +42,4 @@ public:
 	FVector maxScale;
 	FVector minScale;
 
-	void SetOpen();
-	void SetClose();
-
-	void Open();
-	void Close();
 };
