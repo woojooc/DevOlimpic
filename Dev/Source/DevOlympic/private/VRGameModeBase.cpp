@@ -11,7 +11,7 @@
 #include "WJ_Billboard.h"
 #include <Components/TextRenderComponent.h>
 #include "SJ_PingPongPlayer.h"
-
+#include "WJ_Point.h"
 
 AVRGameModeBase::AVRGameModeBase()
 {
@@ -191,6 +191,15 @@ void AVRGameModeBase::Setting()
 				pingpongStateMgr->playerActorB = players[i];
 			}
 		}
+	}
+
+	if (HasAuthority())
+	{
+		pingpongStateMgr->pointPannelarr[2]->SetActorHiddenInGame(true);
+	}
+	else
+	{
+		pingpongStateMgr->pointPannelarr[0]->SetActorHiddenInGame(true);
 	}
 
 	SetLevelState(EPPLevelState::PingPong);

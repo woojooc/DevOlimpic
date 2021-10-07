@@ -47,6 +47,11 @@ void UWJ_PingPongMgr::BeginPlay()
 		pointPannelarr[pannel->order] = pannel;
 	}
 
+	pointPannelarr[0]->SetColor(FColor::Yellow);
+	pointPannelarr[1]->SetColor(FColor::Red);
+	pointPannelarr[2]->SetColor(FColor::Yellow);
+	pointPannelarr[3]->SetColor(FColor::Red);
+
 	if (gameModeBase->editMode == EEditMode::Multi)
 	{
 	/*
