@@ -1,3 +1,5 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
 
 #include "SJ_PingPongPlayer.h"
 #include "Components/CapsuleComponent.h"
@@ -14,11 +16,13 @@
 #include <Components/WidgetInteractionComponent.h>
 #include "VRGameModeBase.h"
 #include "SH_PlayerReplicateComponent.h"
-#include <Components/SceneCaptureComponent2D.h>
-#include "Engine/TextureRenderTarget2D.h"
+// 언리얼 네트워크 헤더 추가
+#include "Net/UnrealNetwork.h"
 
+// Sets default values
 ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 {
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	// 플레이어 캡슐 콜라이더 
@@ -82,6 +86,8 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 	widgetPointer->SetupAttachment(leftController);
 
 
+
+	/*
 	// 스태틱메쉬 동적 할당
 	ConstructorHelpers::FObjectFinder<UStaticMesh> face(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 
@@ -137,12 +143,14 @@ ASJ_PingPongPlayer::ASJ_PingPongPlayer()
 			playerBody->SetMaterial(0, luigiBody.Object);
 		}
 	}
+	*/
 
+	//// 플레이어 컨트롤러 빙의
+	//AutoPossessPlayer = EAutoReceiveInput::Player0;
 
-	// 플레이어 컨트롤러 빙의
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
-}// End of 생성자
+}
 
+// Called when the game starts or when spawned
 void ASJ_PingPongPlayer::BeginPlay()
 {
 	Super::BeginPlay();
@@ -177,7 +185,55 @@ void ASJ_PingPongPlayer::BeginPlay()
 	gameMode = Cast<AVRGameModeBase>(GetWorld()->GetGameState());
 
 	razer->SetHiddenInGame(true);
-	
+
+
+	// 인덱스 할당
+	// 서버방이라면
+	if (HasAuthority())
+	{
+		// 내 플레이어라면
+		if (IsLocallyControlled())
+		{
+			// 번호 0번 할당
+			playerIndex = 0;
+		}
+		// 초대된 클라이언트 플레이어라면
+		else
+		{
+			// 번호 0번 할당
+			playerIndex = 1;
+		}
+	}
+	// 클라이언트 방이라면
+	else
+	{
+		// 내 플레이어라면
+		if (IsLocallyControlled())
+		{
+			// 번호 1번 할당
+			playerIndex = 1;
+		}
+		// 기존에 방에 있던 서버 플레이어라면
+		else
+		{
+			// 번호 0번 할당
+			playerIndex = 0;
+		}
+	}
+
+
+
+	if (playerIndex == 0)
+	{
+		playerFace->SetMaterial(0, marioFace);
+		playerBody->SetMaterial(0, marioBody);
+	}
+	else if (playerIndex == 1)
+	{
+
+		playerFace->SetMaterial(0, luigiFace);
+		playerBody->SetMaterial(0, luigiBody);
+	}
 }
 
 // Called every frame

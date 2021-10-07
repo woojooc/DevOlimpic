@@ -80,9 +80,17 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 	TArray<class AWJ_GameOverUI*> gameOverUI;
 
-	// 캡텨 카메라
-	UPROPERTY(EditAnywhere, Category = CaptureCamera)
-	class USceneCaptureComponent2D* captureCamera;
+	UPROPERTY(EditAnywhere, Category = Material)
+	class UMaterial* marioFace;
+		
+	UPROPERTY(EditAnywhere, Category = Material)
+	class UMaterial* marioBody;
+
+	UPROPERTY(EditAnywhere, Category = Material)
+	class UMaterial* luigiFace;
+
+	UPROPERTY(EditAnywhere, Category = Material)
+	class UMaterial* luigiBody;
 
 protected:
 	// Called when the game starts or when spawned
@@ -96,7 +104,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// 호스트와 클라이언트를 구분해주는 번호(Host = 0, Client = 1)
-	UPROPERTY(EditAnywhere, Category = PlayerSetting)
+	UPROPERTY(VisibleAnywhere, Category = PlayerSetting)
 	int playerIndex;
 
 	// 초기화 타이머
