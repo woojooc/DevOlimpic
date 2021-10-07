@@ -29,8 +29,8 @@ void USH_PingPongMgrRepComponent::BeginPlay()
 
 
 	vrGameModeBase = Cast<AVRGameModeBase>(GetOwner());
-	if(vrGameModeBase)
-	pingPongManager = vrGameModeBase->pingpongStateMgr;
+	if (vrGameModeBase)
+		pingPongManager = vrGameModeBase->pingpongStateMgr;
 
 	//// 서버라면
 	//if (vrGameModeBase->HasAuthority())
@@ -70,39 +70,132 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 	rep_servCount = temp.servCount;
 	rep_bSpawnBall = temp.bSpawnBall;
 	rep_bIsDeuce = temp.bIsDeuce;
-
+	// 게임 스테이트
 	rep_p_State = pingPongManager->p_State;
+	// 게임 시작 여부
+	rep_isGameStarted = vrGameModeBase->isGameStarted;
 
 	// 서버가 아니라면
 	if (!vrGameModeBase->HasAuthority())
 	{
 		// 서버 함수 실행
-		Server_UpdateReplicate(rep_pointA, rep_pointB, rep_set, rep_scoreA, rep_scoreB, rep_bServPlayer, rep_servCount, rep_bSpawnBall, rep_bIsDeuce, rep_p_State);
+		Server_UpdateReplicate
+		(
+			rep_pointA,
+			rep_pointB,
+			rep_set,
+			rep_scoreA,
+			rep_scoreB,
+			rep_bServPlayer,
+			rep_servCount,
+			rep_bSpawnBall,
+			rep_bIsDeuce,
+			rep_p_State,
+			rep_isGameStarted
+		);
 	}
 	// 서버라면
 	else
 	{
 		// 곧바로 멀티캐스트 함수 실행
-		Multi_UpdateReplicate(rep_pointA, rep_pointB, rep_set, rep_scoreA, rep_scoreB, rep_bServPlayer, rep_servCount, rep_bSpawnBall, rep_bIsDeuce, rep_p_State);
+		Multi_UpdateReplicate
+		(
+			rep_pointA,
+			rep_pointB,
+			rep_set,
+			rep_scoreA,
+			rep_scoreB,
+			rep_bServPlayer,
+			rep_servCount,
+			rep_bSpawnBall,
+			rep_bIsDeuce,
+			rep_p_State,
+			rep_isGameStarted
+		);
 	}
 }
 
-bool USH_PingPongMgrRepComponent::Server_UpdateReplicate_Validate(int _pointA, int _pointB, int _set, int _scoreA, int _scoreB, bool _bServPlayer, int _servCount, bool _bSpawnBall, bool _bIsDeuce, EPPBallState _p_State)
+bool USH_PingPongMgrRepComponent::Server_UpdateReplicate_Validate
+(
+	int _pointA,
+	int _pointB,
+	int _set,
+	int _scoreA,
+	int _scoreB,
+	bool _bServPlayer,
+	int _servCount,
+	bool _bSpawnBall,
+	bool _bIsDeuce,
+	EPPBallState _p_State,
+	bool _isGameStarted
+)
 {
 	return true;
 }
 
-void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation(int _pointA, int _pointB, int _set, int _scoreA, int _scoreB, bool _bServPlayer, int _servCount, bool _bSpawnBall, bool _bIsDeuce, EPPBallState _p_State)
+void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation\
+(
+	int _pointA,
+	int _pointB,
+	int _set,
+	int _scoreA,
+	int _scoreB,
+	bool _bServPlayer,
+	int _servCount,
+	bool _bSpawnBall,
+	bool _bIsDeuce,
+	EPPBallState _p_State,
+	bool _isGameStarted
+	)
 {
-	Multi_UpdateReplicate_Implementation(_pointA, _pointB, _set, _scoreA, _scoreB, _bServPlayer, _servCount, _bSpawnBall, _bIsDeuce, rep_p_State);
+	Multi_UpdateReplicate_Implementation
+	(
+		_pointA,
+		_pointB,
+		_set,
+		_scoreA,
+		_scoreB,
+		_bServPlayer,
+		_servCount,
+		_bSpawnBall,
+		_bIsDeuce,
+		_p_State,
+		_isGameStarted
+	);
 }
 
-bool USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Validate(int _pointA, int _pointB, int _set, int _scoreA, int _scoreB, bool _bServPlayer, int _servCount, bool _bSpawnBall, bool _bIsDeuce, EPPBallState _p_State)
+bool USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Validate
+(
+	int _pointA,
+	int _pointB,
+	int _set,
+	int _scoreA,
+	int _scoreB,
+	bool _bServPlayer,
+	int _servCount,
+	bool _bSpawnBall,
+	bool _bIsDeuce,
+	EPPBallState _p_State,
+	bool _isGameStarted
+)
 {
 	return true;
 }
 
-void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation(int _pointA, int _pointB, int _set, int _scoreA, int _scoreB, bool _bServPlayer, int _servCount, bool _bSpawnBall, bool _bIsDeuce, EPPBallState _p_State)
+void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation
+(
+	int _pointA,
+	int _pointB,
+	int _set,
+	int _scoreA,
+	int _scoreB,
+	bool _bServPlayer,
+	int _servCount,
+	bool _bSpawnBall,
+	bool _bIsDeuce,
+	EPPBallState _p_State,
+	bool _isGameStarted
+)
 {
 	// 멀티캐스트 적용할 컴포넌트 예외 처리
 	if (!pingPongManager)
@@ -126,5 +219,8 @@ void USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Implementation(int _poin
 	pingPongManager->SetFPPData(temp);
 	// 서브 변수 값 매니저에 적용
 	pingPongManager->p_State = _p_State;
+
+	// 게임 시작 여부 전달
+	vrGameModeBase->isGameStarted = _isGameStarted;
 }
 
