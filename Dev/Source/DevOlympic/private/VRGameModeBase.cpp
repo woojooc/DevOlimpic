@@ -12,6 +12,7 @@
 #include <Components/TextRenderComponent.h>
 #include "SJ_PingPongPlayer.h"
 #include "WJ_Point.h"
+#include "SH_PingPongMgrRepComponent.h"
 
 AVRGameModeBase::AVRGameModeBase()
 {
@@ -220,13 +221,42 @@ void AVRGameModeBase::GameOver()
 {
 	if (editMode == EEditMode::Multi)
 	{
+		if (HasAuthority())
+		{
+			resultText->SetActorHiddenInGame(false);
 
+			if (winner == 0)
+			{
+				resultText->ShowWin();
+			}
+			else
+			{
+				resultText->ShowLose();
+			}
+		}
+		else
+		{
+			resultText->SetActorHiddenInGame(false);
+
+			if (winner == 1)
+			{
+				resultText->ShowWin();
+			}
+			else
+			{
+				resultText->ShowLose();
+			}
+		}
+
+		gameOverUI[0]->SetActorHiddenInGame(false);
+		gameOverUI[0]->SetActorEnableCollision(true);
 	}
 	else
 	{
 		gameOverUI[0]->SetActorHiddenInGame(false);
 		gameOverUI[0]->SetActorEnableCollision(true);
 
+		///*
 		resultText->SetActorHiddenInGame(false);
 
 		if (winner == 0)
@@ -237,6 +267,7 @@ void AVRGameModeBase::GameOver()
 		{
 			resultText->ShowLose();
 		}
+		//*/
 	}
 	
 }

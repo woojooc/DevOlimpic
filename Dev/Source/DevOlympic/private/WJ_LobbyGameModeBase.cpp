@@ -49,7 +49,10 @@ void AWJ_LobbyGameModeBase::BeginPlay()
 			if (tuto->tutoType == ETutoUIType::AvatarGrab)
 			{
 				avatarGrabUI.Add(tuto);
-				tuto->SetOpen();
+
+				FTimerHandle uiOpenTimer;
+				GetWorldTimerManager().SetTimer(uiOpenTimer, tuto, &AWJ_TutorialObj::SetOpen, 2.0f);
+				//tuto->SetOpen();
 			}
 			else if (tuto->tutoType == ETutoUIType::UIClick)
 			{
@@ -59,7 +62,10 @@ void AWJ_LobbyGameModeBase::BeginPlay()
 			else if (tuto->tutoType == ETutoUIType::Move)
 			{
 				moveUI.Add(tuto);
-				tuto->SetOpen();
+
+				FTimerHandle uiOpenTimer;
+				GetWorldTimerManager().SetTimer(uiOpenTimer, tuto, &AWJ_TutorialObj::SetOpen, 2.0f);
+				//tuto->SetOpen();
 			}
 		}
 	}

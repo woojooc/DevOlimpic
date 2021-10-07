@@ -89,6 +89,8 @@ void AWJ_LobbyPlayer::BeginPlay()
 	
 	leftLog->SetText(FText::FromString(TEXT("")));
 	rightLog->SetText(FText::FromString(TEXT("")));
+
+	GetWorldTimerManager().SetTimer(resetHandle, this, &AWJ_LobbyPlayer::ResetHMD, 2.0f);
 }
 
 // Called every frame
@@ -107,3 +109,7 @@ void AWJ_LobbyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	moveComp->SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void AWJ_LobbyPlayer::ResetHMD()
+{
+	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
+}
