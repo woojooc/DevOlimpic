@@ -80,23 +80,23 @@ void USH_PingPongMgrRepComponent::UpdateReplicate()
 	// 서버가 아니라면
 	if (!vrGameModeBase->HasAuthority())
 	{
-		// 서버 함수 실행
-		Server_UpdateReplicate
-		(
-			rep_pointA,
-			rep_pointB,
-			rep_set,
-			rep_scoreA,
-			rep_scoreB,
-			rep_bServPlayer,
-			rep_servCount,
-			rep_bSpawnBall,
-			rep_bIsDeuce,
-			rep_p_State,
-			rep_isGameStarted,
-			rep_m_state,
-			rep_levelState
-		);
+		//// 서버 함수 실행
+		//Server_UpdateReplicate
+		//(
+		//	rep_pointA,
+		//	rep_pointB,
+		//	rep_set,
+		//	rep_scoreA,
+		//	rep_scoreB,
+		//	rep_bServPlayer,
+		//	rep_servCount,
+		//	rep_bSpawnBall,
+		//	rep_bIsDeuce,
+		//	rep_p_State,
+		//	rep_isGameStarted,
+		//	rep_m_state,
+		//	rep_levelState
+		//);
 	}
 	// 서버라면
 	else
@@ -158,22 +158,22 @@ void USH_PingPongMgrRepComponent::Server_UpdateReplicate_Implementation\
 	EPPLevelState _levelState
 	)
 {
-	Multi_UpdateReplicate_Implementation
-	(
-		_pointA,
-		_pointB,
-		_set,
-		_scoreA,
-		_scoreB,
-		_bServPlayer,
-		_servCount,
-		_bSpawnBall,
-		_bIsDeuce,
-		_p_State,
-		_isGameStarted,
-		_m_state,
-		_levelState
-	);
+	//Multi_UpdateReplicate_Implementation
+	//(
+	//	_pointA,
+	//	_pointB,
+	//	_set,
+	//	_scoreA,
+	//	_scoreB,
+	//	_bServPlayer,
+	//	_servCount,
+	//	_bSpawnBall,
+	//	_bIsDeuce,
+	//	_p_State,
+	//	_isGameStarted,
+	//	_m_state,
+	//	_levelState
+	//);
 }
 
 bool USH_PingPongMgrRepComponent::Multi_UpdateReplicate_Validate
