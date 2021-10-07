@@ -104,6 +104,16 @@ void UWJ_PingPongMgr::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 		return;
 	}
 
+	pointPannelarr[0]->SetPoint(0, pointA);
+	pointPannelarr[0]->SetPoint(1, pointB);
+	pointPannelarr[1]->SetPoint(0, scoreA);
+	pointPannelarr[1]->SetPoint(1, scoreB);
+
+	pointPannelarr[2]->SetPoint(0, pointA);
+	pointPannelarr[2]->SetPoint(1, pointB);
+	pointPannelarr[3]->SetPoint(0, scoreA);
+	pointPannelarr[3]->SetPoint(1, scoreB);
+
 	switch (m_state)
 	{
 	case EPingPongState::Intro:
