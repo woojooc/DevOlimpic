@@ -49,10 +49,10 @@ void ASJ_PingPongBall::Tick(float DeltaTime)
 
 void ASJ_PingPongBall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (!GetWorld()->GetGameState()->HasAuthority())
-	{
-		return;
-	}
+	//if (!GetWorld()->GetGameState()->HasAuthority())
+	//{
+	//	return;
+	//}
 	// 공이 점수 계산을 끝내면 Hit 이벤트 연산을 해주지 않게 하기 위함
 	if (canPingPongBallHit == true)
 	{
